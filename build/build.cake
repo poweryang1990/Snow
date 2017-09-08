@@ -29,11 +29,6 @@ Task("build")
     .IsDependentOn("restore")
     .Does(() =>
 {
-    // MSBuild(solutionFile,new MSBuildSettings {
-	// 	Verbosity = Verbosity.Minimal,
-	// 	ToolVersion = MSBuildToolVersion.VS2017,
-	// 	Configuration = "Release",
-    // });
     DotNetCoreBuild(solutionFile);
 });
 
@@ -50,23 +45,21 @@ Task("pack")
     .IsDependentOn("test")
     .Does(() =>
 {
-    foreach(var project in projects){
-        // MSBuild(project, new MSBuildSettings {
-        //     Verbosity = Verbosity.Minimal,
-        //     ToolVersion = MSBuildToolVersion.VS2017,
-        //     Configuration = "Release",
-        //     ArgumentCustomization = args => args.Append("/target:pack")
-        // });
+    var packSetting = new DotNetCorePackSettings {
+        Configuration = "Release",
+        OutputDirectory = "../.nuget/",
+        IncludeSource = true,
+        IncludeSymbols = true,
+        NoBuild = false
+    };
 
-        DotNetCorePack(project.FullPath, new DotNetCorePackSettings {
-            Configuration = "Release"
-        });
-        
+    foreach(var project in projects){
+        DotNetCorePack(project.FullPath, packSetting);
     }
 });
 
 Task("default")
-    .IsDependentOn("pack");
+    .IsDependentOn("test");
 
 /// run task
 RunTarget(target);

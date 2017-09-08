@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
   </PropertyGroup>
 
+  <!--nuget打包配置-->
   <PropertyGroup>
     <PackageId>UokoFramework.Web</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -12,7 +13,6 @@
     <Company>Uoko</Company>
     <Product>Uoko</Product>
     <Version>1.0.0</Version>
-    <IncludeSymbols>true</IncludeSymbols>
     <Description>Package Description</Description>
     <Copyright>copyright</Copyright>
     <PackageLicenseUrl>packageLicenseUrl</PackageLicenseUrl>
@@ -23,13 +23,6 @@
     <PackageTags>tags</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
   </PropertyGroup>
-
-
-  <Target Name="CopyPackage" AfterTargets="Pack">
-    <Copy SourceFiles="$(OutputPath)\$(PackageId).$(Version).nupkg" DestinationFolder="..\..\.nuget\" />
-    <Copy SourceFiles="$(OutputPath)\$(PackageId).$(Version).symbols.nupkg" DestinationFolder="..\..\.nuget\" />
-  </Target>
-
 
   <ItemGroup>
     <ProjectReference Include="..\uokoframework.basic\UokoFramework.Basic.csproj" />
