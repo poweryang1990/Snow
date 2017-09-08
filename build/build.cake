@@ -4,16 +4,16 @@
 /// args
 var target = Argument("target", "default");
 
-var solutionFile="./uokoframework.sln";
-var projects = GetFiles("./src/**/*.csproj");
+var solutionFile="../uokoframework.sln";
+var projects = GetFiles("../src/**/*.csproj");
 
 Task("clean")
     .Does(() =>
 {
-    CleanDirectories("./src/**/bin");
-    CleanDirectories("./src/**/obj");
-    CleanDirectories("./test/**/bin");
-    CleanDirectories("./test/**/obj");
+    CleanDirectories("../src/**/bin");
+    CleanDirectories("../src/**/obj");
+    CleanDirectories("../test/**/bin");
+    CleanDirectories("../test/**/obj");
 });
 
 /// nuget task
@@ -42,7 +42,7 @@ Task("test")
     .IsDependentOn("build")
     .Does(() =>
 {
-    XUnit2("./test/*/bin/**/*.Test.dll");
+    XUnit2("../test/*/bin/**/*.Test.dll");
 });
 
 /// pack task

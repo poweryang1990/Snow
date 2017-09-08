@@ -17,7 +17,6 @@
 [Rr]eleases/
 [Xx]64/
 [Xx]86/
-[Bb]uild/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -240,5 +239,5 @@ ModelManifest.xml
 
 .nuget/
 
-tools/
+build/tools/
 
