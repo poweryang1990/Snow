@@ -1,2 +1,2 @@
-
-运行build.ps1，编译打包项目文件，输出到.nuget文件夹下。
+# build.ps1
+1. `./build.ps1 -Target pack`：打包项目文件到nupkgs文件夹中。

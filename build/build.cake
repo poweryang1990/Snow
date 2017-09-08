@@ -4,16 +4,17 @@
 /// args
 var target = Argument("target", "default");
 
-var solutionFile="../uokoframework.sln";
-var projects = GetFiles("../src/**/*.csproj");
+var rootPath = "../";
+var solutionFile = rootPath + "uokoframework.sln";
+var projectFiles = GetFiles(rootPath + "src/**/*.csproj");
 
 Task("clean")
     .Does(() =>
 {
-    CleanDirectories("../src/**/bin");
-    CleanDirectories("../src/**/obj");
-    CleanDirectories("../test/**/bin");
-    CleanDirectories("../test/**/obj");
+    CleanDirectories(rootPath + "src/**/bin");
+    CleanDirectories(rootPath + "src/**/obj");
+    CleanDirectories(rootPath + "test/**/bin");
+    CleanDirectories(rootPath + "test/**/obj");
 });
 
 /// nuget task
@@ -37,7 +38,7 @@ Task("test")
     .IsDependentOn("build")
     .Does(() =>
 {
-    XUnit2("../test/*/bin/**/*.Test.dll");
+    XUnit2(rootPath + "test/*/bin/**/*.Test.dll");
 });
 
 /// pack task
@@ -47,13 +48,13 @@ Task("pack")
 {
     var packSetting = new DotNetCorePackSettings {
         Configuration = "Release",
-        OutputDirectory = "../.nuget/",
+        OutputDirectory = rootPath + "nupkgs/",
         IncludeSource = true,
         IncludeSymbols = true,
         NoBuild = false
     };
 
-    foreach(var project in projects){
+    foreach(var project in projectFiles){
         DotNetCorePack(project.FullPath, packSetting);
     }
 });
