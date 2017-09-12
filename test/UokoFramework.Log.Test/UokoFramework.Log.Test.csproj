@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
 
@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\uokoframework.basic\UokoFramework.Basic.csproj" />
+    <ProjectReference Include="..\..\src\UokoFramework.Log\UokoFramework.Log.csproj" />
   </ItemGroup>
 
 </Project>

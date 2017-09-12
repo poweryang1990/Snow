@@ -2,25 +2,30 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461;net452</TargetFrameworks>
+    <AssemblyName>UokoFramework</AssemblyName>
+    <RootNamespace>UokoFramework</RootNamespace>
   </PropertyGroup>
 
   <!--nuget打包配置-->
   <PropertyGroup>
-    <PackageId>UokoFramework.Core</PackageId>
+    <PackageId>UokoFramework</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Uoko</Authors>
     <Company>Uoko</Company>
     <Product>Uoko</Product>
     <Version>1.0.0</Version>
-    <Description>Package Description</Description>
-    <Copyright>copyright</Copyright>
-    <PackageLicenseUrl>packageLicenseUrl</PackageLicenseUrl>
-    <PackageProjectUrl>packageProjectUrl</PackageProjectUrl>
-    <PackageIconUrl>packageIconUrl</PackageIconUrl>
-    <RepositoryUrl>pepositoryUrl</RepositoryUrl>
+    <Description>Uoko基础包</Description>
+    <Copyright>uoko 2017</Copyright>
     <RepositoryType>git</RepositoryType>
     <PackageTags>tags</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
   </PropertyGroup>
+
+  <!--结构描述文档+视为错误的编译警告-->
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <WarningsAsErrors>NU1605;CS0109;CS1572;CS1573;CS1591;CS1712</WarningsAsErrors>
+  </PropertyGroup>
+
 </Project>
