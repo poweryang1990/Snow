@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>UokoFramework.All</id>
+    <version>1.0.0</version>
+    <authors>uoko</authors>
+    <owners>uoko</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>UokoFramework.All</description>
+    <copyright>Copyright © uoko</copyright>
+    <tags>uoko</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.2">
+        <dependency id="UokoFramework.Cache" version="1.0.0" />
+        <dependency id="UokoFramework.Log" version="1.0.0" />
+      </group>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="UokoFramework.Cache" version="1.0.0" />
+        <dependency id="UokoFramework.Log" version="1.0.0" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="UokoFramework.Cache" version="1.0.0" />
+        <dependency id="UokoFramework.Log" version="1.0.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+  </files>
+</package>

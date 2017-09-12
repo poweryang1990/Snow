@@ -7,6 +7,7 @@ var target = Argument("target", "default");
 var rootPath = "../";
 var solutionFile = rootPath + "uokoframework.sln";
 var projectFiles = GetFiles(rootPath + "src/**/*.csproj");
+var nuspecFiles = GetFiles(rootPath + "src/**/*.nuspec");
 
 Task("clean")
     .Does(() =>
@@ -46,16 +47,26 @@ Task("pack")
     .IsDependentOn("test")
     .Does(() =>
 {
-    var packSetting = new DotNetCorePackSettings {
+    var outputDirectory = rootPath + "nupkgs/";
+
+    var dotNetCorePackSetting = new DotNetCorePackSettings {
         Configuration = "Release",
-        OutputDirectory = rootPath + "nupkgs/",
+        OutputDirectory = outputDirectory,
         IncludeSource = true,
         IncludeSymbols = true,
         NoBuild = false
     };
 
+    var nugetPackSetting = new NuGetPackSettings  {
+        OutputDirectory = outputDirectory,
+    };
+
     foreach(var project in projectFiles){
-        DotNetCorePack(project.FullPath, packSetting);
+        DotNetCorePack(project.FullPath, dotNetCorePackSetting);
+    }
+
+    foreach(var nuspec in nuspecFiles){
+        NuGetPack(nuspec.FullPath, nugetPackSetting);
     }
 });
 
