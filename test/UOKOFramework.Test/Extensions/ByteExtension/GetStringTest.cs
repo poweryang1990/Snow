@@ -1,28 +1,28 @@
 ﻿using System;
+using System.Text;
 using UokoFramework.Extensions;
 using Xunit;
 
 namespace UokoFramework.Test.Extensions.ByteExtension
 {
-    public class GetMD5Test
+    public class GetStringTest
     {
         [Fact]
         public void when_bytes_is_null_should_throw_ArgumentNullException()
         {
             var bytes = (byte[])null;
 
-            Assert.Throws<ArgumentNullException>(() => bytes.GetMD5());
+            Assert.Throws<ArgumentNullException>(() => bytes.GetString());
         }
 
         [Fact]
         public void when_bytes_is_not_null()
         {
-            var bytes = "优客".GetBytes();
+            var bytes = new byte[] { 65, 66, 67 };
 
-            var md5 = bytes.GetMD5();
+            var value = bytes.GetString(Encoding.ASCII);
 
-            var md5Hex = md5.GetHex(withHyphen: false, lowerCase: false);
-            Assert.Equal("0E8869D60C581C8A86DB3B7D3992BF11", md5Hex);
+            Assert.Equal("ABC", value);
         }
     }
 }

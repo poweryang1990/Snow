@@ -13,8 +13,4 @@
     <ProjectReference Include="..\..\src\UOKOFramework\UokoFramework.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\StingExtension\" />
-  </ItemGroup>
-
 </Project>
