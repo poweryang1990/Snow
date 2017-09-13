@@ -110,7 +110,7 @@ namespace UokoFramework.Extensions
         /// <summary>
         /// bytes转字符串
         /// </summary>
-        /// <param name="bytes">原始字符串</param>
+        /// <param name="bytes">原始byte数组</param>
         /// <param name="encoding">编码格式，默认采用UTF8编码</param>
         /// <returns></returns>
         public static string GetString(this byte[] bytes, Encoding encoding = null)
@@ -125,6 +125,75 @@ namespace UokoFramework.Extensions
                 encoding = Encoding.UTF8;
             }
             return encoding.GetString(bytes);
+        }
+
+        /// <summary>
+        ///  AES加密[ECB,Zeros]
+        /// </summary>
+        /// <param name="bytes">原始byte数组</param>
+        /// <param name="key">Key，长度只能是[16,24,32]</param>
+        /// <returns>加密后的byte数组</returns>
+        // ReSharper disable once InconsistentNaming
+        public static byte[] AESEncrypt(this byte[] bytes, byte[] key)
+        {
+            if (bytes == null || bytes.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
+            if (key == null || key.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            if (key.Length != 16 && key.Length != 24 && key.Length != 32)
+            {
+                throw new ArgumentException("无效的AES Key,必须是长度为16/24/32的byte数组");
+            }
+            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
+            {
+                symmetricAlgorithm.Key = key;
+                symmetricAlgorithm.Mode = CipherMode.ECB;
+                symmetricAlgorithm.Padding = PaddingMode.Zeros;
+                //加密
+                using (var encryptor = symmetricAlgorithm.CreateEncryptor())
+                {
+                    return encryptor.TransformFinalBlock(bytes, 0, bytes.Length);
+                }
+            }
+        }
+
+        /// <summary>
+        ///  AES解密[ECB,None]
+        /// </summary>
+        /// <param name="bytes">加密的byte数组</param>
+        /// <param name="key">Key，长度只能是[16,24,32]</param>
+        /// <returns>解密后的byte数组</returns>
+        // ReSharper disable once InconsistentNaming
+        public static byte[] AESDecrypt(this byte[] bytes, byte[] key)
+        {
+            if (bytes == null || bytes.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
+            if (key == null || key.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            if (key.Length != 16 && key.Length != 24 && key.Length != 32)
+            {
+                throw new ArgumentException("无效的AES Key,必须是长度为16/24/32的byte数组");
+            }
+            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
+            {
+                symmetricAlgorithm.Key = key;
+                symmetricAlgorithm.Mode = CipherMode.ECB;
+                symmetricAlgorithm.Padding = PaddingMode.None;
+
+                //解密
+                using (var decryptor = symmetricAlgorithm.CreateDecryptor())
+                {
+                    return decryptor.TransformFinalBlock(bytes, 0, bytes.Length);
+                }
+            }
         }
     }
 }
