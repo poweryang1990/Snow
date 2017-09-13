@@ -39,7 +39,7 @@ namespace UokoFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetMD5(this byte[] bytes)
         {
-            return bytes.GetHash(MD5.Create());
+            return bytes.GetHash(new MD5CryptoServiceProvider());
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace UokoFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA1(this byte[] bytes)
         {
-            return bytes.GetHash(SHA1.Create());
+            return bytes.GetHash(new SHA1CryptoServiceProvider());
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace UokoFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA256(this byte[] bytes)
         {
-            return bytes.GetHash(SHA256.Create());
+            return bytes.GetHash(new SHA256CryptoServiceProvider());
         }
 
         /// <summary>
