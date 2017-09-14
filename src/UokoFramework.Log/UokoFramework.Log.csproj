@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net452</TargetFrameworks>
+    <TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>UOKOFramework.Log</AssemblyName>
     <RootNamespace>UOKOFramework.Log</RootNamespace>
   </PropertyGroup>
