@@ -7,7 +7,7 @@ namespace UokoFramework.OCR.Common
     /// <summary>
     /// 身份证正反面
     /// </summary>
-    public enum IDcardType
+    public enum IDCardType
     {
         /// <summary>
         /// 正面:为身份证有照片的一面

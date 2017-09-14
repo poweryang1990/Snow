@@ -7,7 +7,7 @@ namespace UokoFramework.OCR.Common
     /// <summary>
     /// 请求返回code 枚举
     /// </summary>
-    public enum ResultCodeType
+    public enum ResponseCode
     {
         /// <summary>
         /// 成功

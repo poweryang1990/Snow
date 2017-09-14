@@ -5,9 +5,9 @@ using System.Text;
 namespace UokoFramework.OCR.Common
 {
     /// <summary>
-    /// IDcard Result
+    /// ID Card Response 
     /// </summary>
-    public class IDcardResultInfo
+    public class IDCardResponse
     {
         /// <summary>
         /// 请求状态, true为成功

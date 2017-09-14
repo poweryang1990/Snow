@@ -8,7 +8,7 @@ namespace UokoFramework.OCR.Common
     /// <summary>
     /// 
     /// </summary>
-    public static class Extension
+    public static class TimeExtension
     {
         /// <summary>
         /// 

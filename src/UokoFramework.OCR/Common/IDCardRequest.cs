@@ -5,9 +5,9 @@ using System.Text;
 namespace UokoFramework.OCR.Common
 {
     /// <summary>
-    /// IDcard RequestInfo
+    /// ID Card Request
     /// </summary>
-    public class IDcardRequestInfo
+    public class IDCardRequest
     {
         /// <summary>
         /// 身份证图片地址
@@ -17,6 +17,6 @@ namespace UokoFramework.OCR.Common
         /// <summary>
         /// 身份证正反面
         /// </summary>
-        public IDcardType IDcardType { get; set; }
+        public IDCardType IDcardType { get; set; }
     }
 }

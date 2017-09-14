@@ -7,7 +7,7 @@ namespace UokoFramework.OCR.Tencent.Utils
     /// <summary>
     /// 接收腾讯OCR识别返回值
     /// </summary>
-    public class TencentResult
+    public class TencentResponse
     {
         /// <summary>
         /// 

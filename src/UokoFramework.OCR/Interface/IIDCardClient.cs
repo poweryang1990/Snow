@@ -8,13 +8,13 @@ namespace UokoFramework.OCR.Interface
     /// <summary>
     /// 统一暴露对外的身份证 OCR识别接口
     /// </summary>
-    public interface IIDcardDetectSvc
+    public interface IIDCardClient
     {
         /// <summary>
         /// 身份证识别
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        IDcardResultInfo Detect(IDcardRequestInfo info);
+        IDCardResponse Detect(IDCardRequest info);
     }
 }
