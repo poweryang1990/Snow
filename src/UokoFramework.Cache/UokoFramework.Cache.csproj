@@ -2,21 +2,21 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461;net452</TargetFrameworks>
-    <AssemblyName>UokoFramework.Cache</AssemblyName>
-    <RootNamespace>UokoFramework.Cache</RootNamespace>
+    <AssemblyName>UOKOFramework.Cache</AssemblyName>
+    <RootNamespace>UOKOFramework.Cache</RootNamespace>
   </PropertyGroup>
 
   <!--nuget打包配置-->
   <PropertyGroup>
-    <PackageId>UokoFramework.Cache</PackageId>
+    <PackageId>UOKOFramework.Cache</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Authors>Uoko</Authors>
-    <Company>Uoko</Company>
-    <Product>Uoko</Product>
+    <Authors>UOKO</Authors>
+    <Company>UOKO</Company>
+    <Product>UOKO</Product>
     <Version>1.0.0</Version>
-    <Description>Uoko基础包-缓存</Description>
-    <Copyright>uoko 2017</Copyright>
+    <Description>UOKO基础包-缓存</Description>
+    <Copyright>UOKO 2017</Copyright>
     <RepositoryType>git</RepositoryType>
     <PackageTags>cache</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
@@ -29,7 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UOKOFramework\UokoFramework.csproj" />
+    <ProjectReference Include="..\UOKOFramework\UOKOFramework.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace UokoFramework.Cache.Test
+namespace UOKOFramework.Cache.Test
 {
 
     public class CacheKeyTest

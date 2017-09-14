@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Xunit;
-using UokoFramework.Extensions;
+using UOKOFramework.Extensions;
 
-namespace UokoFramework.Test.Extensions.DictionaryExtension
+namespace UOKOFramework.Test.Extensions.DictionaryExtension
 {
     public class GetValueOrDefaultTest
     {
@@ -32,9 +32,9 @@ namespace UokoFramework.Test.Extensions.DictionaryExtension
         {
             var dictionary = new Dictionary<string, string>();
 
-            var value = dictionary.GetValueOrDefault("key","uoko");
+            var value = dictionary.GetValueOrDefault("key","UOKO");
 
-            Assert.Equal("uoko", value);
+            Assert.Equal("UOKO", value);
         }
 
         [Fact]
@@ -42,12 +42,12 @@ namespace UokoFramework.Test.Extensions.DictionaryExtension
         {
             var dictionary = new Dictionary<string, string>
             {
-                ["name"] = "uoko"
+                ["name"] = "UOKO"
             };
 
             var value = dictionary.GetValueOrDefault("name");
 
-            Assert.Equal("uoko", value);
+            Assert.Equal("UOKO", value);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UokoFramework
+namespace UOKOFramework
 {
     /// <summary>
     /// 异常

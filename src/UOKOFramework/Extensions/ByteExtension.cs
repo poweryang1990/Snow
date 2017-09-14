@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
 
-namespace UokoFramework.Extensions
+namespace UOKOFramework.Extensions
 {
     /// <summary>
     /// Byte的扩展方法

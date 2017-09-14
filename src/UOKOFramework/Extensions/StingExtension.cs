@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace UokoFramework.Extensions
+namespace UOKOFramework.Extensions
 {
     /// <summary>
     /// String的扩展方法

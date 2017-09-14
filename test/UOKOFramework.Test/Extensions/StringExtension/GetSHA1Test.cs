@@ -1,8 +1,8 @@
 ﻿using System;
-using UokoFramework.Extensions;
+using UOKOFramework.Extensions;
 using Xunit;
 
-namespace UokoFramework.Test.Extensions.StringExtension
+namespace UOKOFramework.Test.Extensions.StringExtension
 {
     public class GetSHA1Test
     {

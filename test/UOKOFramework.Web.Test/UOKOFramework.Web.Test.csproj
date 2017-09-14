@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\uokoframework.web\UokoFramework.Web.csproj" />
+    <ProjectReference Include="..\..\src\UOKOframework.web\UOKOFramework.Web.csproj" />
   </ItemGroup>
 
 

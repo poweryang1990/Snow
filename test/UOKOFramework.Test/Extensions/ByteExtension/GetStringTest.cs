@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using UokoFramework.Extensions;
+using UOKOFramework.Extensions;
 using Xunit;
 
-namespace UokoFramework.Test.Extensions.ByteExtension
+namespace UOKOFramework.Test.Extensions.ByteExtension
 {
     public class GetStringTest
     {

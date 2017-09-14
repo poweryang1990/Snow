@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using UokoFramework.Extensions;
+using UOKOFramework.Extensions;
 using Xunit;
 
-namespace UokoFramework.Test.Extensions.GridExtension
+namespace UOKOFramework.Test.Extensions.GridExtension
 {
     public class ToStringArrayTest
     {

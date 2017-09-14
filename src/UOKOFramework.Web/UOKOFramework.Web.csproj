@@ -2,21 +2,21 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461;net452</TargetFrameworks>
-    <AssemblyName>UokoFramework.Web</AssemblyName>
-    <RootNamespace>UokoFramework.Web</RootNamespace>
+    <AssemblyName>UOKOFramework.Web</AssemblyName>
+    <RootNamespace>UOKOFramework.Web</RootNamespace>
   </PropertyGroup>
 
   <!--nuget打包配置-->
   <PropertyGroup>
-    <PackageId>UokoFramework.Web</PackageId>
+    <PackageId>UOKOFramework.Web</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Authors>Uoko</Authors>
-    <Company>Uoko</Company>
-    <Product>Uoko</Product>
+    <Authors>UOKO</Authors>
+    <Company>UOKO</Company>
+    <Product>UOKO</Product>
     <Version>1.0.0</Version>
-    <Description>Uoko基础包-Web</Description>
-    <Copyright>uoko 2017</Copyright>
+    <Description>UOKO基础包-Web</Description>
+    <Copyright>UOKO 2017</Copyright>
     <RepositoryType>git</RepositoryType>
     <PackageTags>web</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
@@ -29,6 +29,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UOKOFramework\UokoFramework.csproj" />
+    <ProjectReference Include="..\UOKOFramework\UOKOFramework.csproj" />
   </ItemGroup>
 </Project>

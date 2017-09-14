@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UokoFramework.Extensions
+namespace UOKOFramework.Extensions
 {
     /// <summary>
     /// Guid的扩展方法
