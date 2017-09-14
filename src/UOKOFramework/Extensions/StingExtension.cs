@@ -16,15 +16,25 @@ namespace UokoFramework.Extensions
         /// <returns></returns>
         public static byte[] GetBytes(this string value, Encoding encoding = null)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            Throws.ArgumentNullException(value, nameof(value));
+
             if (encoding == null)
             {
                 encoding = Encoding.UTF8;
             }
             return encoding.GetBytes(value);
+        }
+
+        /// <summary>
+        /// base64字符串转bytes
+        /// </summary>
+        /// <param name="value">原始字符串</param>
+        /// <returns></returns>
+        public static byte[] GetBytesFromBase64(this string value)
+        {
+            Throws.ArgumentNullException(value, nameof(value));
+
+            return Convert.FromBase64String(value);
         }
 
         /// <summary>
@@ -37,14 +47,13 @@ namespace UokoFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static string GetMD5(this string value, Encoding encoding = null, bool lowerCase = false)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            Throws.ArgumentNullException(value, nameof(value));
+
             if (encoding == null)
             {
                 encoding = Encoding.UTF8;
             }
+
             return value
                 .GetBytes(encoding)
                 .GetMD5()
@@ -61,10 +70,8 @@ namespace UokoFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static bool VerifyMD5(this string value, string expectMd5, Encoding encoding = null)
         {
-            if (expectMd5 == null)
-            {
-                throw new ArgumentNullException(nameof(expectMd5));
-            }
+            Throws.ArgumentNullException(expectMd5, nameof(expectMd5));
+
             if (expectMd5.Length != 32)
             {
                 throw new ArgumentException($"[{expectMd5}]不是有效的MD5。");
@@ -83,10 +90,7 @@ namespace UokoFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static string GetSHA1(this string value, Encoding encoding = null, bool lowerCase = false)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            Throws.ArgumentNullException(value, nameof(value));
             if (encoding == null)
             {
                 encoding = Encoding.UTF8;
@@ -107,10 +111,7 @@ namespace UokoFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static bool VerifySHA1(this string value, string expectSha1, Encoding encoding = null)
         {
-            if (expectSha1 == null)
-            {
-                throw new ArgumentNullException(nameof(expectSha1));
-            }
+            Throws.ArgumentNullException(expectSha1, nameof(expectSha1));
             if (expectSha1.Length != 40)
             {
                 throw new ArgumentException($"[{expectSha1}]不是有效的SHA1。");

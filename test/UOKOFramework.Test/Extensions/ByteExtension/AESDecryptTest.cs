@@ -37,21 +37,15 @@ namespace UokoFramework.Test.Extensions.ByteExtension
         [Fact]
         public void when_bytes_and_key_is_valid()
         {
-            var encryptedText = "47441BE595AF0A6EBFD1A1864EFE2C83";
-            var encryptedBytes = new byte[encryptedText.Length / 2];
-            for (var i = 0; i < encryptedBytes.Length; i++)
-            {
-                encryptedBytes[i] = Convert.ToByte(encryptedText.Substring(i * 2, 2), 16);
-            }
-
+            var encryptedBytes = "R0Qb5ZWvCm6/0aGGTv4sgw==".GetBytesFromBase64();
             //16byte的key
             var key = "chunqiu".GetBytes().GetMD5();
 
             //解密
-            var clearBytes = encryptedBytes.AESDecrypt(key);
+            var plaintextBytes = encryptedBytes.AESDecrypt(key);
 
-            var clearText = clearBytes.GetString();
-            Assert.Equal("优客", clearText);
+            var plaintext = plaintextBytes.GetString();
+            Assert.Equal("优客", plaintext);
         }
     }
 }

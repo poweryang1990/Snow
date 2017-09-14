@@ -3,7 +3,7 @@ using System.Text;
 using UokoFramework.Extensions;
 using Xunit;
 
-namespace UokoFramework.Test.Extensions.StingExtension
+namespace UokoFramework.Test.Extensions.StringExtension
 {
     public class GetBytesTest
     {
