@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using UokoFramework.OCR.Common;
 
-namespace UokoFramework.OCR.Tencent.Common
+namespace UokoFramework.OCR.Tencent.Utils
 {
     /// <summary>
     ///  签名与鉴权
     /// </summary>
-    public class Sign
+    public class TencentSign
     {
         /// <summary>
         /// 多次有效签名
@@ -22,10 +23,12 @@ namespace UokoFramework.OCR.Tencent.Common
         /// <returns></returns>
         public static string DetectionSignature(int appId, string secretId, string secretKey, long expired, string bucketName)
         {
-            var rand = new Random();
-            var rdm = rand.Next(Int32.MaxValue);
+            if (secretId == "" || secretKey == "")
+            {
+                return "-1";
+            }
             var now = DateTime.Now.ToUnixTime() / 1000;
-            var plainText = string.Format("a={0}&b={1}&k={2}&e={3}&t={4}&r={5}&u={6}", appId, bucketName, secretId, expired, now, rdm, "0");
+            var plainText = string.Format("a={0}&b={1}&k={2}&t={3}&e={4}", appId, bucketName, secretId, now, expired);
 
             using (HMACSHA1 mac = new HMACSHA1(Encoding.UTF8.GetBytes(secretKey)))
             {

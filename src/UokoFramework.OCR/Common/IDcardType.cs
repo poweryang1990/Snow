@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UokoFramework.OCR.Tencent.Common
+namespace UokoFramework.OCR.Common
 {
     /// <summary>
     /// 身份证正反面
@@ -12,11 +12,11 @@ namespace UokoFramework.OCR.Tencent.Common
         /// <summary>
         /// 正面:为身份证有照片的一面
         /// </summary>
-        Front = 0,
+        Face = 0,
 
         /// <summary>
         /// 反面:为身份证有国徽的一面
         /// </summary>
-        Reverse = 1
+        Back = 1
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace UokoFramework.Web.Utils
@@ -21,9 +23,10 @@ namespace UokoFramework.Web.Utils
             {
                 AutomaticDecompression = DecompressionMethods.GZip
             };
+
             _client = new HttpClient(handler)
             {
-                Timeout = TimeSpan.FromSeconds(60)
+                Timeout = TimeSpan.FromSeconds(60),
             };
         }
 
@@ -43,6 +46,8 @@ namespace UokoFramework.Web.Utils
                 BaseAddress = new Uri(baseAddress),
                 Timeout = TimeSpan.FromSeconds(60)
             };
+
+           
         }
 
         /// <summary>
@@ -51,24 +56,20 @@ namespace UokoFramework.Web.Utils
         /// <typeparam name="T"></typeparam>
         /// <param name="requestUrl"></param>
         /// <param name="dto"></param>
+        /// <param name="sign"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> PostAsync<T>(string requestUrl, T dto)
+        public async Task<HttpResponseMessage> PostAsync<T>(string requestUrl, T dto, string sign = null)
         {
-            return await _client.PostAsJsonAsync(requestUrl,dto).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="requestUrl"></param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        public async Task<HttpResponseMessage> PostAsync<T>(Uri requestUrl, T dto)
-        {
+            if (sign != null)
+            {
+                _client.DefaultRequestHeaders.Accept.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                _client.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Basic", sign);
+            }
             return await _client.PostAsJsonAsync(requestUrl, dto).ConfigureAwait(false);
         }
 
+   
         /// <summary>
         /// 
         /// </summary>
@@ -101,13 +102,15 @@ namespace UokoFramework.Web.Utils
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="requestUrl"></param>
         /// <param name="dto"></param>
+        /// <param name="sign"></param>
         /// <returns></returns>
-        public TResponse Post<TRequest, TResponse>(Uri requestUrl, TRequest dto)
+        public TResponse Post<TRequest, TResponse>(string requestUrl, TRequest dto, string sign)
         {
-            var result = PostAsync(requestUrl, dto).Result;
-            result.EnsureSuccessStatusCode();
+            var result = PostAsync(requestUrl, dto, sign).Result;
+           // result.EnsureSuccessStatusCode();
             return result.Content.ReadAsAsync<TResponse>().Result;
         }
+
 
         /// <summary>
         /// 
