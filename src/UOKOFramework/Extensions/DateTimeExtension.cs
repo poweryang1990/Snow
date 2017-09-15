@@ -12,56 +12,56 @@ namespace UOKOFramework.Extensions
         /// <summary>
         /// 获取UnixTime
         /// </summary>
-        /// <param name="this">this</param>
+        /// <param name="dateTime">this</param>
         /// <returns>UnixTime</returns>
-        public static int GetUnixtime(this DateTime @this)
+        public static int GetUnixtime(this DateTime dateTime)
         {
-            return (int)(@this - UnixTimeStartTime).TotalSeconds;
+            return (int)(dateTime - UnixTimeStartTime).TotalSeconds;
         }
 
         /// <summary>
         /// 是否在两个时间点之间
         /// </summary>
-        /// <param name="this">this</param>
+        /// <param name="dateTime">this</param>
         /// <param name="begin">开始时间</param>
         /// <param name="end">结束时间</param>
         /// <returns></returns>
-        public static bool IsBetween(this DateTime @this, DateTime begin, DateTime end)
+        public static bool IsBetween(this DateTime dateTime, DateTime begin, DateTime end)
         {
-            return begin < @this && @this < end;
+            return begin < dateTime && dateTime < end;
         }
 
         /// <summary>
         /// 获取两个时间中较小的一个
         /// </summary>
-        /// <param name="this">this</param>
+        /// <param name="dateTime">this</param>
         /// <param name="that">另外一个时间</param>
         /// <returns></returns>
-        public static DateTime Min(this DateTime @this, DateTime that)
+        public static DateTime Min(this DateTime dateTime, DateTime that)
         {
-            return @this < that ? @this : that;
+            return dateTime < that ? dateTime : that;
         }
 
         /// <summary>
         /// 获取两个时间中较大的一个
         /// </summary>
-        /// <param name="this">this</param>
+        /// <param name="dateTime">this</param>
         /// <param name="that">另外一个时间</param>
         /// <returns></returns>
-        public static DateTime Max(this DateTime @this, DateTime that)
+        public static DateTime Max(this DateTime dateTime, DateTime that)
         {
-            return @this > that ? @this : that;
+            return dateTime > that ? dateTime : that;
         }
 
         /// <summary>
         /// 获取星座
         /// </summary>
-        /// <param name="this">this</param>
+        /// <param name="dateTime">this</param>
         /// <returns></returns>
-        public static Constellation GetConstellation(this DateTime @this)
+        public static Constellation GetConstellation(this DateTime dateTime)
         {
-            var month = @this.Month;
-            var day = @this.Day;
+            var month = dateTime.Month;
+            var day = dateTime.Day;
             switch (month)
             {
                 case 1:
