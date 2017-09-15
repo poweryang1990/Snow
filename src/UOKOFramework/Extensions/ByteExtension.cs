@@ -61,6 +61,20 @@ namespace UOKOFramework.Extensions
         }
 
         /// <summary>
+        /// 获取HMACSHA1
+        /// </summary>
+        /// <param name="bytes">原始byte数组</param>
+        /// <param name="key">MAC的密钥</param>
+        /// <returns>20byte的数组</returns>
+        // ReSharper disable once InconsistentNaming
+        public static byte[] GetHMACSHA1(this byte[] bytes, byte[] key)
+        {
+            Throws.ArgumentNullException(key, nameof(key));
+            return bytes.GetHash(new HMACSHA1(key));
+        }
+
+
+        /// <summary>
         /// bytes转16进制
         /// </summary>
         /// <param name="bytes">原始byte数组</param>

@@ -28,16 +28,16 @@ namespace UOKOFramework.Extensions
         /// <summary>
         /// base64字符串转bytes
         /// </summary>
-        /// <param name="value">base64字符串</param>
+        /// <param name="base64">base64字符串</param>
         /// <returns>原始bytes数组</returns>
-        public static byte[] GetBytesFromBase64(this string value)
+        public static byte[] GetBytesFromBase64(this string base64)
         {
-            Throws.ArgumentNullException(value, nameof(value));
-            if (value.IndexOf('-') != -1)
+            Throws.ArgumentNullException(base64, nameof(base64));
+            if (base64.IndexOf('-') != -1)
             {
-                value = value.Replace('-', '+').Replace('_', '/');
+                base64 = base64.Replace('-', '+').Replace('_', '/');
             }
-            return Convert.FromBase64String(value);
+            return Convert.FromBase64String(base64);
         }
 
         /// <summary>
