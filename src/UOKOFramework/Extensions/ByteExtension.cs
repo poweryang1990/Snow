@@ -99,6 +99,18 @@ namespace UOKOFramework.Extensions
         }
 
         /// <summary>
+        /// bytes转url safe base64
+        /// </summary>
+        /// <param name="bytes">原始byte数组</param>
+        /// <returns>url safe base64字符串</returns>
+        public static string GetUrlSafeBase64(this byte[] bytes)
+        {
+            return GetBase64(bytes)
+                .Replace('+', '-')
+                .Replace('/', '_');
+        }
+
+        /// <summary>
         /// bytes转字符串
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
@@ -117,7 +129,7 @@ namespace UOKOFramework.Extensions
         }
 
         /// <summary>
-        ///  AES加密[ECB,None]
+        ///  AES加密[ECB,Zeros]
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
         /// <param name="key">Key，长度只能是[16,24,32]</param>
@@ -146,7 +158,7 @@ namespace UOKOFramework.Extensions
         }
 
         /// <summary>
-        ///  AES解密[ECB,None]
+        ///  AES解密[ECB,Zeros]
         /// </summary>
         /// <param name="encryptedBytes">被加密的byte数组</param>
         /// <param name="key">Key，长度只能是[16,24,32]</param>

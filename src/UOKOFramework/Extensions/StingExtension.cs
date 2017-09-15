@@ -28,12 +28,15 @@ namespace UOKOFramework.Extensions
         /// <summary>
         /// base64字符串转bytes
         /// </summary>
-        /// <param name="value">原始字符串</param>
-        /// <returns></returns>
+        /// <param name="value">base64字符串</param>
+        /// <returns>原始bytes数组</returns>
         public static byte[] GetBytesFromBase64(this string value)
         {
             Throws.ArgumentNullException(value, nameof(value));
-
+            if (value.IndexOf('-') != -1)
+            {
+                value = value.Replace('-', '+').Replace('_', '/');
+            }
             return Convert.FromBase64String(value);
         }
 
@@ -81,7 +84,7 @@ namespace UOKOFramework.Extensions
         }
 
         /// <summary>
-        /// 获取MD5
+        /// 获取SHA1
         /// </summary>
         /// <param name="value">原始字符串</param>
         /// <param name="encoding">字符串编码，默认UTF8。</param>

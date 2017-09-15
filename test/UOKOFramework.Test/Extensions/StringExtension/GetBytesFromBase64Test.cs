@@ -24,7 +24,7 @@ namespace UOKOFramework.Test.Extensions.StringExtension
         }
 
         [Fact]
-        public void when_string_is_valid()
+        public void when_string_is_base64()
         {
             var base64 = "5LyY5a6i";
             var bytes = "优客".GetBytes();
@@ -32,6 +32,16 @@ namespace UOKOFramework.Test.Extensions.StringExtension
             var bytesFromBase64 = base64.GetBytesFromBase64();
 
             Assert.Equal(bytes, bytesFromBase64);
+        }
+
+        [Fact]
+        public void when_string_is_url_safe_base64()
+        {
+            var urlSafeBase64 = "-AA_";
+
+            var bytesFromBase64 = urlSafeBase64.GetBytesFromBase64();
+
+            Assert.Equal(new byte[] { 62 << 2, 0, 63 }, bytesFromBase64);
         }
     }
 }
