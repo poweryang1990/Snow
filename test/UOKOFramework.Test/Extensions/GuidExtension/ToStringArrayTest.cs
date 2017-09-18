@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using UokoFramework.Extensions;
+using UOKOFramework.Extensions;
 using Xunit;
 
-namespace UokoFramework.Test.Extensions.GridExtension
+namespace UOKOFramework.Test.Extensions.GuidExtension
 {
     public class ToStringArrayTest
     {
@@ -12,6 +12,7 @@ namespace UokoFramework.Test.Extensions.GridExtension
         {
             var guids = (IEnumerable<Guid>)null;
 
+            // ReSharper disable once ExpressionIsAlwaysNull
             var stringArray = guids.ToStringArray();
 
             Assert.Equal(0, stringArray.Length);

@@ -5,18 +5,18 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{40654D93-CBE7-4F08-BE70-26B291764AC9}"
 	ProjectSection(SolutionItems) = preProject
-		src\UokoFramework.All.nuspec = src\UokoFramework.All.nuspec
+		src\UOKOFramework.All.nuspec = src\UOKOFramework.All.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9E14051D-3547-49AD-9D72-E500B64BFC49}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UokoFramework.Web", "src\uokoframework.web\UokoFramework.Web.csproj", "{D546829F-C678-41B8-8AFB-1C72CDD03D50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.Web", "src\UOKOframework.web\UOKOFramework.Web.csproj", "{D546829F-C678-41B8-8AFB-1C72CDD03D50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UokoFramework.Web.Test", "test\uokoframework.web.test\UokoFramework.Web.Test.csproj", "{B7227A7B-AD9E-4072-9104-2A0DDF3010A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.Web.Test", "test\UOKOframework.web.test\UOKOFramework.Web.Test.csproj", "{B7227A7B-AD9E-4072-9104-2A0DDF3010A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UokoFramework", "src\UOKOFramework\UokoFramework.csproj", "{689D45CD-4EDB-4830-A736-30F56C3F979A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework", "src\UOKOFramework\UOKOFramework.csproj", "{689D45CD-4EDB-4830-A736-30F56C3F979A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UokoFramework.Test", "test\UOKOFramework.Test\UokoFramework.Test.csproj", "{490964E6-8ED5-4C17-AB24-DD3A12EB77BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.Test", "test\UOKOFramework.Test\UOKOFramework.Test.csproj", "{490964E6-8ED5-4C17-AB24-DD3A12EB77BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UokoFramework.Cache", "src\UokoFramework.Cache\UokoFramework.Cache.csproj", "{EE349C49-CC84-4F38-BAC2-C9BEB2C15242}"
 EndProject

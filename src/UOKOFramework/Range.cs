@@ -1,4 +1,4 @@
-﻿namespace UokoFramework
+﻿namespace UOKOFramework
 {
     /// <summary>
     /// 范围

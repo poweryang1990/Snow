@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UokoFramework.Extensions
+namespace UOKOFramework.Extensions
 {
     /// <summary>
     /// Dictionary的扩展方法

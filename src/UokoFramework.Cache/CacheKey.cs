@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UokoFramework.Cache
+namespace UOKOFramework.Cache
 {
     /// <summary>
     /// CacheKey由三部分组成。
