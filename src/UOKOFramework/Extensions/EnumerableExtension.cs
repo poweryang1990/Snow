@@ -23,5 +23,57 @@ namespace UOKOFramework.Extensions
         {
             return condition ? queryable.Where(predicate) : queryable;
         }
+
+        /// <summary>
+        /// 将字符串连接在一起
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="separator">分隔符</param>
+        /// <returns></returns>
+        public static string JoinString(this IEnumerable<string> source, string separator)
+        {
+            if (source == null)
+            {
+                return string.Empty;
+            }
+
+            return string.Join(separator, source);
+        }
+
+        /// <summary>
+        /// 将字符串连接在一起
+        /// </summary>
+        /// <typeparam name="T">泛型类型</typeparam>
+        /// <param name="source"></param>
+        /// <param name="separator">分隔符</param>
+        /// <param name="selector">映射器</param>
+        /// <returns></returns>
+        public static string JoinString<T>(this IEnumerable<T> source,
+            string separator, Func<T, string> selector)
+        {
+            if (source == null)
+            {
+                return string.Empty;
+            }
+
+            return source.Select(selector).JoinString(separator);
+        }
+
+        /// <summary>
+        /// 将字符串连接在一起
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="separator">分隔符</param>
+        /// <returns></returns>
+        public static string JoinString<T>(this IEnumerable<T> source, string separator)
+        {
+            if (source == null)
+            {
+                return string.Empty;
+            }
+
+            return source.Select(x => x.ToString()).JoinString(separator);
+        }
     }
 }
