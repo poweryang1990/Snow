@@ -122,5 +122,35 @@ namespace UOKOFramework.Extensions
             var actualSha1 = value.GetSHA1(encoding);
             return string.Equals(actualSha1, expectSha1, StringComparison.OrdinalIgnoreCase);
         }
+
+
+        /// <summary>
+        /// 字符串转枚举[失败返回默认值]
+        /// </summary>
+        /// <param name="value">枚举的name字符串</param>
+        /// <param name="defaultValue">枚举的默认值</param>
+        /// <returns>枚举对象</returns>
+        public static TEnum ToEnum<TEnum>(this string value, TEnum defaultValue = default(TEnum)) where TEnum : struct
+        {
+            if (Enum.TryParse(value, true, out TEnum enumValue) == true)
+            {
+                return enumValue;
+            }
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// 字符串转枚举[失败返回Null]
+        /// </summary>
+        /// <param name="value">枚举的name字符串</param>
+        /// <returns>枚举对象</returns>
+        public static TEnum? ToEnumOrNull<TEnum>(this string value) where TEnum : struct
+        {
+            if (Enum.TryParse(value, true, out TEnum enumValue) == true)
+            {
+                return enumValue;
+            }
+            return null;
+        }
     }
 }

@@ -16,15 +16,24 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetDescription(this Enum value)
         {
-            var type = value.GetType();
-            var name = Enum.GetName(type, value);
-            var filed = type.GetField(name);
+            var filed = GetFieldInfo(value);
             var description = filed.GetDescription();
             if (description == string.Empty)
             {
                 description = value.ToString();
             }
             return description;
+        }
+
+        /// <summary>
+        /// 获取枚举的Attribute
+        /// </summary>
+        /// <typeparam name="T">Attribute类型参数</typeparam>
+        /// <param name="value">枚举的值</param>
+        /// <returns>指定的Attribute</returns>
+        public static T GetAttribute<T>(this Enum value) where T : Attribute
+        {
+            return GetFieldInfo(value).GetCustomAttribute<T>(false);
         }
 
         /// <summary>
@@ -55,5 +64,16 @@ namespace UOKOFramework.Extensions
                 .Cast<TFlagsEnum>()
                 .ToArray();
         }
+
+        #region 私有成员
+
+        private static FieldInfo GetFieldInfo(Enum value)
+        {
+            var type = value.GetType();
+            var name = Enum.GetName(type, value);
+            return type.GetField(name);
+        }
+
+        #endregion
     }
 }
