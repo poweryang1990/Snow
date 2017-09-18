@@ -18,13 +18,14 @@ namespace UokoFramework.OCR.Test
                 SecretKey = "CGDzYv6QdiibI7pMhreXIsGTUIyTlrmV",
                 BucketName = "idcard",
             };
-            IIDCardClient tencentIDcard = new TencentIDCardClient(options);
+
             var request = new Common.IDCardRequest()
             {
                 IDcardType = Common.IDCardType.Face,
                 ImgUrl = "http://7xodcr.com1.z0.glb.clouddn.com/%E6%AD%A3%E9%9D%A2.png",
             };
 
+            IIDCardClient tencentIDcard = new TencentIDCardClient(options);
             var result = tencentIDcard.Detect(request);
         }
     }

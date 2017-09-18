@@ -17,6 +17,7 @@ namespace UokoFramework.OCR.Tencent
         private static WebApiProvider webApiProvider = new WebApiProvider();
         private readonly TencentORCOptions _tencentORCOptions;
         private static string url = "http://service.image.myqcloud.com/ocr/idcard";
+
         /// <summary>
         /// 
         /// </summary>
