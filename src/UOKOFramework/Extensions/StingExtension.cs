@@ -152,5 +152,34 @@ namespace UOKOFramework.Extensions
             }
             return null;
         }
+
+        /// <summary>
+        /// 字符串转Guid[失败时返回Guid.Empty]
+        /// </summary>
+        /// <param name="value">Guid字符串</param>
+        /// <returns>Guid</returns>
+        public static Guid ToGuid(this string value)
+        {
+            if (Guid.TryParse(value, out var guid) == true)
+            {
+                return guid;
+            }
+            return Guid.Empty;
+        }
+
+        /// <summary>
+        /// 如果当前string是null或者空，则返回指定的defaultValue
+        /// </summary>
+        /// <param name="value">this</param>
+        /// <param name="defaultValue">默认值</param>
+        /// <returns></returns>
+        public static string Default(this string value, string defaultValue)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return defaultValue;
+            }
+            return value;
+        }
     }
 }
