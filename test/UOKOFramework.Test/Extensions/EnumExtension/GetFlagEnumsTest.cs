@@ -1,11 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using Xunit;
 using UOKOFramework.Extensions;
 
 namespace UOKOFramework.Test.Extensions.EnumExtension
 {
-    public class GetEnumsTest
+    public class GetFlagEnumsTest
     {
         [Flags]
         public enum MockEnum
@@ -20,13 +19,13 @@ namespace UOKOFramework.Test.Extensions.EnumExtension
         [Fact]
         public void when_this_type_is_not_match_generic_type_whould_throw_ArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MockEnum.A.GetEnums<ConsoleKey>());
+            Assert.Throws<ArgumentException>(() => MockEnum.A.GetFlagEnums<ConsoleKey>());
         }
 
         [Fact]
         public void when_enum_is_not_FlagsAttribute_whould_throw_ArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Constellation.Aquarius.GetEnums<Constellation>());
+            Assert.Throws<ArgumentException>(() => Constellation.Aquarius.GetFlagEnums<Constellation>());
         }
 
         [Fact]
@@ -36,7 +35,7 @@ namespace UOKOFramework.Test.Extensions.EnumExtension
            {
                 MockEnum.A,
                 MockEnum.B
-            }, (MockEnum.A | MockEnum.B).GetEnums<MockEnum>());
+            }, (MockEnum.A | MockEnum.B).GetFlagEnums<MockEnum>());
 
             Assert.Equal(new[]
             {
@@ -45,7 +44,7 @@ namespace UOKOFramework.Test.Extensions.EnumExtension
                 MockEnum.C,
                 MockEnum.D,
                 MockEnum.All
-            }, MockEnum.All.GetEnums<MockEnum>());
+            }, MockEnum.All.GetFlagEnums<MockEnum>());
         }
     }
 }
