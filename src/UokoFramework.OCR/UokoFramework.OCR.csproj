@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\uokoframework.web\UokoFramework.Web.csproj" />
-    <ProjectReference Include="..\UOKOFramework\UokoFramework.csproj" />
+    <ProjectReference Include="..\UOKOframework.web\UOKOFramework.Web.csproj" />
+    <ProjectReference Include="..\UOKOFramework\UOKOFramework.csproj" />
   </ItemGroup>
 </Project>

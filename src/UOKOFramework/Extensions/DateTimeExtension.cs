@@ -20,6 +20,16 @@ namespace UOKOFramework.Extensions
         }
 
         /// <summary>
+        /// 获取毫秒Unixtime
+        /// </summary>
+        /// <param name="nowTime"></param>
+        /// <returns></returns>
+        public static long GetMillisecondsUnixtime(this DateTime nowTime)
+        {
+            return (long)Math.Round((nowTime - UnixTimeStartTime).TotalMilliseconds, MidpointRounding.AwayFromZero);
+        }
+
+        /// <summary>
         /// 是否在两个时间点之间
         /// </summary>
         /// <param name="dateTime">this</param>

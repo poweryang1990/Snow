@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using UokoFramework.OCR.Common;
+using UOKOFramework.Extensions;
 
 namespace UokoFramework.OCR.Tencent.Utils
 {
@@ -27,7 +28,7 @@ namespace UokoFramework.OCR.Tencent.Utils
             {
                 return "-1";
             }
-            var now = DateTime.Now.ToUnixTime() / 1000;
+            var now = DateTime.Now.GetMillisecondsUnixtime() / 1000;
             var plainText = string.Format("a={0}&b={1}&k={2}&t={3}&e={4}", appId, bucketName, secretId, now, expired);
 
             using (HMACSHA1 mac = new HMACSHA1(Encoding.UTF8.GetBytes(secretKey)))

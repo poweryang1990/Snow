@@ -2,30 +2,31 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
-
+using System.Threading.Tasks;
 
 namespace UokoFramework.Web.Utils
 {
     /// <summary>
     /// 图片helper
     /// </summary>
-    public class ImageHelper
+    public static class ImageHelper
     {
         /// <summary>
         /// image url to base64
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public String ConvertImageURLToBase64(String url)
+        public static string ConvertImageURLToBase64(string url)
         {
             StringBuilder _sb = new StringBuilder();
-            Byte[] _byte = this.GetImage(url);
+            Byte[] _byte = GetImage(url);
             _sb.Append(Convert.ToBase64String(_byte, 0, _byte.Length));
             return _sb.ToString();
         }
 
-        private byte[] GetImage(string url)
+        private static byte[] GetImage(string url)
         {
             Stream stream = null;
             byte[] buf;
@@ -55,5 +56,7 @@ namespace UokoFramework.Web.Utils
 
             return (buf);
         }
+
+       
     }
 }

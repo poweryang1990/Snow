@@ -7,7 +7,7 @@ namespace UokoFramework.OCR.Tencent.Utils
     /// <summary>
     /// 腾讯OCR Options
     /// </summary>
-    public class TencentORCOptions
+    public class TencentOCROptions
     {
         /// <summary>
         /// app id

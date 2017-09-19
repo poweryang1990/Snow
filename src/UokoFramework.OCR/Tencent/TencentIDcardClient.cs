@@ -6,6 +6,7 @@ using System.Linq;
 using UokoFramework.OCR.Interface;
 using UokoFramework.OCR.Tencent.Utils;
 using UokoFramework.Web.Utils;
+using UOKOFramework.Extensions;
 
 namespace UokoFramework.OCR.Tencent
 {
@@ -15,13 +16,13 @@ namespace UokoFramework.OCR.Tencent
     public class TencentIDCardClient : IIDCardClient
     {
         private static WebApiProvider webApiProvider = new WebApiProvider();
-        private readonly TencentORCOptions _tencentORCOptions;
+        private readonly TencentOCROptions _tencentORCOptions;
         private static string url = "http://service.image.myqcloud.com/ocr/idcard";
 
         /// <summary>
-        /// 
+        /// 构造函数
         /// </summary>
-        public TencentIDCardClient(TencentORCOptions tencentORCOptions)
+        public TencentIDCardClient(TencentOCROptions tencentORCOptions)
         {
             _tencentORCOptions = tencentORCOptions;
         }
@@ -37,16 +38,16 @@ namespace UokoFramework.OCR.Tencent
             {
                 if (info==null)
                 {
-                    throw new Exception("Request请求信息为空");
+                    throw new ArgumentException("Request请求信息为空");
                 }
                 if (string.IsNullOrEmpty(info.ImgUrl))
                 {
-                    throw new Exception("ImgUrl信息为空");
+                    throw new ArgumentException("ImgUrl信息为空");
                 }
                 List<string> urls = new List<string>() { info.ImgUrl };
 
+                var expired = DateTime.Now.GetMillisecondsUnixtime() / 1000 + 60;
 
-                var expired = DateTime.Now.ToUnixTime() / 1000 + 60;
                 var sign = TencentSign.DetectionSignature(_tencentORCOptions.AppId, _tencentORCOptions.SecretId, _tencentORCOptions.SecretKey, expired, _tencentORCOptions.BucketName);
 
                 var dic = new Dictionary<string, object>();
