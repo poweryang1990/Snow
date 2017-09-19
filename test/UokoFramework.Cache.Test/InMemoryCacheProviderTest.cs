@@ -14,7 +14,7 @@ namespace UOKOFramework.Cache.Test
         public void when_key_not_exist_should_return_null()
         {
             var cacheProvider = new InMemoryCacheProvider(_dateTimeProvider);
-            var key = new SubCacheKey().Build("123").Apps;
+            var key = new MockCacheKey().Build("123").Apps;
 
             var cacheValue = cacheProvider.Get(key);
 
@@ -25,7 +25,7 @@ namespace UOKOFramework.Cache.Test
         public void when_key_exist_should_retunt_cache()
         {
             var cacheProvider = new InMemoryCacheProvider(_dateTimeProvider);
-            var key = new SubCacheKey().Build("123").Apps;
+            var key = new MockCacheKey().Build("123").Apps;
             cacheProvider.Set(key, "abc");
 
             var cacheValue = cacheProvider.Get(key);
@@ -37,7 +37,7 @@ namespace UOKOFramework.Cache.Test
         public void when_remove_key_should_retunt_null()
         {
             var cacheProvider = new InMemoryCacheProvider(_dateTimeProvider);
-            var key = new SubCacheKey().Build("123").Apps;
+            var key = new MockCacheKey().Build("123").Apps;
             cacheProvider.Set(key, "abc");
 
             cacheProvider.Remove(key);
@@ -51,7 +51,7 @@ namespace UOKOFramework.Cache.Test
         public void when_remove_key_by_prefix_should_retunt_null()
         {
             var cacheProvider = new InMemoryCacheProvider(_dateTimeProvider);
-            var key = new SubCacheKey().Build("123");
+            var key = new MockCacheKey().Build("123");
             var keyPrefix = key.Prefix;
             cacheProvider.Set(key.Apps, "app");
             cacheProvider.Set(key.Profile, "profile");
@@ -68,7 +68,7 @@ namespace UOKOFramework.Cache.Test
         public void when_cache_is_timeout_should_retunt_null()
         {
             var cacheProvider = new InMemoryCacheProvider(_dateTimeProvider);
-            var key = new SubCacheKey().Build("123").Apps;
+            var key = new MockCacheKey().Build("123").Apps;
             cacheProvider.Set(key, "abc", DateTime.Parse("2017-09-19 16:16:16"));
 
 
