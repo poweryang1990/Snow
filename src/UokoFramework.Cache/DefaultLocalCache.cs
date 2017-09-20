@@ -6,9 +6,9 @@ using System.Threading;
 namespace UOKOFramework.Cache
 {
     /// <summary>
-    /// InMemoryCacheProvider
+    /// DefaultLocalCache[默认的本机内存缓存]
     /// </summary>
-    public class InMemoryCacheProvider : IDisposable, ICacheProvider
+    public class DefaultLocalCache : IDisposable, ILocalCache
     {
         private readonly IDateTimeProvider _dateTimeProvider;
 
@@ -20,7 +20,7 @@ namespace UOKOFramework.Cache
         /// 构造函数
         /// </summary>
         /// <param name="dateTimeProvider"></param>
-        public InMemoryCacheProvider(IDateTimeProvider dateTimeProvider)
+        public DefaultLocalCache(IDateTimeProvider dateTimeProvider)
         {
             _dateTimeProvider = dateTimeProvider;
         }
@@ -249,7 +249,7 @@ namespace UOKOFramework.Cache
         /// <summary>
         /// InMemoryCacheProvider
         /// </summary>
-        ~InMemoryCacheProvider()
+        ~DefaultLocalCache()
         {
             Dispose(false);
         }

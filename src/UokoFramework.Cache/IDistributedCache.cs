@@ -6,24 +6,24 @@ namespace UOKOFramework.Cache
     /// <summary>
     /// 分布式缓存
     /// </summary>
-    public interface IDistributedCacheProvider
+    public interface IDistributedCache
     {
         /// <summary>
         /// 设置缓存
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="options"></param>
-        void Set(CacheKey key, byte[] value, CacheValueOptions options);
+        /// <param name="expiry"></param>
+        void Set(CacheKey key, byte[] value, TimeSpan? expiry = null);
 
         /// <summary>
         /// 设置缓存
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="options"></param>
+        /// <param name="expiry"></param>
         /// <returns></returns>
-        Task SetAsync(CacheKey key, byte[] value, CacheValueOptions options);
+        Task SetAsync(CacheKey key, byte[] value, TimeSpan? expiry = null);
 
         /// <summary>
         /// 获取缓存

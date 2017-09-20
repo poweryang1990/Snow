@@ -6,7 +6,7 @@ namespace UOKOFramework.Cache
     /// <summary>
     /// 缓存提供者
     /// </summary>
-    public interface ICacheProvider
+    public interface ILocalCache
     {
         /// <summary>
         /// 添加缓存项，如果Key存在就替换
