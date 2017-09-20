@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace UOKOFramework.Cache
 {
     /// <summary>
-    /// 缓存提供者
+    /// 内存缓存
     /// </summary>
-    public interface ILocalCache
+    public interface IMemoryCache
     {
         /// <summary>
         /// 添加缓存项，如果Key存在就替换

@@ -1,21 +1,26 @@
 ﻿using System;
+using UOKOFramework.Cache.Memory;
 using Xunit;
 
 namespace UOKOFramework.Cache.Test
 {
 
-    public class InMemoryLocalCacheTest
+    public class MemoryCacheTest
     {
         private readonly DateTimeProvider _dateTimeProvider = new DateTimeProvider();
 
+        private MemoryCache BuildMemoryCache()
+        {
+            return new MemoryCache(_dateTimeProvider);
+        }
 
         [Fact]
         public void when_key_not_exist_should_return_null()
         {
-            var cacheProvider = new DefaultLocalCache(_dateTimeProvider);
+            var memoryCache = BuildMemoryCache();
             var key = new MockCacheKey().Build("123").Apps;
 
-            var cacheValue = cacheProvider.Get(key);
+            var cacheValue = memoryCache.Get(key);
 
             Assert.Equal(null, cacheValue);
         }
@@ -23,11 +28,11 @@ namespace UOKOFramework.Cache.Test
         [Fact]
         public void when_key_exist_should_retunt_cache()
         {
-            var cacheProvider = new DefaultLocalCache(_dateTimeProvider);
+            var memoryCache = BuildMemoryCache();
             var key = new MockCacheKey().Build("123").Apps;
-            cacheProvider.Set(key, "abc");
+            memoryCache.Set(key, "abc");
 
-            var cacheValue = cacheProvider.Get(key);
+            var cacheValue = memoryCache.Get(key);
 
             Assert.Equal("abc", cacheValue);
         }
@@ -35,13 +40,13 @@ namespace UOKOFramework.Cache.Test
         [Fact]
         public void when_remove_key_should_retunt_null()
         {
-            var cacheProvider = new DefaultLocalCache(_dateTimeProvider);
+            var memoryCache = BuildMemoryCache();
             var key = new MockCacheKey().Build("123").Apps;
-            cacheProvider.Set(key, "abc");
+            memoryCache.Set(key, "abc");
 
-            cacheProvider.Remove(key);
+            memoryCache.Remove(key);
 
-            var cacheValue = cacheProvider.Get(key);
+            var cacheValue = memoryCache.Get(key);
 
             Assert.Equal(null, cacheValue);
         }
@@ -49,16 +54,16 @@ namespace UOKOFramework.Cache.Test
         [Fact]
         public void when_remove_key_by_prefix_should_retunt_null()
         {
-            var cacheProvider = new DefaultLocalCache(_dateTimeProvider);
+            var memoryCache = BuildMemoryCache();
             var key = new MockCacheKey().Build("123");
             var keyPrefix = key.Prefix;
-            cacheProvider.Set(key.Apps, "app");
-            cacheProvider.Set(key.Profile, "profile");
+            memoryCache.Set(key.Apps, "app");
+            memoryCache.Set(key.Profile, "profile");
 
-            cacheProvider.RemoveByPrefix(keyPrefix);
+            memoryCache.RemoveByPrefix(keyPrefix);
 
-            var cacheValueOfApps = cacheProvider.Get(key.Apps);
-            var cacheValueOfProfile = cacheProvider.Get(key.Profile);
+            var cacheValueOfApps = memoryCache.Get(key.Apps);
+            var cacheValueOfProfile = memoryCache.Get(key.Profile);
             Assert.Equal(null, cacheValueOfApps);
             Assert.Equal(null, cacheValueOfProfile);
         }
@@ -66,15 +71,17 @@ namespace UOKOFramework.Cache.Test
         [Fact]
         public void when_cache_is_timeout_should_retunt_null()
         {
-            var cacheProvider = new DefaultLocalCache(_dateTimeProvider);
+            var memoryCache = BuildMemoryCache();
             var key = new MockCacheKey().Build("123").Apps;
-            cacheProvider.Set(key, "abc", DateTime.Parse("2017-09-19 16:16:16"));
+            memoryCache.Set(key, "abc", DateTime.Parse("2017-09-19 16:16:16"));
 
 
             _dateTimeProvider.SetNow(DateTime.Parse("2017-09-19 17:16:16"));
-            var cacheValue = cacheProvider.Get(key);
+            var cacheValue = memoryCache.Get(key);
 
             Assert.Equal(null, cacheValue);
         }
+
+        
     }
 }

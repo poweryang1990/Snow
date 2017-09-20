@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace UOKOFramework.Cache
+namespace UOKOFramework.Cache.Memory
 {
     /// <summary>
-    /// DefaultLocalCache[默认的本机内存缓存]
+    /// 内存缓存
     /// </summary>
-    public class DefaultLocalCache : IDisposable, ILocalCache
+    public class MemoryCache : IDisposable, IMemoryCache
     {
         private readonly IDateTimeProvider _dateTimeProvider;
 
@@ -20,7 +20,7 @@ namespace UOKOFramework.Cache
         /// 构造函数
         /// </summary>
         /// <param name="dateTimeProvider"></param>
-        public DefaultLocalCache(IDateTimeProvider dateTimeProvider)
+        public MemoryCache(IDateTimeProvider dateTimeProvider)
         {
             _dateTimeProvider = dateTimeProvider;
         }
@@ -249,7 +249,7 @@ namespace UOKOFramework.Cache
         /// <summary>
         /// InMemoryCacheProvider
         /// </summary>
-        ~DefaultLocalCache()
+        ~MemoryCache()
         {
             Dispose(false);
         }
