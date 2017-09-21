@@ -4,7 +4,7 @@ namespace UOKOFramework.Cache.Memory
 {
     internal class MemoryObject
     {
-        public MemoryObject(object value, DateTime? expiredTime)
+        public MemoryObject(object value, DateTimeOffset? expiredTime)
         {
             Object = value;
             ExpireAt = expiredTime;
@@ -18,9 +18,9 @@ namespace UOKOFramework.Cache.Memory
         /// <summary>
         /// 过期时间
         /// </summary>
-        public DateTime? ExpireAt { private get; set; }
+        public DateTimeOffset? ExpireAt { private get; set; }
 
-        public bool IsExpired(DateTime now)
+        public bool IsExpired(DateTimeOffset now)
         {
             if (this.ExpireAt == null)
             {

@@ -7,11 +7,11 @@ namespace UOKOFramework.Cache.Test
 
     public class MemoryCacheTest
     {
-        private readonly DateTimeProvider _dateTimeProvider = new DateTimeProvider();
+        private readonly DefaultClock _clock = new DefaultClock();
 
         private IMemoryCache BuildMemoryCache()
         {
-            return new MemoryCache(_dateTimeProvider);
+            return new MemoryCache(_clock);
         }
 
         [Fact]
@@ -71,14 +71,14 @@ namespace UOKOFramework.Cache.Test
         [Fact]
         public void when_cache_is_timeout_should_retunt_null()
         {
-            _dateTimeProvider.SetNow(DateTime.Parse("2017-09-19 17:16:16"));
+            _clock.Now = DateTimeOffset.Parse("2017-09-19 17:16:16");
 
             var memoryCache = BuildMemoryCache();
             var key = new MockCacheKey().Build("123").Apps;
             memoryCache.Set(key, "abc", TimeSpan.FromHours(1));
 
-
-            _dateTimeProvider.SetNow(DateTime.Parse("2017-09-20 17:16:16"));
+            
+            _clock.Now = DateTimeOffset.Parse("2017-09-20 17:16:16");
             var cacheValue = memoryCache.Get(key);
 
             Assert.Equal(null, cacheValue);

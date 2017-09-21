@@ -10,7 +10,7 @@ namespace UOKOFramework.Cache.Memory
     /// </summary>
     public class MemoryCache : IDisposable, IMemoryCache
     {
-        private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly IClock _clock;
 
         private Dictionary<string, MemoryObject> _memoryCache = new Dictionary<string, MemoryObject>();
 
@@ -19,10 +19,10 @@ namespace UOKOFramework.Cache.Memory
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="dateTimeProvider"></param>
-        public MemoryCache(IDateTimeProvider dateTimeProvider)
+        /// <param name="clock"></param>
+        public MemoryCache(IClock clock)
         {
-            _dateTimeProvider = dateTimeProvider;
+            _clock = clock;
         }
 
         /// <summary>
@@ -34,10 +34,10 @@ namespace UOKOFramework.Cache.Memory
         /// <returns></returns>
         public bool Set(CacheKey key, object value, TimeSpan? expiry)
         {
-            DateTime? expireAt = null;
+            DateTimeOffset? expireAt = null;
             if (expiry.HasValue)
             {
-                expireAt = this._dateTimeProvider.Now.Add(expiry.Value);
+                expireAt = this._clock.Now.Add(expiry.Value);
             }
             var keyString = key.ToString();
 
@@ -93,7 +93,7 @@ namespace UOKOFramework.Cache.Memory
             {
                 if (_memoryCache.TryGetValue(keyString, out var cacheItem))
                 {
-                    if (cacheItem.IsExpired(this._dateTimeProvider.Now) == false)
+                    if (cacheItem.IsExpired(this._clock.Now) == false)
                     {
                         return cacheItem.Object;
                     }
@@ -139,7 +139,7 @@ namespace UOKOFramework.Cache.Memory
                     if (_memoryCache.TryGetValue(key.ToString(), out var cacheItem))
                     {
 
-                        if (cacheItem.IsExpired(this._dateTimeProvider.Now) == false)
+                        if (cacheItem.IsExpired(this._clock.Now) == false)
                         {
                             values.Add(key, cacheItem.Object);
                         }
