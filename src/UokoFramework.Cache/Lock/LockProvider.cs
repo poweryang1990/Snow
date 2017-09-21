@@ -1,7 +1,6 @@
 ﻿using System;
-using UOKOFramework.Cache.Keys;
 
-namespace UOKOFramework.Cache
+namespace UOKOFramework.Cache.Lock
 {
     /// <summary>
     /// 锁

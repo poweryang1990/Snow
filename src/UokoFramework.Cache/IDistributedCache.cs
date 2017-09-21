@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UOKOFramework.Cache.Keys;
+using UOKOFramework.Cache.Lock;
 
 namespace UOKOFramework.Cache
 {
@@ -136,14 +136,14 @@ namespace UOKOFramework.Cache
         /// 从Hash中获取所有的字段
         /// </summary>
         /// <param name="key">Hash缓存的键</param>
-        /// <returns>Hash的值得集合</returns>
+        /// <returns>Hash的字段的集合</returns>
         IList<string> HashGetKeys(CacheKey key);
 
         /// <summary>
         /// 从Hash中获取所有的字段
         /// </summary>
         /// <param name="key">Hash缓存的键</param>
-        /// <returns>Hash的值得集合</returns>
+        /// <returns>Hash的字段的集合</returns>
         Task<IList<string>> HashGetKeysAsync(CacheKey key);
 
         /// <summary>

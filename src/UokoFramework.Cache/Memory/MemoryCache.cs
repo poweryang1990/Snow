@@ -12,7 +12,7 @@ namespace UOKOFramework.Cache.Memory
     {
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        private Dictionary<string, CacheItem> _memoryCache = new Dictionary<string, CacheItem>();
+        private Dictionary<string, MemoryObject> _memoryCache = new Dictionary<string, MemoryObject>();
 
         private readonly ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
 
@@ -50,7 +50,7 @@ namespace UOKOFramework.Cache.Memory
                     _readWriteLock.EnterWriteLock();
                     try
                     {
-                        result.Value = value;
+                        result.Object = value;
                         result.ExpireAt = expireAt;
                     }
                     finally
@@ -63,7 +63,7 @@ namespace UOKOFramework.Cache.Memory
                     _readWriteLock.EnterWriteLock();
                     try
                     {
-                        _memoryCache.Add(keyString, new CacheItem(value, expireAt));
+                        _memoryCache.Add(keyString, new MemoryObject(value, expireAt));
                     }
                     finally
                     {
@@ -95,7 +95,7 @@ namespace UOKOFramework.Cache.Memory
                 {
                     if (cacheItem.IsExpired(this._dateTimeProvider.Now) == false)
                     {
-                        return cacheItem.Value;
+                        return cacheItem.Object;
                     }
                 }
                 return default(object);
@@ -141,7 +141,7 @@ namespace UOKOFramework.Cache.Memory
 
                         if (cacheItem.IsExpired(this._dateTimeProvider.Now) == false)
                         {
-                            values.Add(key, cacheItem.Value);
+                            values.Add(key, cacheItem.Object);
                         }
                     }
                 }
@@ -239,33 +239,5 @@ namespace UOKOFramework.Cache.Memory
         }
 
         #endregion
-
-        private class CacheItem
-        {
-            public CacheItem(object value, DateTime? expiredTime)
-            {
-                Value = value;
-                ExpireAt = expiredTime;
-            }
-
-            /// <summary>
-            /// 值
-            /// </summary>
-            public object Value { get; set; }
-
-            /// <summary>
-            /// 过期时间
-            /// </summary>
-            public DateTime? ExpireAt { private get; set; }
-
-            public bool IsExpired(DateTime now)
-            {
-                if (this.ExpireAt == null)
-                {
-                    return false;
-                }
-                return this.ExpireAt.Value < now;
-            }
-        }
     }
 }

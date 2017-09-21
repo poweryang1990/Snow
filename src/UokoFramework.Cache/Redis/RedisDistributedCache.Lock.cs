@@ -1,6 +1,6 @@
 ﻿using System;
 using UOKOFramework.Cache.Extensions;
-using UOKOFramework.Cache.Keys;
+using UOKOFramework.Cache.Lock;
 
 namespace UOKOFramework.Cache.Redis
 {
