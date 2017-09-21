@@ -12,12 +12,12 @@ namespace UOKOFramework.Cache.Extensions
 
         public static RedisValue ToRedisValue(this object value)
         {
-            return value.ToJSON();
+            return value.ToJson();
         }
 
-        public static TCache ToObject<TCache>(this RedisValue value)
+        public static TCache JsonToObject<TCache>(this RedisValue value)
         {
-            return ((string)value).ToObject<TCache>();
+            return ((string)value).JsonToObject<TCache>();
         }
     }
 }

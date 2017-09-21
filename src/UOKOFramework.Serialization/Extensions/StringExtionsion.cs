@@ -12,7 +12,7 @@ namespace UOKOFramework.Serialization.Extensions
         /// </summary>
         /// <param name="json">this</param>
         /// <returns>对象</returns>
-        public static TObject ToObject<TObject>(this string json)
+        public static TObject JsonToObject<TObject>(this string json)
         {
             if (json == null)
             {

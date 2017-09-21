@@ -30,31 +30,15 @@ namespace UOKOFramework.Cache.Memory
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
+        /// <param name="expiry"></param>
         /// <returns></returns>
-        public bool Set(CacheKey key, object value)
+        public bool Set(CacheKey key, object value, TimeSpan? expiry)
         {
-            return Set(key, value, DateTime.MaxValue);
-        }
-
-        /// <summary>
-        /// 增加或者更新缓存项
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="duration">相对的缓存时间</param>
-        public bool Set(CacheKey key, object value, TimeSpan duration)
-        {
-            return Set(key, value, this._dateTimeProvider.Now.Add(duration));
-        }
-
-        /// <summary>
-        /// 增加或者更新缓存项
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="expireAt">绝对的过期时间</param>
-        public bool Set(CacheKey key, object value, DateTime expireAt)
-        {
+            DateTime? expireAt = null;
+            if (expiry.HasValue)
+            {
+                expireAt = this._dateTimeProvider.Now.Add(expiry.Value);
+            }
             var keyString = key.ToString();
 
             _readWriteLock.EnterUpgradeableReadLock();
@@ -67,7 +51,7 @@ namespace UOKOFramework.Cache.Memory
                     try
                     {
                         result.Value = value;
-                        result.ExpireTime = expireAt;
+                        result.ExpireAt = expireAt;
                     }
                     finally
                     {
@@ -109,7 +93,7 @@ namespace UOKOFramework.Cache.Memory
             {
                 if (_memoryCache.TryGetValue(keyString, out var cacheItem))
                 {
-                    if (cacheItem.ExpireTime > this._dateTimeProvider.Now)
+                    if (cacheItem.IsExpired(this._dateTimeProvider.Now) == false)
                     {
                         return cacheItem.Value;
                     }
@@ -155,7 +139,7 @@ namespace UOKOFramework.Cache.Memory
                     if (_memoryCache.TryGetValue(key.ToString(), out var cacheItem))
                     {
 
-                        if (cacheItem.ExpireTime > this._dateTimeProvider.Now)
+                        if (cacheItem.IsExpired(this._dateTimeProvider.Now) == false)
                         {
                             values.Add(key, cacheItem.Value);
                         }
@@ -174,8 +158,9 @@ namespace UOKOFramework.Cache.Memory
         /// 移除缓存
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="keyAsPrefix"></param>
         /// <returns></returns>
-        public bool Remove(CacheKey key)
+        public bool Delete(CacheKey key, bool keyAsPrefix)
         {
             var keyString = key.ToString();
 
@@ -183,7 +168,14 @@ namespace UOKOFramework.Cache.Memory
 
             try
             {
-                return _memoryCache.Remove(keyString);
+                if (keyAsPrefix)
+                {
+                    return DeleteByPrefix(key);
+                }
+                else
+                {
+                    return _memoryCache.Remove(keyString);
+                }
             }
             finally
             {
@@ -196,30 +188,22 @@ namespace UOKOFramework.Cache.Memory
         /// </summary>
         /// <param name="keyPrefix"></param>
         /// <returns></returns>
-        public bool RemoveByPrefix(CacheKey keyPrefix)
+        private bool DeleteByPrefix(CacheKey keyPrefix)
         {
             var keyPrefixString = keyPrefix.ToString();
-            _readWriteLock.EnterWriteLock();
 
-            try
+            var keys = _memoryCache.Keys
+                .Where(t => t.StartsWith(keyPrefixString))
+                .ToList();
+
+            var result = true;
+
+            foreach (var key in keys)
             {
-                var keys = _memoryCache.Keys
-                    .Where(t => t.StartsWith(keyPrefixString))
-                    .ToList();
-
-                var result = true;
-
-                foreach (var key in keys)
-                {
-                    result &= _memoryCache.Remove(key);
-                }
-
-                return result;
+                result &= _memoryCache.Remove(key);
             }
-            finally
-            {
-                _readWriteLock.ExitWriteLock();
-            }
+
+            return result;
         }
 
         #region IDisposable Members
@@ -258,10 +242,10 @@ namespace UOKOFramework.Cache.Memory
 
         private class CacheItem
         {
-            public CacheItem(object value, DateTime expiredTime)
+            public CacheItem(object value, DateTime? expiredTime)
             {
                 Value = value;
-                ExpireTime = expiredTime;
+                ExpireAt = expiredTime;
             }
 
             /// <summary>
@@ -272,7 +256,16 @@ namespace UOKOFramework.Cache.Memory
             /// <summary>
             /// 过期时间
             /// </summary>
-            public DateTime ExpireTime { get; set; }
+            public DateTime? ExpireAt { private get; set; }
+
+            public bool IsExpired(DateTime now)
+            {
+                if (this.ExpireAt == null)
+                {
+                    return false;
+                }
+                return this.ExpireAt.Value < now;
+            }
         }
     }
 }

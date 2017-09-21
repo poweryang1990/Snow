@@ -1,10 +1,9 @@
-﻿using System;
-using UOKOFramework.Serialization.Extensions;
+﻿using UOKOFramework.Serialization.Extensions;
 using Xunit;
 
 namespace UOKOFramework.Serialization.Test.Extensions.StringExtionsion
 {
-    public class ToObjectTest
+    public class JsonToObjectTest
     {
         public class MockObject
         {
@@ -18,7 +17,7 @@ namespace UOKOFramework.Serialization.Test.Extensions.StringExtionsion
         {
             string json = null;
 
-            Assert.Equal(null, json.ToObject<string>());
+            Assert.Equal(null, json.JsonToObject<string>());
         }
 
         [Fact]
@@ -27,7 +26,7 @@ namespace UOKOFramework.Serialization.Test.Extensions.StringExtionsion
             var json = "{\"number\":123,\"string_property\":\"456\"}";
             var value = new MockObject { number = 123, string_property = "456" };
 
-            var mockObject = json.ToObject<MockObject>();
+            var mockObject = json.JsonToObject<MockObject>();
 
             Assert.Equal(value.number, mockObject.number);
             Assert.Equal(value.string_property, mockObject.string_property);

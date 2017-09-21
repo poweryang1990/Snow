@@ -42,30 +42,22 @@ namespace UOKOFramework.Cache
         Task<TCache> GetAsync<TCache>(CacheKey key);
 
         /// <summary>
-        /// 移除缓存
+        /// 删除缓存
         /// </summary>
-        /// <param name="key"></param>
-        bool Remove(CacheKey key);
+        /// <param name="key">缓存的键</param>
+        /// <param name="keyAsPrefix">把缓存的键作为前缀来执行批量删除</param>
+        /// <returns>是否删除成功</returns>
+        bool Delete(CacheKey key, bool keyAsPrefix = false);
 
         /// <summary>
-        /// 移除缓存
+        /// 删除缓存
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        Task<bool> RemoveAsync(CacheKey key);
+        /// <param name="key">缓存的键</param>
+        /// <param name="keyAsPrefix">把缓存的键作为前缀来执行批量删除</param>
+        /// <returns>是否删除成功</returns>
+        Task<bool> DeleteAsync(CacheKey key, bool keyAsPrefix = false);
 
-        /// <summary>
-        /// 移除缓存
-        /// </summary>
-        /// <param name="keyPrefix"></param>
-        bool RemoveByPrefix(CacheKey keyPrefix);
-
-        /// <summary>
-        /// 移除缓存
-        /// </summary>
-        /// <param name="keyPrefix"></param>
-        /// <returns></returns>
-        Task<bool> RemoveByPrefixAsync(CacheKey keyPrefix);
+        #region 锁
 
         /// <summary>
         /// 加锁
@@ -82,12 +74,15 @@ namespace UOKOFramework.Cache
         /// <returns>是否释放成功</returns>
         bool UnLock(LockObject lockObject);
 
+        #endregion
+
+        #region 自增 自减
         /// <summary>
         /// 自增
         /// </summary>
         /// <param name="key">缓存的键</param>
         /// <param name="value"></param>
-        /// <returns>是否成功</returns>
+        /// <returns>是否自增成功</returns>
         long Increment(CacheKey key, long value = 1);
 
         /// <summary>
@@ -95,7 +90,9 @@ namespace UOKOFramework.Cache
         /// </summary>
         /// <param name="key">缓存的键</param>
         /// <param name="value"></param>
-        /// <returns>是否成功</returns>
+        /// <returns>是否自减成功</returns>
         long Decrement(CacheKey key, long value = 1);
+
+        #endregion
     }
 }

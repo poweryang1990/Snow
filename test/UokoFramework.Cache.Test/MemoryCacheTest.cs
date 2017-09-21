@@ -9,7 +9,7 @@ namespace UOKOFramework.Cache.Test
     {
         private readonly DateTimeProvider _dateTimeProvider = new DateTimeProvider();
 
-        private MemoryCache BuildMemoryCache()
+        private IMemoryCache BuildMemoryCache()
         {
             return new MemoryCache(_dateTimeProvider);
         }
@@ -44,7 +44,7 @@ namespace UOKOFramework.Cache.Test
             var key = new MockCacheKey().Build("123").Apps;
             memoryCache.Set(key, "abc");
 
-            memoryCache.Remove(key);
+            memoryCache.Delete(key);
 
             var cacheValue = memoryCache.Get(key);
 
@@ -60,7 +60,7 @@ namespace UOKOFramework.Cache.Test
             memoryCache.Set(key.Apps, "app");
             memoryCache.Set(key.Profile, "profile");
 
-            memoryCache.RemoveByPrefix(keyPrefix);
+            memoryCache.Delete(keyPrefix, true);
 
             var cacheValueOfApps = memoryCache.Get(key.Apps);
             var cacheValueOfProfile = memoryCache.Get(key.Profile);
@@ -71,17 +71,19 @@ namespace UOKOFramework.Cache.Test
         [Fact]
         public void when_cache_is_timeout_should_retunt_null()
         {
+            _dateTimeProvider.SetNow(DateTime.Parse("2017-09-19 17:16:16"));
+
             var memoryCache = BuildMemoryCache();
             var key = new MockCacheKey().Build("123").Apps;
-            memoryCache.Set(key, "abc", DateTime.Parse("2017-09-19 16:16:16"));
+            memoryCache.Set(key, "abc", TimeSpan.FromHours(1));
 
 
-            _dateTimeProvider.SetNow(DateTime.Parse("2017-09-19 17:16:16"));
+            _dateTimeProvider.SetNow(DateTime.Parse("2017-09-20 17:16:16"));
             var cacheValue = memoryCache.Get(key);
 
             Assert.Equal(null, cacheValue);
         }
 
-        
+
     }
 }

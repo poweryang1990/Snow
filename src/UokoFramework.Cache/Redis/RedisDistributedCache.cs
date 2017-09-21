@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using StackExchange.Redis;
@@ -12,7 +13,7 @@ namespace UOKOFramework.Cache.Redis
     /// </summary>
     public class RedisDistributedCache : IDistributedCache
     {
-        private readonly SemaphoreSlim _connectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
+        private readonly SemaphoreSlim _redisLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
         private volatile IConnectionMultiplexer _redis;
         private readonly RedisOptions _options;
         private IDatabase _db;
@@ -93,7 +94,7 @@ namespace UOKOFramework.Cache.Redis
 
             return this._db
                  .StringGet(key.ToRedisKey())
-                 .ToObject<TCache>();
+                 .JsonToObject<TCache>();
         }
 
         /// <summary>
@@ -114,15 +115,16 @@ namespace UOKOFramework.Cache.Redis
             var redisValue = await this._db
                 .StringGetAsync(key.ToRedisKey());
 
-            return redisValue.ToObject<TCache>();
+            return redisValue.JsonToObject<TCache>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="keyAsPrefix"></param>
         /// <returns></returns>
-        public bool Remove(CacheKey key)
+        public bool Delete(CacheKey key, bool keyAsPrefix)
         {
             if (key == null)
             {
@@ -130,16 +132,29 @@ namespace UOKOFramework.Cache.Redis
             }
 
             Connect();
-
-            return this._db.KeyDelete(key.ToRedisKey());
+            if (keyAsPrefix == true)
+            {
+                foreach (var endPoint in _redis.GetEndPoints())
+                {
+                    var server = _redis.GetServer(endPoint);
+                    var keys = server.Keys(pattern: $"{key}*").ToArray();
+                    this._db.KeyDelete(keys);
+                }
+                return true;
+            }
+            else
+            {
+                return this._db.KeyDelete(key.ToRedisKey());
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="keyAsPrefix"></param>
         /// <returns></returns>
-        public async Task<bool> RemoveAsync(CacheKey key)
+        public async Task<bool> DeleteAsync(CacheKey key, bool keyAsPrefix)
         {
             if (key == null)
             {
@@ -147,58 +162,19 @@ namespace UOKOFramework.Cache.Redis
             }
 
             await ConnectAsync();
-
-            return await this._db.KeyDeleteAsync(key.ToRedisKey());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="keyPrefix"></param>
-        /// <returns></returns>
-        public bool RemoveByPrefix(CacheKey keyPrefix)
-        {
-            if (keyPrefix == null)
+            if (keyAsPrefix == true)
             {
-                throw new ArgumentNullException(nameof(keyPrefix));
-            }
-
-            Connect();
-
-            foreach (var endPoint in _redis.GetEndPoints())
-            {
-                var server = _redis.GetServer(endPoint);
-                foreach (var key in server.Keys(pattern: $"{keyPrefix}*"))
+                foreach (var endPoint in _redis.GetEndPoints())
                 {
-                    _db.KeyDelete(key);
+                    var server = _redis.GetServer(endPoint);
+                    var keys = server.Keys(pattern: $"{key}*").ToArray();
+                    await this._db.KeyDeleteAsync(keys);
                 }
+                return true;
             }
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="keyPrefix"></param>
-        /// <returns></returns>
-        public async Task<bool> RemoveByPrefixAsync(CacheKey keyPrefix)
-        {
-            if (keyPrefix == null)
             {
-                throw new ArgumentNullException(nameof(keyPrefix));
+                return await this._db.KeyDeleteAsync(key.ToRedisKey());
             }
-
-            await ConnectAsync();
-
-            foreach (var endPoint in _redis.GetEndPoints())
-            {
-                var server = _redis.GetServer(endPoint);
-                foreach (var key in server.Keys(pattern: $"{keyPrefix}*"))
-                {
-                    await _db.KeyDeleteAsync(key);
-                }
-            }
-            return true;
         }
 
         /// <summary>
@@ -281,7 +257,7 @@ namespace UOKOFramework.Cache.Redis
                 return;
             }
 
-            this._connectionLock.Wait();
+            this._redisLock.Wait();
             try
             {
                 if (this._redis == null)
@@ -292,7 +268,7 @@ namespace UOKOFramework.Cache.Redis
             }
             finally
             {
-                this._connectionLock.Release();
+                this._redisLock.Release();
             }
         }
 
@@ -303,7 +279,7 @@ namespace UOKOFramework.Cache.Redis
                 return;
             }
 
-            await this._connectionLock.WaitAsync();
+            await this._redisLock.WaitAsync();
             try
             {
                 if (this._redis == null)
@@ -314,7 +290,7 @@ namespace UOKOFramework.Cache.Redis
             }
             finally
             {
-                this._connectionLock.Release();
+                this._redisLock.Release();
             }
         }
 

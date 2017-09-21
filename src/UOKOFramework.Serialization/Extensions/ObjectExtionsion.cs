@@ -14,12 +14,11 @@ namespace UOKOFramework.Serialization.Extensions
         /// <param name="value">this</param>
         /// <param name="settings">JSON序列化设置</param>
         /// <returns>JSON</returns>
-        // ReSharper disable once InconsistentNaming
-        public static string ToJSON(
+        public static string ToJson(
             this object value,
             JsonSerializerSettings settings = null)
         {
-            if (value==null)
+            if (value == null)
             {
                 return null;
             }
@@ -37,8 +36,7 @@ namespace UOKOFramework.Serialization.Extensions
         /// <param name="value">this</param>
         /// <param name="dateTimeFormat">日期格式化</param>
         /// <returns>JSON</returns>
-        // ReSharper disable once InconsistentNaming
-        public static string ToJSON(
+        public static string ToJson(
             this object value,
             string dateTimeFormat)
         {
