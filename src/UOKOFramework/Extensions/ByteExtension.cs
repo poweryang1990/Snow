@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using System.Linq;
+using UOKOFramework.Security;
 
 namespace UOKOFramework.Extensions
 {
@@ -16,15 +16,9 @@ namespace UOKOFramework.Extensions
         /// <param name="bytes">原始byte数组</param>
         /// <param name="hashAlgorithm">具体的hash算法</param>
         /// <returns>hash字节数组</returns>
-        private static byte[] GetHash(this byte[] bytes, HashAlgorithm hashAlgorithm)
+        public static byte[] GetHash(this byte[] bytes, HashAlgorithm hashAlgorithm)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-            Throws.ArgumentNullException(hashAlgorithm, nameof(hashAlgorithm));
-
-            using (hashAlgorithm)
-            {
-                return hashAlgorithm.ComputeHash(bytes);
-            }
+            return new HashProvider(bytes).GetHash(hashAlgorithm);
         }
 
         /// <summary>
@@ -35,7 +29,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetMD5(this byte[] bytes)
         {
-            return bytes.GetHash(new MD5CryptoServiceProvider());
+            return new HashProvider(bytes).GetMD5();
         }
 
         /// <summary>
@@ -46,7 +40,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA1(this byte[] bytes)
         {
-            return bytes.GetHash(new SHA1CryptoServiceProvider());
+            return new HashProvider(bytes).GetSHA1();
         }
 
         /// <summary>
@@ -57,7 +51,8 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA256(this byte[] bytes)
         {
-            return bytes.GetHash(new SHA256CryptoServiceProvider());
+            return new HashProvider(bytes).GetSHA256();
+
         }
 
         /// <summary>
@@ -69,8 +64,8 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetHMACSHA1(this byte[] bytes, byte[] key)
         {
-            Throws.ArgumentNullException(key, nameof(key));
-            return bytes.GetHash(new HMACSHA1(key));
+            return new HashProvider(bytes).GetHMACSHA1(key);
+
         }
 
 
@@ -83,21 +78,7 @@ namespace UOKOFramework.Extensions
         /// <returns>16进制的字符串</returns>
         public static string GetHex(this byte[] bytes, bool withHyphen = true, bool lowerCase = false)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-
-            var hexString = BitConverter.ToString(bytes);
-
-            if (withHyphen == false)
-            {
-                hexString = hexString.Replace("-", "");
-            }
-
-            if (lowerCase == true)
-            {
-                hexString = hexString.ToLower();
-            }
-
-            return hexString;
+            return new ByteEncoder(bytes).GetHex(withHyphen, lowerCase);
         }
 
         /// <summary>
@@ -107,9 +88,7 @@ namespace UOKOFramework.Extensions
         /// <returns>base64字符串</returns>
         public static string GetBase64(this byte[] bytes)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-
-            return Convert.ToBase64String(bytes);
+            return new ByteEncoder(bytes).GetBase64();
         }
 
         /// <summary>
@@ -119,9 +98,7 @@ namespace UOKOFramework.Extensions
         /// <returns>url safe base64字符串</returns>
         public static string GetUrlSafeBase64(this byte[] bytes)
         {
-            return GetBase64(bytes)
-                .Replace('+', '-')
-                .Replace('/', '_');
+            return new ByteEncoder(bytes).GetUrlSafeBase64();
         }
 
         /// <summary>
@@ -132,14 +109,7 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetString(this byte[] bytes, Encoding encoding = null)
         {
-
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
-            return encoding.GetString(bytes);
+            return new ByteEncoder(bytes).GetString(encoding);
         }
 
         /// <summary>
