@@ -19,12 +19,9 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetDescription(this MemberInfo memberInfo, bool inherit = false)
         {
-            var descriptionAttribute = memberInfo?.GetCustomAttribute<DescriptionAttribute>(inherit);
-            if (descriptionAttribute == null)
-            {
-                return string.Empty;
-            }
-            return descriptionAttribute.Description;
+            return memberInfo
+                ?.GetCustomAttribute<DescriptionAttribute>(inherit)
+                ?.Description;
         }
 
         /// <summary>
@@ -36,12 +33,9 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetGroupName(this MemberInfo memberInfo, bool inherit = false)
         {
-            var groupAttribute = memberInfo?.GetCustomAttribute<GroupAttribute>(inherit);
-            if (groupAttribute == null)
-            {
-                return string.Empty;
-            }
-            return groupAttribute.Name;
+            return memberInfo
+                ?.GetCustomAttribute<GroupAttribute>(inherit)
+                ?.Name;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace UOKOFramework.Test.Extensions.MemberInfoExtension
 
             var description = member.GetDescription();
 
-            Assert.Equal(string.Empty, description);
+            Assert.Null(description);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace UOKOFramework.Test.Extensions.MemberInfoExtension
         {
             var member = typeof(SubClassInheritHasDescriptionClass);
 
-            Assert.Equal(string.Empty, member.GetDescription());
+            Assert.Null(member.GetDescription());
             Assert.Equal("test", member.GetDescription(true));
         }
     }
