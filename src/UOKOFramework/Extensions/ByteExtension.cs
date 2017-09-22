@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using UOKOFramework.Security;
 
@@ -121,24 +120,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESEncrypt(this byte[] bytes, byte[] key)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-            Throws.ArgumentNullException(key, nameof(key));
-
-            if (key.Length != 16 && key.Length != 24 && key.Length != 32)
-            {
-                throw new ArgumentException("无效的AES Key,必须是长度为16/24/32的byte数组");
-            }
-            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
-            {
-                symmetricAlgorithm.Key = key;
-                symmetricAlgorithm.Mode = CipherMode.ECB;
-                symmetricAlgorithm.Padding = PaddingMode.Zeros;
-                //加密
-                using (var encryptor = symmetricAlgorithm.CreateEncryptor())
-                {
-                    return encryptor.TransformFinalBlock(bytes, 0, bytes.Length);
-                }
-            }
+            return new AESProvider(key).Encrypt(bytes);
         }
 
         /// <summary>
@@ -150,46 +132,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESDecrypt(this byte[] encryptedBytes, byte[] key)
         {
-            Throws.ArgumentNullException(encryptedBytes, nameof(encryptedBytes));
-            Throws.ArgumentNullException(key, nameof(key));
-
-            if (key.Length != 16 && key.Length != 24 && key.Length != 32)
-            {
-                throw new ArgumentException("无效的AES Key,必须是长度为16/24/32的byte数组");
-            }
-            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
-            {
-                symmetricAlgorithm.Key = key;
-                symmetricAlgorithm.Mode = CipherMode.ECB;
-                symmetricAlgorithm.Padding = PaddingMode.Zeros;
-
-                //解密
-                using (var decryptor = symmetricAlgorithm.CreateDecryptor())
-                {
-                    var decryptedBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
-
-                    //移除填充后的原始数据的有效长度
-                    var originalDataLength = decryptedBytes.Length;
-                    for (; originalDataLength > 0; originalDataLength--)
-                    {
-                        if (decryptedBytes[originalDataLength - 1] != 0)
-                        {
-                            break;
-                        }
-                    }
-
-                    if (originalDataLength == decryptedBytes.Length)
-                    {
-                        return decryptedBytes;
-                    }
-                    else
-                    {
-                        var decryptedWithOutPaddingBytes = new byte[originalDataLength];
-                        Buffer.BlockCopy(decryptedBytes, 0, decryptedWithOutPaddingBytes, 0, decryptedWithOutPaddingBytes.Length);
-                        return decryptedWithOutPaddingBytes;
-                    }
-                }
-            }
+            return new AESProvider(key).Decrypt(encryptedBytes);
         }
     }
 }
