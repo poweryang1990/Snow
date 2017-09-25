@@ -2,6 +2,7 @@
 using UOKOFramework.Extensions;
 using UOKOFramework.Security;
 using Xunit;
+
 // ReSharper disable InconsistentNaming
 
 namespace UOKOFramework.Test.Security.ASCIIHelpers
