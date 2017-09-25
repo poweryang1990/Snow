@@ -2,15 +2,16 @@
 using UOKOFramework.Extensions;
 using UOKOFramework.Security;
 using Xunit;
+// ReSharper disable InconsistentNaming
 
-namespace UOKOFramework.Test.Security.ByteEncoders
+namespace UOKOFramework.Test.Security.ASCIIHelpers
 {
     public class BaseTest
     {
-        public ByteEncoder BuildByteEncoder(string value)
+        public ASCIIHelper BuildASCIIHelper(string value)
         {
             var bytes = value.GetBytes();
-            return new ByteEncoder(bytes);
+            return new ASCIIHelper(bytes);
         }
 
         [Fact]
@@ -18,7 +19,7 @@ namespace UOKOFramework.Test.Security.ByteEncoders
         {
             byte[] bytes = null;
 
-            Assert.Throws<ArgumentNullException>(() => new ByteEncoder(bytes));
+            Assert.Throws<ArgumentNullException>(() => new ASCIIHelper(bytes));
         }
 
         [Fact]
@@ -26,7 +27,7 @@ namespace UOKOFramework.Test.Security.ByteEncoders
         {
             byte[] bytes = new byte[0];
 
-            Assert.Throws<ArgumentNullException>(() => new ByteEncoder(bytes));
+            Assert.Throws<ArgumentNullException>(() => new ASCIIHelper(bytes));
         }
     }
 }

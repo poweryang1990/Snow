@@ -17,7 +17,7 @@ namespace UOKOFramework.Extensions
         /// <returns>hash字节数组</returns>
         public static byte[] GetHash(this byte[] bytes, HashAlgorithm hashAlgorithm)
         {
-            return new HashProvider(bytes).GetHash(hashAlgorithm);
+            return new HashHelper(bytes).GetHash(hashAlgorithm);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetMD5(this byte[] bytes)
         {
-            return new HashProvider(bytes).GetMD5();
+            return new HashHelper(bytes).GetMD5();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA1(this byte[] bytes)
         {
-            return new HashProvider(bytes).GetSHA1();
+            return new HashHelper(bytes).GetSHA1();
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA256(this byte[] bytes)
         {
-            return new HashProvider(bytes).GetSHA256();
+            return new HashHelper(bytes).GetSHA256();
 
         }
 
@@ -63,7 +63,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetHMACSHA1(this byte[] bytes, byte[] key)
         {
-            return new HashProvider(bytes).GetHMACSHA1(key);
+            return new HashHelper(bytes).GetHMACSHA1(key);
 
         }
 
@@ -77,7 +77,7 @@ namespace UOKOFramework.Extensions
         /// <returns>16进制的字符串</returns>
         public static string GetHex(this byte[] bytes, bool withHyphen = true, bool lowerCase = false)
         {
-            return new ByteEncoder(bytes).GetHex(withHyphen, lowerCase);
+            return new ASCIIHelper(bytes).GetHex(withHyphen, lowerCase);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace UOKOFramework.Extensions
         /// <returns>base64字符串</returns>
         public static string GetBase64(this byte[] bytes)
         {
-            return new ByteEncoder(bytes).GetBase64();
+            return new ASCIIHelper(bytes).GetBase64();
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace UOKOFramework.Extensions
         /// <returns>url safe base64字符串</returns>
         public static string GetUrlSafeBase64(this byte[] bytes)
         {
-            return new ByteEncoder(bytes).GetUrlSafeBase64();
+            return new ASCIIHelper(bytes).GetUrlSafeBase64();
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetString(this byte[] bytes, Encoding encoding = null)
         {
-            return new ByteEncoder(bytes).GetString(encoding);
+            return new ASCIIHelper(bytes).GetString(encoding);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESEncrypt(this byte[] bytes, byte[] key)
         {
-            return new AESProvider(key).Encrypt(bytes);
+            return new AESHelper(key).Encrypt(bytes);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESDecrypt(this byte[] encryptedBytes, byte[] key)
         {
-            return new AESProvider(key).Decrypt(encryptedBytes);
+            return new AESHelper(key).Decrypt(encryptedBytes);
         }
     }
 }

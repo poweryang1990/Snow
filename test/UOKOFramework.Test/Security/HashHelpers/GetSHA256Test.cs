@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace UOKOFramework.Test.Security.HashProviders
+namespace UOKOFramework.Test.Security.HashHelpers
 {
     // ReSharper disable once InconsistentNaming
     public class GetSHA256Test : BaseTest
@@ -8,9 +8,9 @@ namespace UOKOFramework.Test.Security.HashProviders
         [Fact]
         public void when_bytes_is_not_null()
         {
-            var hashProvider = BuildHashProvider("优客");
+            var hashHelper = BuildHashHelper("优客");
 
-            var sha256Bytes = hashProvider.GetSHA256();
+            var sha256Bytes = hashHelper.GetSHA256();
 
             var sha256Hex = GetHex(sha256Bytes);
             Assert.Equal("44E77E370BD3FAFA99DD21E86BD7D7E9407D146F12EE3DD36AFF248B9E012482", sha256Hex);

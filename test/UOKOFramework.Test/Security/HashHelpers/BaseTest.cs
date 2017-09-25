@@ -3,21 +3,21 @@ using UOKOFramework.Extensions;
 using UOKOFramework.Security;
 using Xunit;
 
-namespace UOKOFramework.Test.Security.HashProviders
+namespace UOKOFramework.Test.Security.HashHelpers
 {
     public class BaseTest
     {
-        public HashProvider BuildHashProvider(string value)
+        public HashHelper BuildHashHelper(string value)
         {
             var bytes = value.GetBytes();
-            return new HashProvider(bytes);
+            return new HashHelper(bytes);
         }
 
         public string GetHex(byte[] bytes)
         {
-            var byteEncoder = new ByteEncoder(bytes);
+            var asciiHelper = new ASCIIHelper(bytes);
 
-            return byteEncoder.GetHex(withHyphen: false, lowerCase: false);
+            return asciiHelper.GetHex(withHyphen: false, lowerCase: false);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace UOKOFramework.Test.Security.HashProviders
         {
             byte[] bytes = null;
 
-            Assert.Throws<ArgumentNullException>(() => new HashProvider(bytes));
+            Assert.Throws<ArgumentNullException>(() => new HashHelper(bytes));
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace UOKOFramework.Test.Security.HashProviders
         {
             byte[] bytes = new byte[0];
 
-            Assert.Throws<ArgumentNullException>(() => new HashProvider(bytes));
+            Assert.Throws<ArgumentNullException>(() => new HashHelper(bytes));
         }
     }
 }

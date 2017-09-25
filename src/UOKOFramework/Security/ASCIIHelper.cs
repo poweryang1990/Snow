@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Text;
+// ReSharper disable InconsistentNaming
 
 namespace UOKOFramework.Security
 {
     /// <summary>
-    /// 编码提供者
+    /// ASCII帮助类
     /// </summary>
-    public class ByteEncoder
+    public class ASCIIHelper
     {
         /// <summary>
         /// 获取原始byte数组
@@ -17,7 +18,7 @@ namespace UOKOFramework.Security
         /// 构造函数
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
-        public ByteEncoder(byte[] bytes)
+        public ASCIIHelper(byte[] bytes)
         {
             Throws.ArgumentNullException(bytes, nameof(bytes));
             this.Bytes = bytes;

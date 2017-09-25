@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Security.Cryptography;
+// ReSharper disable InconsistentNaming
 
 namespace UOKOFramework.Security
 {
     /// <summary>
-    /// 
+    /// AES帮助类
     /// </summary>
-    // ReSharper disable InconsistentNaming
-    public class AESProvider
+    public class AESHelper
     {
         private byte[] _key;
 
@@ -34,7 +34,7 @@ namespace UOKOFramework.Security
         /// 构造函数
         /// </summary>
         /// <param name="key">key：长度只能是[16,24,32]</param>
-        public AESProvider(byte[] key)
+        public AESHelper(byte[] key)
         {
             this.Key = key;
         }

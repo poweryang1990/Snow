@@ -5,9 +5,9 @@
 namespace UOKOFramework.Security
 {
     /// <summary>
-    /// 散列值提供者
+    /// 散列值帮助类
     /// </summary>
-    public class HashProvider
+    public class HashHelper
     {
         /// <summary>
         /// 获取原始byte数组
@@ -18,7 +18,7 @@ namespace UOKOFramework.Security
         /// 构造函数
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
-        public HashProvider(byte[] bytes)
+        public HashHelper(byte[] bytes)
         {
             Throws.ArgumentNullException(bytes, nameof(bytes));
             this.Bytes = bytes;
