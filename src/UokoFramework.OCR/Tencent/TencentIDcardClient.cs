@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UokoFramework.OCR.Common;
 using System.Linq;
-using UokoFramework.OCR.Interface;
-using UokoFramework.OCR.Tencent.Utils;
-using UokoFramework.Web.Utils;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using UokoFramework.OCR.Extensions;
+using UOKOFramework;
 using UOKOFramework.Extensions;
+using UOKOFramework.Serialization.Extensions;
 
+// ReSharper disable InconsistentNaming
+// https://cloud.tencent.com/document/product/460/6895
 namespace UokoFramework.OCR.Tencent
 {
     /// <summary>
@@ -15,75 +19,114 @@ namespace UokoFramework.OCR.Tencent
     /// </summary>
     public class TencentIDCardClient : IIDCardClient
     {
-        private static WebApiProvider webApiProvider = new WebApiProvider();
-        private readonly TencentOCROptions _tencentORCOptions;
-        private static string url = "http://service.image.myqcloud.com/ocr/idcard";
+        private const string Apiurl = "http://service.image.myqcloud.com/ocr/idcard";
+
+        private readonly TencentOCROptions _options;
+        private readonly IClock _clock;
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        public TencentIDCardClient(TencentOCROptions tencentORCOptions)
+        public TencentIDCardClient(TencentOCROptions options, IClock clock)
         {
-            _tencentORCOptions = tencentORCOptions;
+            Throws.ArgumentNullException(options, nameof(options));
+            Throws.ArgumentNullException(options.AppId, nameof(options.AppId));
+            Throws.ArgumentNullException(options.SecretId, nameof(options.SecretId));
+            Throws.ArgumentNullException(options.SecretKey, nameof(options.SecretKey));
+            Throws.ArgumentNullException(options.Bucket, nameof(options.Bucket));
+            Throws.ArgumentNullException(options.HttpClient, nameof(options.HttpClient));
+
+            _options = options;
+            _clock = clock;
         }
 
         /// <summary>
         /// 身份证识别
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public IDCardResponse Detect(IDCardRequest info)
+        public async Task<IDCardResponse> DetectAsync(IDCardRequest request)
         {
+            Throws.ArgumentNullException(request, nameof(request));
+            Throws.ArgumentNullException(request.ImgUrl, nameof(request.ImgUrl));
             try
             {
-                if (info == null)
+                var httpClient = this._options.HttpClient;
+
+                var httpRequest = BuildHttpRequestMessage(request);
+
+                var response = await httpClient.Request<TencentOCRResponse>(httpRequest);
+
+                var result = response.Result_List.First();
+
+                return new IDCardResponse
                 {
-                    throw new ArgumentException("Request请求信息为空");
-                }
-                if (string.IsNullOrEmpty(info.ImgUrl))
-                {
-                    throw new ArgumentException("ImgUrl信息为空");
-                }
-                List<string> urls = new List<string>() { info.ImgUrl };
-
-                var expired = DateTime.Now.ToUnixTimeSeconds() + 60;
-
-                var sign = TencentSign.DetectionSignature(_tencentORCOptions.AppId, _tencentORCOptions.SecretId, _tencentORCOptions.SecretKey, expired, _tencentORCOptions.BucketName);
-
-                var dic = new Dictionary<string, object>();
-                dic.Add("appid", _tencentORCOptions.AppId);
-                dic.Add("bucket", _tencentORCOptions.BucketName);
-                dic.Add("card_type", info.IDcardType.GetHashCode());
-                dic.Add("url_list", urls);
-
-                var data = webApiProvider.Post<object, TencentResponse>(url, dic, sign);
-
-                var reulst = data.Result_List.Select(r => new IDCardResponse
-                {
-                    Status = r.Code == 0 ? true : false,
-                    Message = r.Message,
-                    IDcardInfo = new IDcardInfo()
+                    Success = result.Code == 0,
+                    Message = result.Message,
+                    Result = new IDCard
                     {
-                        Address = r.Data.Address,
-                        Authority = r.Data.Authority,
-                        Birth = r.Data.Birth,
-                        Id = r.Data.Id,
-                        Name = r.Data.Name,
-                        Nation = r.Data.Nation,
-                        Sex = r.Data.Sex,
-                        Valid_date = r.Data.Valid_date
+                        Address = result.Data.Address,
+                        Authority = result.Data.Authority,
+                        Birth = result.Data.Birth,
+                        Id = result.Data.Id,
+                        Name = result.Data.Name,
+                        Nation = result.Data.Nation,
+                        Sex = result.Data.Sex,
+                        ValidDate = result.Data.Valid_date
                     }
-                });
-                return reulst.FirstOrDefault();
+                };
             }
             catch (Exception ex)
             {
-                return new IDCardResponse()
+                return new IDCardResponse
                 {
-                    Status = false,
+                    Success = false,
                     Message = ex.Message
                 };
             }
+        }
+
+
+        private HttpRequestMessage BuildHttpRequestMessage(IDCardRequest request)
+        {
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, Apiurl);
+
+            httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Basic", BuildSignature());
+
+            var requestJson = new
+            {
+                appid = this._options.AppId,
+                bucket = this._options.Bucket,
+                cart_type = (int)request.Type,
+                url_list = new List<string>
+                {
+                    request.ImgUrl
+                }
+            }.ToJson();
+
+            httpRequest.Content = new StringContent(requestJson, Encoding.UTF8, "application/json");
+
+            return httpRequest;
+        }
+
+        private string BuildSignature()
+        {
+            var now = this._clock.UnixTime;
+            var option = this._options;
+            // ReSharper disable once UseStringInterpolation
+            var plainText = string.Format("a={0}&b={1}&k={2}&e={3}&t={4}",
+                option.AppId,
+                option.Bucket,
+                option.SecretId,
+                now + 60,
+                now);
+
+            var plainBytes = plainText.GetBytes();
+
+            var macBytes = option.SecretKey.GetBytes()
+                .GetHMACSHA1(plainBytes);
+
+            return macBytes.Combine(plainBytes).GetBase64();
         }
     }
 }

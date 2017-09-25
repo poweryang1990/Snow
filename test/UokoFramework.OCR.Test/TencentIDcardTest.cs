@@ -1,49 +1,49 @@
-﻿using System;
-using UokoFramework.OCR.Alibaba;
-using UokoFramework.OCR.Alibaba.Utils;
-using UokoFramework.OCR.Common;
-using UokoFramework.OCR.Interface;
+﻿using UokoFramework.OCR.Alibaba;
 using UokoFramework.OCR.Tencent;
-using UokoFramework.OCR.Tencent.Utils;
+using UOKOFramework;
 using Xunit;
+// ReSharper disable InconsistentNaming
 
 namespace UokoFramework.OCR.Test
 {
+    /// <summary>
+    /// todo:待完善。
+    /// </summary>
     public class TencentIDCardTest
     {
 
-        private IDCardRequest request = new IDCardRequest()
+        private readonly IDCardRequest request = new IDCardRequest()
         {
-            IDcardType = Common.IDCardType.Face,
+            Type = IDCardType.Face,
             ImgUrl = "http://7xodcr.com1.z0.glb.clouddn.com/%E6%AD%A3%E9%9D%A2.png",
         };
 
         [Fact]
         public void DetectTencent()
         {
-            TencentOCROptions options = new TencentOCROptions()
+            TencentOCROptions options = new TencentOCROptions
             {
                 AppId = 1252754859,
                 SecretId = "AKIDEQRHD2SGWaSYWJbCyb2GUZS8dOyMHzKU",
                 SecretKey = "CGDzYv6QdiibI7pMhreXIsGTUIyTlrmV",
-                BucketName = "idcard",
+                Bucket = "idcard"
             };
 
-            IIDCardClient tencentIDcard = new TencentIDCardClient(options);
-            var result = tencentIDcard.Detect(request);
+            IIDCardClient tencentIDcard = new TencentIDCardClient(options, new DefaultClock());
+            var result = tencentIDcard.DetectAsync(request).Result;
         }
 
         [Fact]
         public void DetectAlibaba()
         {
-            AlibabaOCROptions options = new AlibabaOCROptions()
+            AlibabaOCROptions options = new AlibabaOCROptions
             {
                 Appcode = "",
                 Url = "",
             };
 
             IIDCardClient alibabaIDcard = new AlibabaIDCardClient(options);
-            var result = alibabaIDcard.Detect(request);
+            var result = alibabaIDcard.DetectAsync(request).Result;
         }
     }
 }

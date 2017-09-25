@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// ReSharper disable InconsistentNaming
 
-namespace UokoFramework.OCR.Tencent.Utils
+using System.Net.Http;
+
+namespace UokoFramework.OCR.Tencent
 {
     /// <summary>
     /// 腾讯OCR Options
@@ -20,13 +20,18 @@ namespace UokoFramework.OCR.Tencent.Utils
         public string SecretId { get; set; }
 
         /// <summary>
-        /// 秘钥可以
+        /// 秘钥Key
         /// </summary>
         public string SecretKey { get; set; }
 
         /// <summary>
-        /// 空间名
+        /// 图片空间
         /// </summary>
-        public string BucketName { get; set; }
+        public string Bucket { get; set; }
+
+        /// <summary>
+        /// HttpClient
+        /// </summary>
+        public HttpClient HttpClient { get; set; }
     }
 }

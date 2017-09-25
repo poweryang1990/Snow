@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// ReSharper disable InconsistentNaming
 
-namespace UokoFramework.OCR.Common
+namespace UokoFramework.OCR
 {
     /// <summary>
     /// ID Card Request
@@ -17,6 +15,6 @@ namespace UokoFramework.OCR.Common
         /// <summary>
         /// 身份证正反面
         /// </summary>
-        public IDCardType IDcardType { get; set; }
+        public IDCardType Type { get; set; }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// ReSharper disable InconsistentNaming
 
-namespace UokoFramework.OCR.Common
+namespace UokoFramework.OCR
 {
     /// <summary>
     /// 身份证正反面

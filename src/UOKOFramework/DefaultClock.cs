@@ -1,4 +1,5 @@
 ﻿using System;
+using UOKOFramework.Extensions;
 
 namespace UOKOFramework
 {
@@ -11,5 +12,10 @@ namespace UOKOFramework
         /// 获取当前时间
         /// </summary>
         public DateTimeOffset Now { get; set; } = DateTimeOffset.Now;
+
+        /// <summary>
+        /// 获取UnixTime
+        /// </summary>
+        public int UnixTime { get; set; } = DateTime.Now.ToUnixTimeSeconds();
     }
 }

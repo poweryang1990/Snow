@@ -1,17 +1,20 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using UokoFramework.OCR.Alibaba.Utils;
-using UokoFramework.OCR.Common;
-using UokoFramework.OCR.Interface;
-using UokoFramework.Web.Utils;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using UokoFramework.OCR.Extensions;
+using UOKOFramework;
+using UOKOFramework.Extensions;
+using UOKOFramework.Serialization.Extensions;
 
+// ReSharper disable InconsistentNaming
+// https://help.aliyun.com/document_detail/30407.html?spm=5176.doc30403.2.20.atWaQP
 namespace UokoFramework.OCR.Alibaba
 {
+
     /// <summary>
     /// 阿里OCR身份证识别
     /// </summary>
@@ -25,55 +28,103 @@ namespace UokoFramework.OCR.Alibaba
         /// <param name='options'></param>
         public AlibabaIDCardClient(AlibabaOCROptions options)
         {
-            _options = options;
+            Throws.ArgumentNullException(options, nameof(options));
+            Throws.ArgumentNullException(options.Url, nameof(options.Url));
+            Throws.ArgumentNullException(options.Appcode, nameof(options.Appcode));
+            Throws.ArgumentNullException(options.HttpClient, nameof(options.HttpClient));
+
+            this._options = options;
         }
 
         /// <summary>
         /// 身份证识别
         /// </summary>
-        /// <param name='info'></param>
+        /// <param name='request'></param>
         /// <returns></returns>
-        public IDCardResponse Detect(IDCardRequest info)
+        public async Task<IDCardResponse> DetectAsync(IDCardRequest request)
         {
-            if (info == null)
-            {
-                throw new ArgumentException("Request请求信息为空");
-            }
-            if (string.IsNullOrEmpty(info.ImgUrl))
-            {
-                throw new ArgumentException("ImgUrl信息为空");
-            }
-            IDCardResponse response = new IDCardResponse();
+            Throws.ArgumentNullException(request, nameof(request));
+            Throws.ArgumentNullException(request.ImgUrl, nameof(request.ImgUrl));
+
             try
             {
-                var bodyInfo = AlibabaOCRParam.EncapsulationParameters(info.ImgUrl, info.IDcardType);
-                var responseInfo = AlibabaHttpRequest.GetResponse(_options, bodyInfo);
-                var data = JsonConvert.DeserializeObject<AlibabaResponse>(responseInfo);
+                var httpClient = this._options.HttpClient;
 
-                if (data != null && data.Outputs.Count() > 0)
+                var httpRequest = await BuildHttpRequestMessage(request);
+
+                var response = await httpClient.Request<AlibabaOCRResponse>(httpRequest);
+
+                var result = response
+                    .Outputs
+                    .FirstOrDefault()
+                    .OutputValue
+                    .DataValue;
+
+                return new IDCardResponse
                 {
-                    var dataValue = data.Outputs.FirstOrDefault().OutputValue.DataValue;
-
-                    response.Status = dataValue.Success;
-                    response.IDcardInfo = new IDcardInfo()
+                    Success = result.Success,
+                    Result = new IDCard
                     {
-                        Address = dataValue.Address,
-                        Authority = dataValue.Issue,
-                        Birth = dataValue.Birth,
-                        Name = dataValue.Name,
-                        Nation = dataValue.Nationality,
-                        Sex = dataValue.Sex,
-                        Valid_date = dataValue.Start_date + "-" + dataValue.End_date,
-                    };
-                }
+                        Address = result.Address,
+                        Authority = result.Issue,
+                        Birth = result.Birth,
+                        Name = result.Name,
+                        Nation = result.Nationality,
+                        Sex = result.Sex,
+                        ValidDate = result.Start_date + "-" + result.End_date,
+                    }
+                };
             }
             catch (Exception ex)
             {
-                response.Status = false;
-                response.Message = ex.Message;
+                return new IDCardResponse
+                {
+                    Success = false,
+                    Message = ex.Message
+                };
             }
-            return response;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        private async Task<HttpRequestMessage> BuildHttpRequestMessage(IDCardRequest request)
+        {
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, this._options.Url);
+            httpRequest.Headers.Authorization = new AuthenticationHeaderValue("APPCODE", this._options.Appcode);
+
+            var httpClient = this._options.HttpClient;
+            var imageBytes = await httpClient.GetByteArrayAsync(request.ImgUrl);
+            var imageBase64 = imageBytes.GetBase64();
+
+            var requestJson = new
+            {
+                inputs = new List<object>
+                {
+                    new
+                    {
+                        image = new
+                        {
+                            dataType = 50,
+                            dataValue = imageBase64
+                        },
+                        configure = new
+                        {
+                            dataType = 50,
+                            dataValue = new
+                            {
+                                side = request.Type.ToString()
+                            }
+                        }
+                    }
+                }
+            }.ToJson();
+
+            httpRequest.Content = new StringContent(requestJson, Encoding.UTF8, "application/json; charset=UTF-8");
+
+            return httpRequest;
         }
     }
 }
-    
