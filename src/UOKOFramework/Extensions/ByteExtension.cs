@@ -1,7 +1,7 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Linq;
+using UOKOFramework.Security;
+using UOKOFramework.Text;
 
 namespace UOKOFramework.Extensions
 {
@@ -16,15 +16,9 @@ namespace UOKOFramework.Extensions
         /// <param name="bytes">原始byte数组</param>
         /// <param name="hashAlgorithm">具体的hash算法</param>
         /// <returns>hash字节数组</returns>
-        private static byte[] GetHash(this byte[] bytes, HashAlgorithm hashAlgorithm)
+        public static byte[] GetHash(this byte[] bytes, HashAlgorithm hashAlgorithm)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-            Throws.ArgumentNullException(hashAlgorithm, nameof(hashAlgorithm));
-
-            using (hashAlgorithm)
-            {
-                return hashAlgorithm.ComputeHash(bytes);
-            }
+            return new HashHelper(bytes).GetHash(hashAlgorithm);
         }
 
         /// <summary>
@@ -35,7 +29,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetMD5(this byte[] bytes)
         {
-            return bytes.GetHash(new MD5CryptoServiceProvider());
+            return new HashHelper(bytes).GetMD5();
         }
 
         /// <summary>
@@ -46,7 +40,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA1(this byte[] bytes)
         {
-            return bytes.GetHash(new SHA1CryptoServiceProvider());
+            return new HashHelper(bytes).GetSHA1();
         }
 
         /// <summary>
@@ -57,7 +51,8 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA256(this byte[] bytes)
         {
-            return bytes.GetHash(new SHA256CryptoServiceProvider());
+            return new HashHelper(bytes).GetSHA256();
+
         }
 
         /// <summary>
@@ -69,8 +64,8 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetHMACSHA1(this byte[] bytes, byte[] key)
         {
-            Throws.ArgumentNullException(key, nameof(key));
-            return bytes.GetHash(new HMACSHA1(key));
+            return new HashHelper(bytes).GetHMACSHA1(key);
+
         }
 
 
@@ -83,21 +78,7 @@ namespace UOKOFramework.Extensions
         /// <returns>16进制的字符串</returns>
         public static string GetHex(this byte[] bytes, bool withHyphen = true, bool lowerCase = false)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-
-            var hexString = BitConverter.ToString(bytes);
-
-            if (withHyphen == false)
-            {
-                hexString = hexString.Replace("-", "");
-            }
-
-            if (lowerCase == true)
-            {
-                hexString = hexString.ToLower();
-            }
-
-            return hexString;
+            return new ByteHelper().GetHex(bytes, withHyphen, lowerCase);
         }
 
         /// <summary>
@@ -107,9 +88,7 @@ namespace UOKOFramework.Extensions
         /// <returns>base64字符串</returns>
         public static string GetBase64(this byte[] bytes)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-
-            return Convert.ToBase64String(bytes);
+            return new ByteHelper().GetBase64(bytes);
         }
 
         /// <summary>
@@ -119,9 +98,7 @@ namespace UOKOFramework.Extensions
         /// <returns>url safe base64字符串</returns>
         public static string GetUrlSafeBase64(this byte[] bytes)
         {
-            return GetBase64(bytes)
-                .Replace('+', '-')
-                .Replace('/', '_');
+            return new ByteHelper().GetUrlSafeBase64(bytes);
         }
 
         /// <summary>
@@ -132,14 +109,7 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetString(this byte[] bytes, Encoding encoding = null)
         {
-
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
-            return encoding.GetString(bytes);
+            return new ByteHelper().GetString(bytes,encoding);
         }
 
         /// <summary>
@@ -151,24 +121,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESEncrypt(this byte[] bytes, byte[] key)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-            Throws.ArgumentNullException(key, nameof(key));
-
-            if (key.Length != 16 && key.Length != 24 && key.Length != 32)
-            {
-                throw new ArgumentException("无效的AES Key,必须是长度为16/24/32的byte数组");
-            }
-            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
-            {
-                symmetricAlgorithm.Key = key;
-                symmetricAlgorithm.Mode = CipherMode.ECB;
-                symmetricAlgorithm.Padding = PaddingMode.Zeros;
-                //加密
-                using (var encryptor = symmetricAlgorithm.CreateEncryptor())
-                {
-                    return encryptor.TransformFinalBlock(bytes, 0, bytes.Length);
-                }
-            }
+            return new AESHelper(key).Encrypt(bytes);
         }
 
         /// <summary>
@@ -180,46 +133,7 @@ namespace UOKOFramework.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESDecrypt(this byte[] encryptedBytes, byte[] key)
         {
-            Throws.ArgumentNullException(encryptedBytes, nameof(encryptedBytes));
-            Throws.ArgumentNullException(key, nameof(key));
-
-            if (key.Length != 16 && key.Length != 24 && key.Length != 32)
-            {
-                throw new ArgumentException("无效的AES Key,必须是长度为16/24/32的byte数组");
-            }
-            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
-            {
-                symmetricAlgorithm.Key = key;
-                symmetricAlgorithm.Mode = CipherMode.ECB;
-                symmetricAlgorithm.Padding = PaddingMode.Zeros;
-
-                //解密
-                using (var decryptor = symmetricAlgorithm.CreateDecryptor())
-                {
-                    var decryptedBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
-
-                    //移除填充后的原始数据的有效长度
-                    var originalDataLength = decryptedBytes.Length;
-                    for (; originalDataLength > 0; originalDataLength--)
-                    {
-                        if (decryptedBytes[originalDataLength - 1] != 0)
-                        {
-                            break;
-                        }
-                    }
-
-                    if (originalDataLength == decryptedBytes.Length)
-                    {
-                        return decryptedBytes;
-                    }
-                    else
-                    {
-                        var decryptedWithOutPaddingBytes = new byte[originalDataLength];
-                        Buffer.BlockCopy(decryptedBytes, 0, decryptedWithOutPaddingBytes, 0, decryptedWithOutPaddingBytes.Length);
-                        return decryptedWithOutPaddingBytes;
-                    }
-                }
-            }
+            return new AESHelper(key).Decrypt(encryptedBytes);
         }
     }
 }

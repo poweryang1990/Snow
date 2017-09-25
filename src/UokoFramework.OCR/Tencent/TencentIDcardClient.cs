@@ -36,7 +36,7 @@ namespace UokoFramework.OCR.Tencent
         {
             try
             {
-                if (info==null)
+                if (info == null)
                 {
                     throw new ArgumentException("Request请求信息为空");
                 }
@@ -46,7 +46,7 @@ namespace UokoFramework.OCR.Tencent
                 }
                 List<string> urls = new List<string>() { info.ImgUrl };
 
-                var expired = DateTime.Now.GetMillisecondsUnixtime() / 1000 + 60;
+                var expired = DateTime.Now.ToUnixTimeSeconds() + 60;
 
                 var sign = TencentSign.DetectionSignature(_tencentORCOptions.AppId, _tencentORCOptions.SecretId, _tencentORCOptions.SecretKey, expired, _tencentORCOptions.BucketName);
 
@@ -57,7 +57,7 @@ namespace UokoFramework.OCR.Tencent
                 dic.Add("url_list", urls);
 
                 var data = webApiProvider.Post<object, TencentResponse>(url, dic, sign);
-               
+
                 var reulst = data.Result_List.Select(r => new IDCardResponse
                 {
                     Status = r.Code == 0 ? true : false,

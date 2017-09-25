@@ -75,5 +75,29 @@ namespace UOKOFramework.Extensions
 
             return source.Select(x => x.ToString()).JoinString(separator);
         }
+
+        /// <summary>
+        /// CastArray
+        /// </summary>
+        /// <typeparam name="TSource">源类型</typeparam>
+        /// <typeparam name="TTarget">目标类型</typeparam>
+        /// <param name="source">this</param>
+        /// <returns>Array</returns>
+        public static TTarget[] CastArray<TSource, TTarget>(this IEnumerable<TSource> source)
+        {
+            return source?.Cast<TTarget>().ToArray();
+        }
+
+        /// <summary>
+        /// CastList
+        /// </summary>
+        /// <typeparam name="TSource">源类型</typeparam>
+        /// <typeparam name="TTarget">目标类型</typeparam>
+        /// <param name="source">this</param>
+        /// <returns>List</returns>
+        public static List<TTarget> CastList<TSource, TTarget>(this IEnumerable<TSource> source)
+        {
+            return source?.Cast<TTarget>().ToList();
+        }
     }
 }

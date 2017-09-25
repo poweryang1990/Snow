@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using UOKOFramework.Security;
+using UOKOFramework.Text;
 
 namespace UOKOFramework.Extensions
 {
@@ -16,13 +18,7 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static byte[] GetBytes(this string value, Encoding encoding = null)
         {
-            Throws.ArgumentNullException(value, nameof(value));
-
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
-            return encoding.GetBytes(value);
+            return new ByteHelper().GetBytes(value, encoding);
         }
 
         /// <summary>
@@ -32,12 +28,7 @@ namespace UOKOFramework.Extensions
         /// <returns>原始bytes数组</returns>
         public static byte[] GetBytesFromBase64(this string base64)
         {
-            Throws.ArgumentNullException(base64, nameof(base64));
-            if (base64.IndexOf('-') != -1)
-            {
-                base64 = base64.Replace('-', '+').Replace('_', '/');
-            }
-            return Convert.FromBase64String(base64);
+            return new ByteHelper().GetBytesFromBase64(base64);
         }
 
         /// <summary>
@@ -51,11 +42,6 @@ namespace UOKOFramework.Extensions
         public static string GetMD5(this string value, Encoding encoding = null, bool lowerCase = false)
         {
             Throws.ArgumentNullException(value, nameof(value));
-
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
 
             return value
                 .GetBytes(encoding)
@@ -94,10 +80,7 @@ namespace UOKOFramework.Extensions
         public static string GetSHA1(this string value, Encoding encoding = null, bool lowerCase = false)
         {
             Throws.ArgumentNullException(value, nameof(value));
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
+
             return value
                 .GetBytes(encoding)
                 .GetSHA1()

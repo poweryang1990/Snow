@@ -17,8 +17,6 @@ namespace UOKOFramework.Cache
 
         private IDictionary<string, string> _params;
 
-        private string _name;
-
         /// <summary>
         /// 获取Scope
         /// </summary>
@@ -27,7 +25,7 @@ namespace UOKOFramework.Cache
         /// <summary>
         /// 获取名字
         /// </summary>
-        internal string Name => this._name;
+        internal string Name { get; set; }
 
         /// <summary>
         /// 构造函数
@@ -50,7 +48,7 @@ namespace UOKOFramework.Cache
         protected CacheKey Clone(string name)
         {
             var clonedCacheKey = (CacheKey)MemberwiseClone();
-            clonedCacheKey._name = name.Trim();
+            clonedCacheKey.Name = name.Trim();
             if (_params != null)
             {
                 clonedCacheKey._params = new Dictionary<string, string>(_params.Count);
@@ -116,9 +114,9 @@ namespace UOKOFramework.Cache
         /// <returns></returns>
         public override string ToString()
         {
-            if (_name == null)
+            if (Name == null)
             {
-                throw new ArgumentNullException(nameof(_name));
+                throw new ArgumentNullException(nameof(Name));
             }
 
             var keyBuilder = new StringBuilder(_scope);
@@ -136,7 +134,7 @@ namespace UOKOFramework.Cache
             }
 
             keyBuilder.Append('#');
-            keyBuilder.Append(_name);
+            keyBuilder.Append(Name);
 
             return keyBuilder.ToString();
         }

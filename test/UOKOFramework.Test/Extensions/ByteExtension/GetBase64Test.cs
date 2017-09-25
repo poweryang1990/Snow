@@ -20,7 +20,7 @@ namespace UOKOFramework.Test.Extensions.ByteExtension
             var bytes = "优客".GetBytes();
 
             var base64 = bytes.GetBase64();
-
+           
             Assert.Equal("5LyY5a6i", base64);
         }
     }

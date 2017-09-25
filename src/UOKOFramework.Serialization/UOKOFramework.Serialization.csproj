@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>
+    <AssemblyName>UOKOFramework.Serialization</AssemblyName>
+    <RootNamespace>UOKOFramework.Serialization</RootNamespace>
+  </PropertyGroup>
+
+  <!--nuget打包配置-->
+  <PropertyGroup>
+    <PackageId>UOKOFramework.Serialization</PackageId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>UOKO</Authors>
+    <Company>UOKO</Company>
+    <Product>UOKO</Product>
+    <Version>1.0.0</Version>
+    <Description>UOKO基础包-序列化</Description>
+    <Copyright>UOKO 2017</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>cache</PackageTags>
+    <PackageReleaseNotes>none</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <!--结构描述文档+视为错误的编译警告-->
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <WarningsAsErrors>NU1605;CS0109;CS1572;CS1573;CS1591;CS1712</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UOKOFramework\UOKOFramework.csproj" />
+  </ItemGroup>
+</Project>
