@@ -42,7 +42,7 @@ namespace UOKOFramework.Extensions
         /// <see cref="FlagsAttribute"/>
         /// <param name="flagsEnum"></param>
         /// <returns></returns>
-        public static TFlagsEnum[] GetEnums<TFlagsEnum>(this Enum flagsEnum)
+        public static TFlagsEnum[] GetFlagEnums<TFlagsEnum>(this Enum flagsEnum)
         {
             var enumType = typeof(TFlagsEnum);
             var thisType = flagsEnum.GetType();
@@ -51,14 +51,14 @@ namespace UOKOFramework.Extensions
                 throw new ArgumentException($"[{enumType.FullName}]和[{thisType.FullName}]类别不匹配。");
             }
 
-            if (enumType.GetCustomAttribute<FlagsAttribute>() == null)
+            if (thisType.GetCustomAttribute<FlagsAttribute>() == null)
             {
-                throw new ArgumentException($"[{enumType.FullName}]不是Flags枚举。");
+                throw new ArgumentException($"[{thisType.FullName}]不是Flags枚举。");
             }
 
             var currentValue = Convert.ToInt32(flagsEnum);
 
-            return Enum.GetValues(enumType)
+            return Enum.GetValues(thisType)
                 .Cast<int>()
                 .Where(value => (value & currentValue) == value)
                 .Cast<TFlagsEnum>()

@@ -19,7 +19,16 @@ namespace UOKOFramework.Cache
 
         private string _name;
 
-        
+        /// <summary>
+        /// 获取Scope
+        /// </summary>
+        internal string Scope => this._scope;
+
+        /// <summary>
+        /// 获取名字
+        /// </summary>
+        internal string Name => this._name;
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -60,7 +69,7 @@ namespace UOKOFramework.Cache
         /// <param name="key">动态参数的key</param>
         /// <param name="value">动态参数的value</param>
         /// <returns>当前CacheKey自身</returns>
-        protected TCacheKey Build<TCacheKey>(string key, string value) 
+        protected TCacheKey Build<TCacheKey>(string key, string value)
             where TCacheKey : CacheKey
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -87,7 +96,7 @@ namespace UOKOFramework.Cache
         /// <typeparam name="TCacheKey">具体的key的类型</typeparam>
         /// <param name="keyValues">动态参数集合</param>
         /// <returns></returns>
-        protected TCacheKey Build<TCacheKey>(IDictionary<string, string> keyValues) 
+        protected TCacheKey Build<TCacheKey>(IDictionary<string, string> keyValues)
             where TCacheKey : CacheKey
         {
             if (keyValues == null)
@@ -130,6 +139,6 @@ namespace UOKOFramework.Cache
             keyBuilder.Append(_name);
 
             return keyBuilder.ToString();
-        } 
+        }
     }
 }
