@@ -1,6 +1,7 @@
 ﻿using System;
 using UOKOFramework.Extensions;
 using UOKOFramework.Security;
+using UOKOFramework.Text;
 using Xunit;
 
 namespace UOKOFramework.Test.Security.HashHelpers
@@ -15,9 +16,9 @@ namespace UOKOFramework.Test.Security.HashHelpers
 
         public string GetHex(byte[] bytes)
         {
-            var asciiHelper = new ASCIIHelper(bytes);
+            var byteHelper = new ByteHelper();
 
-            return asciiHelper.GetHex(withHyphen: false, lowerCase: false);
+            return byteHelper.GetHex(bytes, withHyphen: false, lowerCase: false);
         }
 
         [Fact]

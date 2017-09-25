@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using UOKOFramework.Security;
+using UOKOFramework.Text;
 
 namespace UOKOFramework.Extensions
 {
@@ -77,7 +78,7 @@ namespace UOKOFramework.Extensions
         /// <returns>16进制的字符串</returns>
         public static string GetHex(this byte[] bytes, bool withHyphen = true, bool lowerCase = false)
         {
-            return new ASCIIHelper(bytes).GetHex(withHyphen, lowerCase);
+            return new ByteHelper().GetHex(bytes, withHyphen, lowerCase);
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace UOKOFramework.Extensions
         /// <returns>base64字符串</returns>
         public static string GetBase64(this byte[] bytes)
         {
-            return new ASCIIHelper(bytes).GetBase64();
+            return new ByteHelper().GetBase64(bytes);
         }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace UOKOFramework.Extensions
         /// <returns>url safe base64字符串</returns>
         public static string GetUrlSafeBase64(this byte[] bytes)
         {
-            return new ASCIIHelper(bytes).GetUrlSafeBase64();
+            return new ByteHelper().GetUrlSafeBase64(bytes);
         }
 
         /// <summary>
@@ -108,7 +109,7 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetString(this byte[] bytes, Encoding encoding = null)
         {
-            return new ASCIIHelper(bytes).GetString(encoding);
+            return new ByteHelper().GetString(bytes,encoding);
         }
 
         /// <summary>
