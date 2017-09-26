@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using UOKOFramework.OCR.Extensions;
+using UOKOFramework.Http.Extensions;
 using UOKOFramework;
 using UOKOFramework.Extensions;
 using UOKOFramework.Serialization.Extensions;
@@ -55,7 +55,7 @@ namespace UOKOFramework.OCR.Tencent
 
                 var httpRequest = BuildHttpRequestMessage(request);
 
-                var response = await httpClient.Request<TencentOCRResponse>(httpRequest);
+                var response = await httpClient.RequestJsonAsync<TencentOCRResponse>(httpRequest);
 
                 var result = response.Result_List.First();
 

@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using UOKOFramework.OCR.Extensions;
+using UOKOFramework.Http.Extensions;
 using UOKOFramework;
 using UOKOFramework.Extensions;
 using UOKOFramework.Serialization.Extensions;
@@ -52,7 +52,7 @@ namespace UOKOFramework.OCR.Alibaba
 
                 var httpRequest = await BuildHttpRequestMessage(request);
 
-                var response = await httpClient.Request<AlibabaOCRResponse>(httpRequest);
+                var response = await httpClient.RequestJsonAsync<AlibabaOCRResponse>(httpRequest);
 
                 var result = response
                     .Outputs

@@ -12,6 +12,7 @@
     <dependencies>
       <group targetFramework=".NETFramework4.5.2">
         <dependency id="UOKOFramework.Serialization" version="1.0.0" />
+        <dependency id="UOKOFramework.Http" version="1.0.0" />
         <dependency id="UOKOFramework.Cache" version="1.0.0" />
         <dependency id="UOKOFramework.Log" version="1.0.0" />
         <dependency id="UOKOFramework.Office" version="1.0.0" />
