@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace UOKOFramework.Extensions
 {
@@ -11,17 +12,25 @@ namespace UOKOFramework.Extensions
         /// 合并数组
         /// </summary>
         /// <param name="current">当前数组</param>
-        /// <param name="next">下一个数组</param>
+        /// <param name="nexts">下一个数组</param>
         /// <returns>合并后的数组</returns>
-        public static T[] Combine<T>(this T[] current, T[] next)
+        public static T[] Combine<T>(this T[] current, params T[][] nexts)
         {
             Throws.ArgumentNullException(current, nameof(current));
-            Throws.ArgumentNullException(next, nameof(next));
+            Throws.ArgumentNullException(nexts, nameof(nexts), true);
 
-            var result = new T[current.Length + next.Length];
+            var nextsLength = nexts.Sum(_ => _.Length);
+            var result = new T[current.Length + nextsLength];
 
-            Buffer.BlockCopy(current, 0, result, 0, current.Length);
-            Buffer.BlockCopy(next, 0, result, current.Length, next.Length);
+            var offset = 0;
+            Buffer.BlockCopy(current, 0, result, offset, current.Length);
+
+            offset = current.Length;
+            foreach (var next in nexts)
+            {
+                Buffer.BlockCopy(next, 0, result, offset, next.Length);
+                offset = offset + next.Length;
+            }
 
             return result;
         }

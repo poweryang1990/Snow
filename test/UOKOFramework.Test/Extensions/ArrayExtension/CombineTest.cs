@@ -16,16 +16,17 @@ namespace UOKOFramework.Test.Extensions.ArrayExtension
 
             Assert.Throws<ArgumentNullException>(() => bytes1.Combine(bytes2));
             Assert.Throws<ArgumentNullException>(() => bytes2.Combine(bytes1));
+            Assert.Throws<ArgumentNullException>(() => bytes2.Combine(bytes2, null));
         }
 
         [Fact]
         public void when_bytes_is_valid()
         {
             byte[] bytes1 = { 1 };
-            byte[] bytes2 = { 2 };
+            byte[] bytes2 = { 2, 3 };
 
-            Assert.Equal(new byte[] { 1, 2 }, bytes1.Combine(bytes2));
-            Assert.Equal(new byte[] { 2, 1, 2 }, bytes2.Combine(bytes1).Combine(bytes2));
+            Assert.Equal(new byte[] { 1, 2, 3 }, bytes1.Combine(bytes2));
+            Assert.Equal(new byte[] { 2, 3, 1, 2, 3, 1 }, bytes2.Combine(bytes1, bytes2, bytes1));
         }
     }
 }
