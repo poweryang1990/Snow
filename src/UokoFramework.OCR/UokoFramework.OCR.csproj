@@ -31,7 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="..\UOKOFramework.Http\UOKOFramework.Http.csproj" />
     <ProjectReference Include="..\UOKOFramework.Serialization\UOKOFramework.Serialization.csproj" />
-    <ProjectReference Include="..\UOKOframework.web\UOKOFramework.Web.csproj" />
     <ProjectReference Include="..\UOKOFramework\UOKOFramework.csproj" />
   </ItemGroup>
 
