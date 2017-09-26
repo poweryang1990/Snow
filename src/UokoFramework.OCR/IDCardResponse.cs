@@ -1,6 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
-namespace UokoFramework.OCR
+namespace UOKOFramework.OCR
 {
     /// <summary>
     /// ID Card Response

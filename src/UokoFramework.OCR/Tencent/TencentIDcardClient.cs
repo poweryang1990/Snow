@@ -5,14 +5,14 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using UokoFramework.OCR.Extensions;
+using UOKOFramework.OCR.Extensions;
 using UOKOFramework;
 using UOKOFramework.Extensions;
 using UOKOFramework.Serialization.Extensions;
 
 // ReSharper disable InconsistentNaming
 // https://cloud.tencent.com/document/product/460/6895
-namespace UokoFramework.OCR.Tencent
+namespace UOKOFramework.OCR.Tencent
 {
     /// <summary>
     /// 腾讯OCR身份证 实现

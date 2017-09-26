@@ -2,7 +2,7 @@
 
 using System.Net.Http;
 
-namespace UokoFramework.OCR.Alibaba
+namespace UOKOFramework.OCR.Alibaba
 {
     /// <summary>
     /// 阿里OCR配置

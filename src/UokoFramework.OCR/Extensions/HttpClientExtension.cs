@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using UOKOFramework.Serialization.Extensions;
 
-namespace UokoFramework.OCR.Extensions
+namespace UOKOFramework.OCR.Extensions
 {
     /// <summary>
     ///

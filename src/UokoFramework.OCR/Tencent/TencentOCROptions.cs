@@ -2,7 +2,7 @@
 
 using System.Net.Http;
 
-namespace UokoFramework.OCR.Tencent
+namespace UOKOFramework.OCR.Tencent
 {
     /// <summary>
     /// 腾讯OCR Options

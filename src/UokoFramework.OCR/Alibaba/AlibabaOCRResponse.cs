@@ -2,7 +2,7 @@
 
 // ReSharper disable InconsistentNaming
 
-namespace UokoFramework.OCR.Alibaba
+namespace UOKOFramework.OCR.Alibaba
 {
     /// <summary>
     /// 阿里OCR身份证识别Response

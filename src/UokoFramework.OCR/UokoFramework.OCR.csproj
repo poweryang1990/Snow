@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>
-    <AssemblyName>UokoFramework.OCR</AssemblyName>
-    <RootNamespace>UokoFramework.OCR</RootNamespace>
+    <AssemblyName>UOKOFramework.OCR</AssemblyName>
+    <RootNamespace>UOKOFramework.OCR</RootNamespace>
   </PropertyGroup>
 
   <!--nuget打包配置-->
   <PropertyGroup>
-    <PackageId>UokoFramework.OCR</PackageId>
+    <PackageId>UOKOFramework.OCR</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Uoko</Authors>

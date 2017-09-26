@@ -2,7 +2,7 @@
 
 // ReSharper disable InconsistentNaming
 
-namespace UokoFramework.OCR.Tencent
+namespace UOKOFramework.OCR.Tencent
 {
     /// <summary>
     /// 接收腾讯OCR识别返回值

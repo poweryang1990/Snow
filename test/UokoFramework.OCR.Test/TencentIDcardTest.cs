@@ -1,10 +1,11 @@
-﻿using UokoFramework.OCR.Alibaba;
-using UokoFramework.OCR.Tencent;
+﻿using UOKOFramework.OCR.Alibaba;
+using UOKOFramework.OCR.Tencent;
 using UOKOFramework;
 using Xunit;
+using System.Net.Http;
 // ReSharper disable InconsistentNaming
 
-namespace UokoFramework.OCR.Test
+namespace UOKOFramework.OCR.Test
 {
     /// <summary>
     /// todo:待完善。
@@ -18,6 +19,8 @@ namespace UokoFramework.OCR.Test
             ImgUrl = "http://7xodcr.com1.z0.glb.clouddn.com/%E6%AD%A3%E9%9D%A2.png",
         };
 
+        private HttpClient _client = new HttpClient();
+
         [Fact]
         public void DetectTencent()
         {
@@ -26,7 +29,8 @@ namespace UokoFramework.OCR.Test
                 AppId = 1252754859,
                 SecretId = "AKIDEQRHD2SGWaSYWJbCyb2GUZS8dOyMHzKU",
                 SecretKey = "CGDzYv6QdiibI7pMhreXIsGTUIyTlrmV",
-                Bucket = "idcard"
+                Bucket = "idcard",
+                HttpClient = _client,
             };
 
             IIDCardClient tencentIDcard = new TencentIDCardClient(options, new Clock());
@@ -38,8 +42,9 @@ namespace UokoFramework.OCR.Test
         {
             AlibabaOCROptions options = new AlibabaOCROptions
             {
-                Appcode = "",
-                Url = "",
+                Appcode = "11",
+                Url = "www.biying.com",
+                HttpClient = _client,
             };
 
             IIDCardClient alibabaIDcard = new AlibabaIDCardClient(options);

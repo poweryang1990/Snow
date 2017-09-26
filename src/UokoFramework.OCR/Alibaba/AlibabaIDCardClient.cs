@@ -5,14 +5,14 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using UokoFramework.OCR.Extensions;
+using UOKOFramework.OCR.Extensions;
 using UOKOFramework;
 using UOKOFramework.Extensions;
 using UOKOFramework.Serialization.Extensions;
 
 // ReSharper disable InconsistentNaming
 // https://help.aliyun.com/document_detail/30407.html?spm=5176.doc30403.2.20.atWaQP
-namespace UokoFramework.OCR.Alibaba
+namespace UOKOFramework.OCR.Alibaba
 {
 
     /// <summary>
@@ -122,7 +122,7 @@ namespace UokoFramework.OCR.Alibaba
                 }
             }.ToJson();
 
-            httpRequest.Content = new StringContent(requestJson, Encoding.UTF8, "application/json; charset=UTF-8");
+            httpRequest.Content = new StringContent(requestJson, Encoding.UTF8, "application/json");
 
             return httpRequest;
         }

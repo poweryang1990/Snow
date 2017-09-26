@@ -10,8 +10,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\UokoFramework.OCR\UokoFramework.OCR.csproj" />
+    <ProjectReference Include="..\..\src\UOKOFramework.OCR\UOKOFramework.OCR.csproj" />
     <ProjectReference Include="..\..\src\UOKOFramework\UokoFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Net.Http.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

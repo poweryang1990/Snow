@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace UokoFramework.OCR
+namespace UOKOFramework.OCR
 {
     /// <summary>
     /// 身份证信息
