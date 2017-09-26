@@ -29,7 +29,7 @@ namespace UokoFramework.OCR.Test
                 Bucket = "idcard"
             };
 
-            IIDCardClient tencentIDcard = new TencentIDCardClient(options, new DefaultClock());
+            IIDCardClient tencentIDcard = new TencentIDCardClient(options, new Clock());
             var result = tencentIDcard.DetectAsync(request).Result;
         }
 

@@ -10,12 +10,13 @@ namespace UOKOFramework.Test
         {
             var now = DateTimeOffset.Parse("2017-09-14 12:34:56");
 
-            IClock clock = new DefaultClock()
+            IClock clock = new Clock
             {
                 Now = now
             };
 
             Assert.Equal(now, clock.Now);
+            Assert.Equal(1505363696, clock.UnixTime);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace UOKOFramework
     /// <summary>
     /// 默认的时钟
     /// </summary>
-    public class DefaultClock : IClock
+    public class Clock : IClock
     {
         /// <summary>
         /// 获取当前时间
@@ -16,6 +16,6 @@ namespace UOKOFramework
         /// <summary>
         /// 获取UnixTime
         /// </summary>
-        public int UnixTime { get; set; } = DateTime.Now.ToUnixTimeSeconds();
+        public int UnixTime => (int)Now.ToUnixTimeSeconds();
     }
 }

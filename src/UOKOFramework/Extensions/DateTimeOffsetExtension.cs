@@ -8,6 +8,16 @@ namespace UOKOFramework.Extensions
     public static class DateTimeOffsetExtension
     {
         /// <summary>
+        /// 获取UnixTime
+        /// </summary>
+        /// <param name="dateTimeOffset">this</param>
+        /// <returns>UnixTime</returns>
+        public static long ToUnixTimeSeconds(this DateTimeOffset dateTimeOffset)
+        {
+            return dateTimeOffset.UtcTicks / 10000000L - 62135596800L;
+        }
+
+        /// <summary>
         /// 是否在两个时间点之间
         /// </summary>
         /// <param name="dateTime">this</param>
