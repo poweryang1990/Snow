@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using UOKOFramework.Security;
 using UOKOFramework.Text;
@@ -109,7 +110,7 @@ namespace UOKOFramework.Extensions
         /// <returns></returns>
         public static string GetString(this byte[] bytes, Encoding encoding = null)
         {
-            return new ByteHelper().GetString(bytes,encoding);
+            return new ByteHelper().GetString(bytes, encoding);
         }
 
         /// <summary>

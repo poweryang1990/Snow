@@ -7,7 +7,7 @@ namespace UOKOFramework.Cache.Test
 
     public class MemoryCacheTest
     {
-        private readonly DefaultClock _clock = new DefaultClock();
+        private readonly Clock _clock = new Clock();
 
         private IMemoryCache BuildMemoryCache()
         {
