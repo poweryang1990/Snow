@@ -19,7 +19,7 @@ namespace UOKOFramework.Cache.Lock
         public LockObject(string name) : base("lock", name)
         {
             this.Token = name;
-            base.SetParams("id", Guid.NewGuid().ToString());
+            base.SetParamsCore("id", Guid.NewGuid().ToString());
         }
     }
 }

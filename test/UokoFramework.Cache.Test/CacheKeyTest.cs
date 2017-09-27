@@ -19,7 +19,7 @@ namespace UOKOFramework.Cache.Test
         {
             var mockCacheKey = new MockCacheKey();
 
-            var cacheKey = mockCacheKey.Build("123");
+            var cacheKey = mockCacheKey.SetParams("123");
 
             Assert.Throws<ArgumentNullException>(() => cacheKey.ToString());
         }
@@ -28,7 +28,7 @@ namespace UOKOFramework.Cache.Test
         public void should_throw_ArgumentNullException_when_call_subClass_ToString_after_set_name()
         {
             var mockCacheKey = new MockCacheKey()
-                .Build("123");
+                .SetParams("123");
 
             var cacheKey = mockCacheKey.Profile;
 
@@ -50,7 +50,7 @@ namespace UOKOFramework.Cache.Test
         public void should_get_key_include_param_and_name_when_has_param_and_has_name()
         {
             var mockCacheKey = new MockCacheKey()
-                .Build("123")
+                .SetParams("123")
                 .Apps;
 
             var key = mockCacheKey.ToString();
@@ -64,8 +64,8 @@ namespace UOKOFramework.Cache.Test
             var mockCacheKey = new MockCacheKey();
 
             var cacheKey = mockCacheKey
-                .Build("123", "abc")
-                .Build("123")
+                .SetParams("123", "abc")
+                .SetParams("123")
                 .Apps;
 
             Assert.Equal("mock:&user-id=123#apps", cacheKey.ToString());
@@ -77,7 +77,7 @@ namespace UOKOFramework.Cache.Test
             var mockCacheKey = new MockCacheKey();
 
             var cacheKey = ((MockCacheKey)mockCacheKey.Apps)
-                .Build("123", "abc");
+                .SetParams("123", "abc");
 
             Assert.Equal("mock:&user-id=123&client-id=abc#apps", cacheKey.ToString());
         }

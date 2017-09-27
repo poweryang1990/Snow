@@ -11,7 +11,7 @@ namespace UOKOFramework.Cache
     /// <para>3. name  : 表示构造key所需的固定部分的名字</para>
     /// <para>例子:user:&amp;user-id=xxx#profile</para>
     /// </summary>
-    public class CacheKey
+    public partial class CacheKey
     {
         private readonly string _scope;
 
@@ -68,7 +68,7 @@ namespace UOKOFramework.Cache
         /// <param name="key">动态参数的key</param>
         /// <param name="value">动态参数的value</param>
         /// <returns>当前CacheKey自身</returns>
-        protected void SetParams(string key, string value)
+        protected void SetParamsCore(string key, string value)
         {
             Throws.ArgumentNullException(key, nameof(key));
             Throws.ArgumentNullException(value, nameof(value));
@@ -83,7 +83,7 @@ namespace UOKOFramework.Cache
         /// </summary>
         /// <param name="keyValues">动态参数集合</param>
         /// <returns></returns>
-        protected void SetParams(IDictionary<string, string> keyValues)
+        protected void SetParamsCore(IDictionary<string, string> keyValues)
         {
             Throws.ArgumentNullException(keyValues, nameof(keyValues));
             this._params = keyValues;

@@ -9,15 +9,15 @@ namespace UOKOFramework.Cache.Test
 
         }
 
-        public MockCacheKey Build(string userId)
+        public MockCacheKey SetParams(string userId)
         {
-            base.SetParams("user-id", userId);
+            base.SetParamsCore("user-id", userId);
             return this;
         }
 
-        public MockCacheKey Build(string userId, string clientId)
+        public MockCacheKey SetParams(string userId, string clientId)
         {
-            base.SetParams(new Dictionary<string, string>
+            base.SetParamsCore(new Dictionary<string, string>
             {
                 ["user-id"] = userId,
                 ["client-id"] = clientId,
