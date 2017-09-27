@@ -17,15 +17,7 @@ namespace UOKOFramework.Cache
 
         private IDictionary<string, string> _params;
 
-        /// <summary>
-        /// 获取Scope
-        /// </summary>
-        internal string Scope => this._scope;
-
-        /// <summary>
-        /// 获取名字
-        /// </summary>
-        internal string Name { get; set; }
+        private string _name;
 
         /// <summary>
         /// 构造函数
@@ -33,11 +25,21 @@ namespace UOKOFramework.Cache
         /// <param name="scope">key的scope</param>
         protected CacheKey(string scope)
         {
-            if (string.IsNullOrWhiteSpace(scope))
-            {
-                throw new ArgumentNullException(nameof(scope));
-            }
-            _scope = scope.ToLower();
+            Throws.ArgumentNullException(scope, nameof(scope));
+            this._scope = scope;
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="scope">key的scope</param>
+        /// <param name="name">key的固定部分的名字</param>
+        protected CacheKey(string scope, string name)
+        {
+            Throws.ArgumentNullException(scope, nameof(scope));
+            Throws.ArgumentNullException(name, nameof(name));
+            this._scope = scope;
+            this._name = name;
         }
 
         /// <summary>
@@ -48,8 +50,8 @@ namespace UOKOFramework.Cache
         protected CacheKey Clone(string name)
         {
             var clonedCacheKey = (CacheKey)MemberwiseClone();
-            clonedCacheKey.Name = name.Trim();
-            if (_params != null)
+            clonedCacheKey._name = name.Trim();
+            if (this._params != null)
             {
                 clonedCacheKey._params = new Dictionary<string, string>(_params.Count);
                 foreach (var param in _params)
@@ -63,48 +65,28 @@ namespace UOKOFramework.Cache
         /// <summary>
         /// 构造key
         /// </summary>
-        /// <typeparam name="TCacheKey">具体的key的类型</typeparam>
         /// <param name="key">动态参数的key</param>
         /// <param name="value">动态参数的value</param>
         /// <returns>当前CacheKey自身</returns>
-        protected TCacheKey Build<TCacheKey>(string key, string value)
-            where TCacheKey : CacheKey
+        protected void SetParams(string key, string value)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
-
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            _params = new Dictionary<string, string>()
+            Throws.ArgumentNullException(key, nameof(key));
+            Throws.ArgumentNullException(value, nameof(value));
+            this._params = new Dictionary<string, string>
             {
                 [key] = value
             };
-
-            return (TCacheKey)this;
         }
 
         /// <summary>
         /// 构造key
         /// </summary>
-        /// <typeparam name="TCacheKey">具体的key的类型</typeparam>
         /// <param name="keyValues">动态参数集合</param>
         /// <returns></returns>
-        protected TCacheKey Build<TCacheKey>(IDictionary<string, string> keyValues)
-            where TCacheKey : CacheKey
+        protected void SetParams(IDictionary<string, string> keyValues)
         {
-            if (keyValues == null)
-            {
-                throw new ArgumentNullException(nameof(keyValues));
-            }
-
-            _params = keyValues;
-
-            return (TCacheKey)this;
+            Throws.ArgumentNullException(keyValues, nameof(keyValues));
+            this._params = keyValues;
         }
 
         /// <summary>
@@ -114,17 +96,17 @@ namespace UOKOFramework.Cache
         /// <returns></returns>
         public override string ToString()
         {
-            if (Name == null)
+            if (this._name == null)
             {
-                throw new ArgumentNullException(nameof(Name));
+                throw new ArgumentNullException(nameof(this._name));
             }
 
-            var keyBuilder = new StringBuilder(_scope);
+            var keyBuilder = new StringBuilder(this._scope);
             keyBuilder.Append(':');
 
-            if (_params != null)
+            if (this._params != null)
             {
-                foreach (var param in _params)
+                foreach (var param in this._params)
                 {
                     keyBuilder.Append('&');
                     keyBuilder.Append(param.Key);
@@ -134,9 +116,9 @@ namespace UOKOFramework.Cache
             }
 
             keyBuilder.Append('#');
-            keyBuilder.Append(Name);
+            keyBuilder.Append(this._name);
 
-            return keyBuilder.ToString();
+            return keyBuilder.ToString().ToLower();
         }
     }
 }

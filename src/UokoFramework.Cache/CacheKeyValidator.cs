@@ -42,7 +42,7 @@ namespace UOKOFramework.Cache
         private void NoDuplicatedScopes(IEnumerable<CacheKey> cacheKeyList)
         {
             var duplicatedScopes = cacheKeyList
-                           .GroupBy(scope => scope.Scope)
+                           .GroupBy(scope => scope.GetFiledValue<string>("_scope"))
                            .Where(scopeGroup => scopeGroup.Count() > 1)
                            .ToList();
 
@@ -85,7 +85,7 @@ namespace UOKOFramework.Cache
                 .ToList();
 
             var duplicatedNames = propertyList
-                           .GroupBy(key => key.Name)
+                           .GroupBy(scope => scope.GetFiledValue<string>("_name"))
                            .Where(keyGroup => keyGroup.Count() > 1)
                            .Select(keyGroup => keyGroup.Key)
                            .ToList();

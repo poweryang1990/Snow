@@ -109,7 +109,7 @@ namespace UOKOFramework.Cache.Memory
             {
                 return false;
             }
-            return this._memoryCache.Set(lockObject, lockObject.Value, expiry);
+            return this._memoryCache.Set(lockObject, lockObject.Token, expiry);
         }
 
         /// <summary>

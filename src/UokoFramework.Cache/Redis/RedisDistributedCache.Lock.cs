@@ -24,7 +24,7 @@ namespace UOKOFramework.Cache.Redis
 
             Connect();
 
-            return this._db.LockTake(lockObject.ToRedisKey(), lockObject.Value, expiry);
+            return this._db.LockTake(lockObject.ToRedisKey(), lockObject.Token, expiry);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace UOKOFramework.Cache.Redis
 
             Connect();
 
-            return this._db.LockRelease(lockObject.ToRedisKey(), lockObject.Value);
+            return this._db.LockRelease(lockObject.ToRedisKey(), lockObject.Token);
         }
     }
 }

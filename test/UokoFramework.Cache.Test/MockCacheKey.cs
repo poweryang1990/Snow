@@ -11,16 +11,18 @@ namespace UOKOFramework.Cache.Test
 
         public MockCacheKey Build(string userId)
         {
-            return base.Build<MockCacheKey>("user-id", userId);
+            base.SetParams("user-id", userId);
+            return this;
         }
 
         public MockCacheKey Build(string userId, string clientId)
         {
-            return base.Build<MockCacheKey>(new Dictionary<string, string>
+            base.SetParams(new Dictionary<string, string>
             {
                 ["user-id"] = userId,
                 ["client-id"] = clientId,
             });
+            return this;
         }
 
         public CacheKey Prefix => base.Clone("");

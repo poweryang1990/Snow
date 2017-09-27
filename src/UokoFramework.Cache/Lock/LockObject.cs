@@ -8,18 +8,18 @@ namespace UOKOFramework.Cache.Lock
     public sealed class LockObject : CacheKey
     {
         /// <summary>
-        /// Value
+        /// 锁的值
         /// </summary>
-        public string Value => base.Name;
+        public string Token { get; }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="value">锁的名字</param>
-        public LockObject(string value) : base("lock")
+        /// <param name="name">锁的名字</param>
+        public LockObject(string name) : base("lock", name)
         {
-            base.Name = value;
-            base.Build<LockObject>("id", Guid.NewGuid().ToString());
+            this.Token = name;
+            base.SetParams("id", Guid.NewGuid().ToString());
         }
     }
 }
