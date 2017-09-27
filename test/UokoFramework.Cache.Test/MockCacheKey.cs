@@ -2,7 +2,7 @@
 
 namespace UOKOFramework.Cache.Test
 {
-    public class MockCacheKey : CacheKey
+    public sealed class MockCacheKey : CacheKey
     {
         internal MockCacheKey() : base("mock")
         {

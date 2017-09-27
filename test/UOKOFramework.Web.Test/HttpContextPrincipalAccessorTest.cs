@@ -7,7 +7,7 @@ using Xunit;
 
 namespace UOKOFramework.Web.Test
 {
-    public class PrincipalAccessorTest
+    public class HttpContextPrincipalAccessorTest
     {
         [Fact]
         public void when_HttpContext_Current_is_null_should_return_ThreadCurrentPrincipal()

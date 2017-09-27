@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using UOKOFramework.Security;
 using UOKOFramework.Text;
 
 namespace UOKOFramework.Extensions
@@ -8,7 +7,7 @@ namespace UOKOFramework.Extensions
     /// <summary>
     /// String的扩展方法
     /// </summary>
-    public static class StingExtension
+    public static class StringExtension
     {
         /// <summary>
         /// 字符串转bytes
@@ -163,6 +162,22 @@ namespace UOKOFramework.Extensions
                 return defaultValue;
             }
             return value;
+        }
+
+        /// <summary>
+        /// 检查是否包含指定的字符串
+        /// </summary>
+        /// <param name="this">原始字符串</param>
+        /// <param name="value">指定的字符串</param>
+        /// <param name="comparisonType">比较方式[默认忽略大小写]</param>
+        /// <returns></returns>
+        public static bool Include(this string @this, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(@this) || string.IsNullOrEmpty(value))
+            {
+                return false;
+            }
+            return @this.IndexOf(value, comparisonType) != -1;
         }
     }
 }
