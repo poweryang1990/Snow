@@ -8,6 +8,14 @@ namespace UOKOFramework.Web.Test
     public class GetCleintIPTest
     {
         [Fact]
+        public void when_httprequest_is_null_should_return_null()
+        {
+            var ipHelper = new IPHelper();
+
+            Assert.Equal(null, ipHelper.GetCleintIP((HttpRequest)null));
+        }
+
+        [Fact]
         public void get_ip_from_HTTP_X_FORWARDED_FOR()
         {
             var httpRequest = MockHttpRequestBase("44.34.56.78");

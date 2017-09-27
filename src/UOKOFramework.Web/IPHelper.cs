@@ -15,6 +15,11 @@ namespace UOKOFramework.Web
         ///  </summary>    
         public IPAddress GetCleintIP(HttpRequest httpRequest)
         {
+            if (httpRequest == null)
+            {
+                return null;
+            }
+
             var ip = GetIpFromServerVariables(httpRequest.ServerVariables);
 
             if (string.IsNullOrWhiteSpace(ip))
@@ -29,6 +34,11 @@ namespace UOKOFramework.Web
         ///  </summary>    
         public IPAddress GetCleintIP(HttpRequestBase httpRequest)
         {
+            if (httpRequest == null)
+            {
+                return null;
+            }
+
             var ip = GetIpFromServerVariables(httpRequest.ServerVariables);
 
             if (string.IsNullOrWhiteSpace(ip))
@@ -55,6 +65,11 @@ namespace UOKOFramework.Web
 
         private string GetIpFromServerVariables(NameValueCollection serverVariables)
         {
+            if (serverVariables == null)
+            {
+                return null;
+            }
+
             var ip = serverVariables["HTTP_X_FORWARDED_FOR"];
             ip = ip?.Split(',')[0];
             if (string.IsNullOrWhiteSpace(ip))
