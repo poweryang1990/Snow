@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Xunit;
-using UOKOFramework.Web.Extentions;
+using UOKOFramework.Web.Extensions;
 
-namespace UOKOFramework.Web.Test.Extentions.OwinRequestExtension
+namespace UOKOFramework.Web.Test.Extensions.OwinRequestExtension
 {
     public class IsBearerAuthorizationTest : BaseTest
     {

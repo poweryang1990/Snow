@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using UOKOFramework.Extensions;
 
-namespace UOKOFramework.Web.Extentions
+namespace UOKOFramework.Web.Extensions
 {
     /// <summary>
     /// IOwinRequest的扩展方法
