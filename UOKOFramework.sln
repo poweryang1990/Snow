@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{40654D93-CBE7-4F08-BE70-26B291764AC9}"
 	ProjectSection(SolutionItems) = preProject
 		src\UOKOFramework.All.nuspec = src\UOKOFramework.All.nuspec
+		src\UOKOFramework.Basic.nuspec = src\UOKOFramework.Basic.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9E14051D-3547-49AD-9D72-E500B64BFC49}"

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452</TargetFrameworks>
+    <TargetFrameworks>net452;net461</TargetFrameworks>
     <AssemblyName>UOKOFramework.Http</AssemblyName>
     <RootNamespace>UOKOFramework.Http</RootNamespace>
   </PropertyGroup>
