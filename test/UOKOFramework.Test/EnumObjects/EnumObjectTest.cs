@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Xunit;
 
-namespace UOKOFramework.Test
+namespace UOKOFramework.Test.EnumObjects
 {
 
     public class EnumObjectTest

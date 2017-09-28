@@ -8,7 +8,7 @@ namespace UOKOFramework.Web
     /// IPHelper
     /// </summary>
     // ReSharper disable InconsistentNaming
-    public class IPHelper
+    public class WebHelper
     {
         ///  <summary>    
         ///  获取当前请求的IP
@@ -26,7 +26,7 @@ namespace UOKOFramework.Web
             {
                 ip = httpRequest.UserHostAddress;
             }
-            return this.Parse(ip);
+            return new IPHelper().ToIPAddress(ip);
         }
 
         ///  <summary>    
@@ -45,22 +45,7 @@ namespace UOKOFramework.Web
             {
                 ip = httpRequest.UserHostAddress;
             }
-            return this.Parse(ip);
-        }
-
-        /// <summary>
-        /// 解析ip字符串为IPAddress,解析失败返回null
-        /// </summary>
-        /// <param name="ip">ip字符串</param>
-        /// <returns>IPAddress</returns>
-        public IPAddress Parse(string ip)
-        {
-            if (ip == null)
-            {
-                return null;
-            }
-            IPAddress.TryParse(ip, out var ipAddress);
-            return ipAddress;
+            return new IPHelper().ToIPAddress(ip);
         }
 
         private string GetIpFromServerVariables(NameValueCollection serverVariables)

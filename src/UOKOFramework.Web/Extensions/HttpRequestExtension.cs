@@ -16,7 +16,7 @@ namespace UOKOFramework.Web.Extensions
         /// <returns>客户端的ip</returns>
         public static IPAddress GetCleintIP(this HttpRequest httpRequest)
         {
-            return new IPHelper().GetCleintIP(httpRequest);
+            return new WebHelper().GetCleintIP(httpRequest);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace UOKOFramework.Web.Extensions
         /// <returns>客户端的ip</returns>
         public static IPAddress GetCleintIP(this HttpRequestBase httpRequest)
         {
-            return new IPHelper().GetCleintIP(httpRequest);
+            return new WebHelper().GetCleintIP(httpRequest);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace UOKOFramework.Test
+namespace UOKOFramework.Test.Clocks
 {
     public class ClockTest
     {
