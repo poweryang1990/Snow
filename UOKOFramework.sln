@@ -25,11 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.Log", "src\UO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.Cache.Test", "test\UOKOFramework.Cache.Test\UOKOFramework.Cache.Test.csproj", "{1D6B8A98-E35D-42A9-9550-30C0E5064EFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UokoFramework.Log.Test", "test\UokoFramework.Log.Test\UokoFramework.Log.Test.csproj", "{990E145F-1159-4477-ADF2-74176C5C3EC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.Log.Test", "test\UOKOFramework.Log.Test\UOKOFramework.Log.Test.csproj", "{990E145F-1159-4477-ADF2-74176C5C3EC0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.OCR", "src\UokoFramework.OCR\UOKOFramework.OCR.csproj", "{ABDB0D9E-C200-4D03-A052-8021C9965AF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.OCR", "src\UOKOFramework.OCR\UOKOFramework.OCR.csproj", "{ABDB0D9E-C200-4D03-A052-8021C9965AF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.OCR.Test", "test\UokoFramework.OCR.Test\UOKOFramework.OCR.Test.csproj", "{60E76384-8821-49C7-B555-CD6CD327BF25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.OCR.Test", "test\UOKOFramework.OCR.Test\UOKOFramework.OCR.Test.csproj", "{60E76384-8821-49C7-B555-CD6CD327BF25}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.Serialization", "src\UOKOFramework.Serialization\UOKOFramework.Serialization.csproj", "{BD845F22-8E09-42FA-8D3B-561D81930EDD}"
 EndProject

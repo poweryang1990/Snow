@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\UOKOFramework.OCR\UOKOFramework.OCR.csproj" />
-    <ProjectReference Include="..\..\src\UOKOFramework\UokoFramework.csproj" />
+    <ProjectReference Include="..\..\src\UOKOFramework\UOKOFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
