@@ -1,9 +1,9 @@
-﻿using Moq;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Web;
+using Moq;
 using Xunit;
 
-namespace UOKOFramework.Web.Test
+namespace UOKOFramework.Web.Test.IPHelpers
 {
     public class GetCleintIPTest
     {

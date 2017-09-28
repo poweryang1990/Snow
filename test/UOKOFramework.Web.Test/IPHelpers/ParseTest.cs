@@ -1,10 +1,4 @@
-﻿using System.IO;
-using System.Net;
-using System.Security.Claims;
-using System.Threading;
-using System.Web;
-using UOKOFramework.Security;
-using Xunit;
+﻿using Xunit;
 
 // ReSharper disable ExpressionIsAlwaysNull
 
