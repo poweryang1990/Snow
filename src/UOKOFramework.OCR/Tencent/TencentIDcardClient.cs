@@ -6,7 +6,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using UOKOFramework.Http.Extensions;
-using UOKOFramework;
 using UOKOFramework.Extensions;
 using UOKOFramework.Serialization.Extensions;
 
@@ -19,8 +18,6 @@ namespace UOKOFramework.OCR.Tencent
     /// </summary>
     public class TencentIDCardClient : IIDCardClient
     {
-        private const string Apiurl = "http://service.image.myqcloud.com/ocr/idcard";
-
         private readonly TencentOCROptions _options;
         private readonly IClock _clock;
 
@@ -30,6 +27,7 @@ namespace UOKOFramework.OCR.Tencent
         public TencentIDCardClient(TencentOCROptions options, IClock clock)
         {
             Throws.ArgumentNullException(options, nameof(options));
+            Throws.ArgumentNullException(options.Apiurl, nameof(options.Apiurl));
             Throws.ArgumentNullException(options.AppId, nameof(options.AppId));
             Throws.ArgumentNullException(options.SecretId, nameof(options.SecretId));
             Throws.ArgumentNullException(options.SecretKey, nameof(options.SecretKey));
@@ -89,7 +87,7 @@ namespace UOKOFramework.OCR.Tencent
 
         private HttpRequestMessage BuildHttpRequestMessage(IDCardRequest request)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Post, Apiurl);
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, _options.Apiurl);
 
             httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Basic", BuildSignature());
 
@@ -111,20 +109,19 @@ namespace UOKOFramework.OCR.Tencent
 
         private string BuildSignature()
         {
-            var now = this._clock.UnixTime;
+            var now = _clock.UnixTime;
             var option = this._options;
             // ReSharper disable once UseStringInterpolation
-            var plainText = string.Format("a={0}&b={1}&k={2}&e={3}&t={4}",
+            var plainText = string.Format("a={0}&b={1}&k={2}&t={3}&e={4}",
                 option.AppId,
                 option.Bucket,
                 option.SecretId,
-                now + 60,
-                now);
+                now, 
+                now + 60);
 
             var plainBytes = plainText.GetBytes();
 
-            var macBytes = option.SecretKey.GetBytes()
-                .GetHMACSHA1(plainBytes);
+            var macBytes = plainBytes.GetHMACSHA1(option.SecretKey.GetBytes());
 
             return macBytes.Combine(plainBytes).GetBase64();
         }

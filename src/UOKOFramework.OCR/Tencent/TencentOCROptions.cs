@@ -10,9 +10,14 @@ namespace UOKOFramework.OCR.Tencent
     public class TencentOCROptions
     {
         /// <summary>
+        /// 腾讯OCR api rul
+        /// </summary>
+        public string Apiurl { get; set; }
+
+        /// <summary>
         /// app id
         /// </summary>
-        public int AppId { get; set; }
+        public string AppId { get; set; }
 
         /// <summary>
         /// 秘钥id
