@@ -3,17 +3,17 @@
 namespace UOKOFramework
 {
     /// <summary>
-    /// IPHelper
+    /// IPConverter
     /// </summary>
     // ReSharper disable InconsistentNaming
-    public class IPHelper
+    public static class IPConverter
     {
         /// <summary>
         /// 解析ip字符串为IPAddress,解析失败返回null
         /// </summary>
         /// <param name="ip">ip字符串</param>
         /// <returns>IPAddress</returns>
-        public IPAddress ToIPAddress(string ip)
+        public static IPAddress ToIPAddress(string ip)
         {
             if (ip == null)
             {
@@ -24,14 +24,13 @@ namespace UOKOFramework
         }
 
         /// <summary>
-        /// 解析为IPv4,如果不是IPv4或者格式有误，则返回null
+        /// 解析为IPv4,如果不是IPv4返回null
         /// </summary>
         /// <param name="ipv4Text">ipv4文本字符串</param>
         /// <returns></returns>
-        public IPv4? ToIPv4(string ipv4Text)
+        public static IPv4? ToIPv4(string ipv4Text)
         {
-            var ipAddress = ToIPAddress(ipv4Text);
-            return ToIPv4(ipAddress);
+            return ToIPv4(ToIPAddress(ipv4Text));
         }
 
         /// <summary>
@@ -39,7 +38,7 @@ namespace UOKOFramework
         /// </summary>
         /// <param name="ipAddress">IPAddress</param>
         /// <returns></returns>
-        public IPv4? ToIPv4(IPAddress ipAddress)
+        public static IPv4? ToIPv4(IPAddress ipAddress)
         {
             var ipBytes = ipAddress?.GetAddressBytes();
             if (ipBytes?.Length != 4)

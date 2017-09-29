@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Net;
+using System.Runtime.InteropServices;
 // ReSharper disable InconsistentNaming
 namespace UOKOFramework
 {
@@ -12,7 +13,7 @@ namespace UOKOFramework
         /// 构造函数
         /// </summary>
         /// <param name="raw"></param>
-        public IPv4(uint raw)
+        public IPv4(int raw)
         {
             this._byte1 = 0;
             this._byte2 = 0;
@@ -38,7 +39,7 @@ namespace UOKOFramework
         }
 
         [FieldOffset(0)]
-        private uint _raw;
+        private int _raw;
 
         [FieldOffset(0)]
         private byte _byte1;
@@ -55,7 +56,7 @@ namespace UOKOFramework
         /// <summary>
         /// 原始数据
         /// </summary>
-        public uint Raw
+        public int Raw
         {
             get => this._raw;
             set => this._raw = value;
@@ -98,6 +99,11 @@ namespace UOKOFramework
         }
 
         /// <summary>
+        /// Bytes
+        /// </summary>
+        public byte[] Bytes => new[] { this._byte1, this._byte2, this._byte3, this._byte4 };
+
+        /// <summary>
         /// 显示字符串格式
         /// </summary>
         /// <returns></returns>
@@ -109,8 +115,42 @@ namespace UOKOFramework
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(IPv4 other)
+        {
+            return _raw == other._raw;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return obj is IPv4 && Equals((IPv4)obj);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return this._raw.GetHashCode();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="value"></param>
-        public static implicit operator IPv4(uint value)
+        public static implicit operator IPv4(int value)
         {
             return new IPv4(value);
         }
@@ -119,18 +159,31 @@ namespace UOKOFramework
         /// 
         /// </summary>
         /// <param name="ipv4"></param>
-        public static explicit operator uint(IPv4 ipv4)
+        public static explicit operator int(IPv4 ipv4)
         {
             return ipv4._raw;
         }
 
         /// <summary>
-        /// 
+        /// 重载==
         /// </summary>
-        /// <param name="ipv4"></param>
-        public static explicit operator byte[] (IPv4 ipv4)
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static bool operator ==(IPv4 x, IPv4 y)
         {
-            return new byte[] { ipv4._byte1, ipv4._byte2, ipv4._byte3, ipv4._byte4 };
+            return x._raw == y._raw;
+        }
+
+        /// <summary>
+        /// 重载！=
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static bool operator !=(IPv4 x, IPv4 y)
+        {
+            return !(x == y);
         }
     }
 }

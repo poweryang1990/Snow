@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Reflection;
 using UOKOFramework.Extensions;
+
 // ReSharper disable InconsistentNaming
 
-namespace UOKOFramework.IPDB
+namespace UOKOFramework.IPDB._17ipdb
 {
     /// <summary>
-    /// IPv4数据库
+    /// 17ipdb帮助类
     /// </summary>
-    public class IPv4DB
+    internal class _17IPv4DBHelper
     {
         private static readonly byte[] _dataBuffer;
         private static readonly byte[] _indexBuffer;
         private static readonly uint[] _index = new uint[256];
 
-        static IPv4DB()
+        static _17IPv4DBHelper()
         {
             _dataBuffer = Assembly.GetExecutingAssembly()
                                   .GetResourceBytes(_ => _.EndsWith("17ipdb.dat"));
@@ -37,28 +38,7 @@ namespace UOKOFramework.IPDB
             }
         }
 
-        /// <summary>
-        /// 查找IP的信息
-        /// </summary>
-        /// <param name="ipv4Text">ipv4字符串</param>
-        /// <returns></returns>
-        public static string[] Find(string ipv4Text)
-        {
-            var iPHelper = new IPHelper();
-            var ipv4 = iPHelper.ToIPv4(ipv4Text);
-            if (ipv4 == null)
-            {
-                return null;
-            }
-            return Find(ipv4.Value);
-        }
-
-        /// <summary>
-        /// 查找IP的信息
-        /// </summary>
-        /// <param name="ipv4">ipv4</param>
-        /// <returns></returns>
-        public static string[] Find(IPv4 ipv4)
+        internal static string[] Find(IPv4 ipv4)
         {
             var ip = BytesToUint(ipv4.Byte4, ipv4.Byte3, ipv4.Byte2, ipv4.Byte1);
             var start = _index[ipv4.Byte1];

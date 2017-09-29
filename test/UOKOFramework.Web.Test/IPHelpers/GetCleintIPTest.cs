@@ -4,7 +4,7 @@ using Moq;
 using Xunit;
 // ReSharper disable InconsistentNaming
 
-namespace UOKOFramework.Web.Test.WebHelpers
+namespace UOKOFramework.Web.Test.IPHelpers
 {
     
     public class GetCleintIPTest
@@ -12,9 +12,9 @@ namespace UOKOFramework.Web.Test.WebHelpers
         [Fact]
         public void when_httprequest_is_null_should_return_null()
         {
-            var webHelper = new WebHelper();
+            var ipHelper = new IPHelper();
 
-            Assert.Equal(null, webHelper.GetCleintIP((HttpRequest)null));
+            Assert.Equal(null, ipHelper.GetCleintIP((HttpRequest)null));
         }
 
         [Fact]
@@ -25,9 +25,9 @@ namespace UOKOFramework.Web.Test.WebHelpers
             httpRequest.ServerVariables.Add("HTTP_X_REAL_IP", "22.34.56.78");
             httpRequest.ServerVariables.Add("REMOTE_ADDR", "33.34.56.78");
 
-            var webHelper = new WebHelper();
+            var ipHelper = new IPHelper();
 
-            Assert.Equal("11.34.56.78", webHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("11.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
         }
 
         [Fact]
@@ -36,9 +36,9 @@ namespace UOKOFramework.Web.Test.WebHelpers
             var httpRequest = MockHttpRequestBase("44.34.56.78");
             httpRequest.ServerVariables.Add("HTTP_X_REAL_IP", "22.34.56.78");
             httpRequest.ServerVariables.Add("REMOTE_ADDR", "33.34.56.78");
-            var webHelper = new WebHelper();
+            var ipHelper = new IPHelper();
 
-            Assert.Equal("22.34.56.78", webHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("22.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
         }
 
         [Fact]
@@ -46,18 +46,18 @@ namespace UOKOFramework.Web.Test.WebHelpers
         {
             var httpRequest = MockHttpRequestBase("44.34.56.78");
             httpRequest.ServerVariables.Add("REMOTE_ADDR", "33.34.56.78");
-            var webHelper = new WebHelper();
+            var ipHelper = new IPHelper();
 
-            Assert.Equal("33.34.56.78", webHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("33.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
         }
 
         [Fact]
         public void get_ip_from_UserHostAddress()
         {
             var httpRequest = MockHttpRequestBase("44.34.56.78");
-            var webHelper = new WebHelper();
+            var ipHelper = new IPHelper();
 
-            Assert.Equal("44.34.56.78", webHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("44.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
         }
 
         private HttpRequestBase MockHttpRequestBase(string userHostAddress)
