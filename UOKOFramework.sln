@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.IPDB", "src\U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UOKOFramework.IPDB.Test", "test\UOKOFramework.IPDB.Test\UOKOFramework.IPDB.Test.csproj", "{F57E4BAA-AC57-475D-AF42-D2B7A259C9AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UOKOFramework.TestHelper", "test\UOKOFramework.TestHelper\UOKOFramework.TestHelper.csproj", "{86C6DF71-1933-49FB-9065-461D748F12D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{F57E4BAA-AC57-475D-AF42-D2B7A259C9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F57E4BAA-AC57-475D-AF42-D2B7A259C9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F57E4BAA-AC57-475D-AF42-D2B7A259C9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86C6DF71-1933-49FB-9065-461D748F12D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86C6DF71-1933-49FB-9065-461D748F12D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86C6DF71-1933-49FB-9065-461D748F12D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86C6DF71-1933-49FB-9065-461D748F12D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +154,7 @@ Global
 		{0BFF9609-E039-4291-A848-A4E8E8373903} = {9E14051D-3547-49AD-9D72-E500B64BFC49}
 		{C2A8D65C-6D11-49EE-ABBE-22322CA909D8} = {40654D93-CBE7-4F08-BE70-26B291764AC9}
 		{F57E4BAA-AC57-475D-AF42-D2B7A259C9AB} = {9E14051D-3547-49AD-9D72-E500B64BFC49}
+		{86C6DF71-1933-49FB-9065-461D748F12D4} = {9E14051D-3547-49AD-9D72-E500B64BFC49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F92D53D-8F4F-4E3C-BC61-88CA7DA3E06F}

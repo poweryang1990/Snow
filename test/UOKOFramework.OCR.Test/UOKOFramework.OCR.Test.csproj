@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_orc_response.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.7.127" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
@@ -12,9 +17,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\UOKOFramework.OCR\UOKOFramework.OCR.csproj" />
     <ProjectReference Include="..\..\src\UOKOFramework\UOKOFramework.csproj" />
+    <ProjectReference Include="..\UOKOFramework.TestHelper\UOKOFramework.TestHelper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
 

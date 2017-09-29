@@ -52,7 +52,7 @@ namespace UOKOFramework.OCR.Aliyun
 
                 var httpRequest = await BuildHttpRequestMessage(request);
 
-                var response = await httpClient.RequestJsonAsync<AlibabaOCRResponse>(httpRequest);
+                var response = await httpClient.RequestJsonAsync<AliyunOCRResponse>(httpRequest);
 
                 var result = response
                     .Outputs
@@ -115,7 +115,7 @@ namespace UOKOFramework.OCR.Aliyun
                             dataType = 50,
                             dataValue = new
                             {
-                                side = request.Type.ToString()
+                                side = request.Type.ToString().ToLower()
                             }
                         }
                     }

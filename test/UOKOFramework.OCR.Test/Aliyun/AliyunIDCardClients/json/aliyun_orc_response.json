@@ -1,0 +1,32 @@
+﻿{
+  "outputs": [
+    {
+      "outputLabel": "ocr_id",
+      "outputMulti": {},
+      "outputValue": {
+        "dataType": 50,
+        "dataValue": {
+          "address": "浙江省杭州市余杭区文一西路969号",
+          "config_str": { "side": "face" },
+          "face_rect": {
+            "angle": -90,
+            "center": {
+              "x": 952,
+              "y": 325.5
+            },
+            "size": {
+              "height": 181.99,
+              "width": 164.99
+            }
+          },
+          "name": "张三",
+          "nationality": "汉",
+          "num": "1234567890",
+          "sex": "男",
+          "birth": "20000101",
+          "success": true
+        }
+      }
+    }
+  ]
+}
