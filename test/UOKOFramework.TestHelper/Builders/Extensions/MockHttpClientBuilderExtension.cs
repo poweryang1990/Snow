@@ -55,10 +55,9 @@ namespace UOKOFramework.TestHelper.Builders
 
         private static HttpResponseMessage BuildJsonResponseMessage(string json)
         {
-            var jsonResponseMessage = HttpResponseMessageBuilder.New
+            return HttpResponseMessageBuilder.New
                 .WithJsonContent(json)
                 .Build();
-            return jsonResponseMessage;
         }
 
         private static HttpResponseMessage BuildBytesResponseMessage(byte[] bytes)
