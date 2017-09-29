@@ -1,9 +1,10 @@
-﻿using UOKOFramework.OCR.Alibaba;
-using UOKOFramework.OCR.Tencent;
+﻿using UOKOFramework.OCR.Tencent;
 using UOKOFramework;
 using Xunit;
 using System.Net.Http;
 using System;
+using UOKOFramework.OCR.Aliyun;
+
 // ReSharper disable InconsistentNaming
 
 namespace UOKOFramework.OCR.Test
@@ -111,64 +112,64 @@ namespace UOKOFramework.OCR.Test
         }
         #endregion
 
-        #region Alibaba
+        #region Aliyun
 
 
-        AlibabaOCROptions _alibabaOptions = new AlibabaOCROptions
+        AliyunOCROptions _aliyunOptions = new AliyunOCROptions
         {
             Appcode = "11",
             Url = "www.biying.com",
             HttpClient = new HttpClient(),
         };
         [Fact]
-        public void Normal_DetectAlibaba()
+        public void Normal_DetectAliyun()
         {
-            IIDCardClient alibabaIDcard = new AlibabaIDCardClient(_alibabaOptions);
-            var result = alibabaIDcard.DetectAsync(request).Result;
+            IIDCardClient aliyunIDcard = new AliyunIDCardClient(_aliyunOptions);
+            var result = aliyunIDcard.DetectAsync(request).Result;
         }
 
         [Fact]
-        public void when_AlibabaOCROptions_isNull_DetectAlibaba()
+        public void when_AliyunOCROptions_isNull_DetectAliyun()
         {
-            Assert.Throws<ArgumentNullException>(() => new AlibabaIDCardClient(null));
+            Assert.Throws<ArgumentNullException>(() => new AliyunIDCardClient(null));
         }
 
         [Fact]
-        public void when_AlibabaOCROptions_Appcode_isNull_DetectAlibaba()
+        public void when_AliyunOCROptions_Appcode_isNull_DetectAliyun()
         {
-            _alibabaOptions.Appcode = null;
+            _aliyunOptions.Appcode = null;
 
-            Assert.Throws<ArgumentNullException>(() => new AlibabaIDCardClient(_alibabaOptions));
+            Assert.Throws<ArgumentNullException>(() => new AliyunIDCardClient(_aliyunOptions));
         }
 
         [Fact]
-        public void when_AlibabaOCROptions_Url_isNull_DetectAlibaba()
+        public void when_AliyunOCROptions_Url_isNull_DetectAliyun()
         {
-            _alibabaOptions.Url = null;
+            _aliyunOptions.Url = null;
 
-            Assert.Throws<ArgumentNullException>(() => new AlibabaIDCardClient(_alibabaOptions));
+            Assert.Throws<ArgumentNullException>(() => new AliyunIDCardClient(_aliyunOptions));
         }
 
         [Fact]
-        public void when_AlibabaOCROptions_HttpClient_isNull_DetectAlibaba()
+        public void when_AliyunOCROptions_HttpClient_isNull_DetectAliyun()
         {
-            _alibabaOptions.HttpClient = null;
+            _aliyunOptions.HttpClient = null;
 
-            Assert.Throws<ArgumentNullException>(() => new AlibabaIDCardClient(_alibabaOptions));
+            Assert.Throws<ArgumentNullException>(() => new AliyunIDCardClient(_aliyunOptions));
         }
 
         [Fact]
-        public async void when_IDCardRequest_isNull_DetectAlibaba()
+        public async void when_IDCardRequest_isNull_DetectAliyun()
         {
-            IIDCardClient alibabaIDcard = new AlibabaIDCardClient(_alibabaOptions);
-            await Assert.ThrowsAsync<ArgumentNullException>(() => alibabaIDcard.DetectAsync(null));
+            IIDCardClient aliyunIDcard = new AliyunIDCardClient(_aliyunOptions);
+            await Assert.ThrowsAsync<ArgumentNullException>(() => aliyunIDcard.DetectAsync(null));
         }
 
         [Fact]
-        public async void when_IDCardRequest_ImgUrl_isNull_DetectAlibaba()
+        public async void when_IDCardRequest_ImgUrl_isNull_DetectAliyun()
         {
-            IIDCardClient alibabaIDcard = new AlibabaIDCardClient(_alibabaOptions);
-            await Assert.ThrowsAsync<ArgumentNullException>(() => alibabaIDcard.DetectAsync(new IDCardRequest()
+            IIDCardClient aliyunIDcard = new AliyunIDCardClient(_aliyunOptions);
+            await Assert.ThrowsAsync<ArgumentNullException>(() => aliyunIDcard.DetectAsync(new IDCardRequest()
             {
                 Type = IDCardType.Face,
                 ImgUrl = null,

@@ -2,12 +2,12 @@
 
 using System.Net.Http;
 
-namespace UOKOFramework.OCR.Alibaba
+namespace UOKOFramework.OCR.Aliyun
 {
     /// <summary>
     /// 阿里OCR配置
     /// </summary>
-    public class AlibabaOCROptions
+    public class AliyunOCROptions
     {
         /// <summary>
         /// api地址

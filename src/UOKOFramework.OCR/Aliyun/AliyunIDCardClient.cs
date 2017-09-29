@@ -12,21 +12,21 @@ using UOKOFramework.Serialization.Extensions;
 
 // ReSharper disable InconsistentNaming
 // https://help.aliyun.com/document_detail/30407.html?spm=5176.doc30403.2.20.atWaQP
-namespace UOKOFramework.OCR.Alibaba
+namespace UOKOFramework.OCR.Aliyun
 {
 
     /// <summary>
-    /// 阿里OCR身份证识别
+    /// 阿里云OCR身份证识别
     /// </summary>
-    public class AlibabaIDCardClient : IIDCardClient
+    public class AliyunIDCardClient : IIDCardClient
     {
-        private readonly AlibabaOCROptions _options;
+        private readonly AliyunOCROptions _options;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name='options'></param>
-        public AlibabaIDCardClient(AlibabaOCROptions options)
+        public AliyunIDCardClient(AliyunOCROptions options)
         {
             Throws.ArgumentNullException(options, nameof(options));
             Throws.ArgumentNullException(options.Url, nameof(options.Url));
