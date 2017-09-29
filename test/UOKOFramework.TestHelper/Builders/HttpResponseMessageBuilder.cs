@@ -33,7 +33,7 @@ namespace UOKOFramework.TestHelper.Builders
             return WithStringContent(json, Encoding.UTF8, "application/json");
         }
 
-        public HttpResponseMessageBuilder WithBytes(byte[] bytes)
+        public HttpResponseMessageBuilder WithBytesContent(byte[] bytes)
         {
             this._httpResponseMessage.Content = new ByteArrayContent(bytes);
             return this;
