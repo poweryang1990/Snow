@@ -19,7 +19,7 @@ namespace UOKOFramework.OCR
         /// <summary>
         /// 性别
         /// </summary>
-        public string Sex { get; internal set; }
+        public Gender? Gender { get; internal set; }
 
         /// <summary>
         /// 民族
@@ -42,8 +42,13 @@ namespace UOKOFramework.OCR
         public string Authority { get; internal set; }
 
         /// <summary>
-        /// 证件有效期
+        /// 证件开始时间
         /// </summary>
-        public string ValidDate { get; internal set; }
+        public string StartDate { get; internal set; }
+
+        /// <summary>
+        /// 证件结束时间
+        /// </summary>
+        public string EndDate { get; internal set; }
     }
 }

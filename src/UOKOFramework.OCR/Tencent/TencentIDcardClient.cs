@@ -56,21 +56,32 @@ namespace UOKOFramework.OCR.Tencent
                 var response = await httpClient.RequestJsonAsync<TencentOCRResponse>(httpRequest);
 
                 var result = response.Result_List.First();
-
+                var resultData = result.Data;
+                var validDate = resultData.Valid_date.Default("").Split('-');
+                string startDate = null;
+                string endDate = null;
+                if (validDate?.Length == 2)
+                {
+                    startDate = validDate[0];
+                    endDate = validDate[1];
+                }
                 return new IDCardResponse
                 {
                     Success = result.Code == 0,
                     Message = result.Message,
                     Result = new IDCard
                     {
-                        Address = result.Data.Address,
-                        Authority = result.Data.Authority,
-                        Birth = result.Data.Birth,
-                        Id = result.Data.Id,
-                        Name = result.Data.Name,
-                        Nation = result.Data.Nation,
-                        Sex = result.Data.Sex,
-                        ValidDate = result.Data.Valid_date
+                        //正面
+                        Address = resultData.Address,
+                        Birth = resultData.Birth,
+                        Id = resultData.Id,
+                        Name = resultData.Name,
+                        Nation = resultData.Nation,
+                        Gender = EnumObject.GetNullableEnumFromDescription<Gender>(resultData.Sex),
+                        //反面
+                        Authority = resultData.Authority,
+                        StartDate = startDate,
+                        EndDate = endDate
                     }
                 };
             }
@@ -116,7 +127,7 @@ namespace UOKOFramework.OCR.Tencent
                 option.AppId,
                 option.Bucket,
                 option.SecretId,
-                now, 
+                now,
                 now + 60);
 
             var plainBytes = plainText.GetBytes();

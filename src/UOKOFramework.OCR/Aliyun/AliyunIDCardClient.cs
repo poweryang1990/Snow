@@ -65,13 +65,17 @@ namespace UOKOFramework.OCR.Aliyun
                     Success = result.Success,
                     Result = new IDCard
                     {
+                        //正面
+                        Id = result.Num,
                         Address = result.Address,
-                        Authority = result.Issue,
                         Birth = result.Birth,
                         Name = result.Name,
                         Nation = result.Nationality,
-                        Sex = result.Sex,
-                        ValidDate = result.Start_date + "-" + result.End_date,
+                        Gender = EnumObject.GetNullableEnumFromDescription<Gender>(result.Sex),
+                        //反面
+                        Authority = result.Issue,
+                        StartDate = result.Start_date,
+                        EndDate = result.End_date
                     }
                 };
             }

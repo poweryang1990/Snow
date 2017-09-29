@@ -61,7 +61,7 @@ namespace UOKOFramework.OCR.Test.Aliyun.AliyunIDCardClients
         }
 
         [Fact]
-        public async void when_HttpResponse_is_OK()
+        public async void when_HttpResponse_is_OK_Face()
         {
             var idCardRequest = BuildDefaultIDCardRequest("http://xxx.com/idcard.jpg");
             idCardRequest.Type = IDCardType.Face;
@@ -72,7 +72,7 @@ namespace UOKOFramework.OCR.Test.Aliyun.AliyunIDCardClients
                 .WithBytes(new byte[] { 1 })
                 .Build();
 
-            var json = this.GetResourceText("aliyun_orc_response.json");
+            var json = this.GetResourceText("aliyun_ocr_face_response.json");
             var jsonResponse = HttpResponseMessageBuilder.New
                 .WithJsonContent(json)
                 .Build();
@@ -89,9 +89,57 @@ namespace UOKOFramework.OCR.Test.Aliyun.AliyunIDCardClients
             var response = await aliyunIDcard.DetectAsync(idCardRequest);
 
             Assert.True(response.Success, response.Message);
-            Assert.Equal("张三", response.Result.Name);
-            Assert.Equal("汉", response.Result.Nation);
-            Assert.Equal("20000101", response.Result.Birth);
+            var idCard = response.Result;
+            Assert.Equal("张三", idCard.Name);
+            Assert.Equal("汉", idCard.Nation);
+            Assert.Equal("20000101", idCard.Birth);
+            Assert.Equal("浙江省杭州市余杭区文一西路969号", idCard.Address);
+            Assert.Equal("1234567890", idCard.Id);
+            Assert.Equal(Gender.Male, idCard.Gender);
+            Assert.Equal(null, idCard.Authority);
+            Assert.Equal(null, idCard.StartDate);
+            Assert.Equal(null, idCard.EndDate);
+        }
+
+        [Fact]
+        public async void when_HttpResponse_is_OK_Back()
+        {
+            var idCardRequest = BuildDefaultIDCardRequest("http://xxx.com/idcard.jpg");
+            idCardRequest.Type = IDCardType.Back;
+            var aliyunOptions = BuildDefaultAliyunOCROptions("http://aliyun.com/ocrapi");
+            aliyunOptions.Appcode = "testcode";
+
+            var imageResponse = HttpResponseMessageBuilder.New
+                .WithBytes(new byte[] { 1 })
+                .Build();
+
+            var json = this.GetResourceText("aliyun_ocr_back_response.json");
+            var jsonResponse = HttpResponseMessageBuilder.New
+                .WithJsonContent(json)
+                .Build();
+
+            var httpClient = MockHttpMessageHandlerBuilder.New
+                .AddHttpResponseMessage("idcard.jpg", imageResponse)
+                .AddHttpResponseMessage("ocrapi", jsonResponse)
+                .BuildHttpClient();
+
+            aliyunOptions.HttpClient = httpClient;
+
+            IIDCardClient aliyunIDcard = new AliyunIDCardClient(aliyunOptions);
+
+            var response = await aliyunIDcard.DetectAsync(idCardRequest);
+
+            Assert.True(response.Success, response.Message);
+            var idCard = response.Result;
+            Assert.Equal("杭州市公安局", idCard.Authority);
+            Assert.Equal("19700101", idCard.StartDate);
+            Assert.Equal("19800101", idCard.EndDate);
+            Assert.Equal(null, idCard.Name);
+            Assert.Equal(null, idCard.Nation);
+            Assert.Equal(null, idCard.Birth);
+            Assert.Equal(null, idCard.Address);
+            Assert.Equal(null, idCard.Id);
+            Assert.Equal(null, idCard.Gender);
         }
 
         private bool VerifyHttpRequestMessage(HttpRequestMessage request)

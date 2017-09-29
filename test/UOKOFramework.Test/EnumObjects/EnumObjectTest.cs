@@ -125,5 +125,14 @@ namespace UOKOFramework.Test.EnumObjects
                 MockFlagsEnum.All
             }, flagEnumObject2.FlagEnums);
         }
+
+        [Fact]
+        public void GetNullableEnumFromDescription_method_test()
+        {
+            Assert.Null(EnumObject.GetNullableEnumFromDescription<MockFlagsEnum>(null));
+            Assert.Null(EnumObject.GetNullableEnumFromDescription<MockEnum>("答案是C"));
+            Assert.Equal(MockFlagsEnum.C, EnumObject.GetNullableEnumFromDescription<MockFlagsEnum>("答案是C"));
+        }
+        
     }
 }

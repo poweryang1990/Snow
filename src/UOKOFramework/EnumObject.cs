@@ -191,5 +191,30 @@ namespace UOKOFramework
         {
             return new EnumObject(value);
         }
+
+        /// <summary>
+        /// 根据Description获取枚举
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public static TEnum? GetNullableEnumFromDescription<TEnum>(string description) where TEnum : struct
+        {
+            if (description == null)
+            {
+                return null;
+            }
+            var enumType = typeof(TEnum);
+            var enumFileds = enumType.GetFields();
+            foreach (var enumFiled in enumFileds)
+            {
+                var d = enumFiled.GetDescription();
+                if (d == description)
+                {
+                    return (TEnum)enumFiled.GetValue(null);
+                }
+            }
+            return null;
+        }
     }
 }

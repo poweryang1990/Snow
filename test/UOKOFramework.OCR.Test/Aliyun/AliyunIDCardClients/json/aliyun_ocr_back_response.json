@@ -1,0 +1,18 @@
+﻿{
+  "outputs": [
+    {
+      "outputLabel": "ocr_id",
+      "outputMulti": {},
+      "outputValue": {
+        "dataType": 50,
+        "dataValue": {
+          "config_str": { "side": "back" },
+          "start_date": "19700101",
+          "end_date": "19800101",
+          "issue": "杭州市公安局",
+          "success": true
+        }
+      }
+    }
+  ]
+}

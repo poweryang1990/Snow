@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_orc_response.json" />
+    <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_ocr_face_response.json" />
+    <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_ocr_back_response.json" />
   </ItemGroup>
 
   <ItemGroup>
