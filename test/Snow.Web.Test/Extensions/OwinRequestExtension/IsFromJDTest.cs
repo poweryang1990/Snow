@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin;
+using Snow.Extensions;
 using Xunit;
-using Snow.Web.Extensions;
+
 // ReSharper disable InconsistentNaming
 
 namespace Snow.Web.Test.Extensions.OwinRequestExtension

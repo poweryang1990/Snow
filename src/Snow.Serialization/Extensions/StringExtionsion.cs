@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace Snow.Serialization.Extensions
+// ReSharper disable CheckNamespace
+namespace Snow.Extensions
 {
     /// <summary>
     /// String的扩展方法

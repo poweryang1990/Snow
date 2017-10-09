@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using Snow.Extensions;
 using Xunit;
-using Snow.Serialization.Extensions;
 
 namespace Snow.Serialization.Test.Extensions.JObjectExtension
 {

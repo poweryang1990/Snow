@@ -1,5 +1,5 @@
 ﻿using System;
-using Snow.Cache.Extensions;
+using Snow.Extensions;
 
 namespace Snow.Cache.Redis
 {

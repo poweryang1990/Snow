@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Snow.Serialization.Extensions;
 
-namespace Snow.Http.Extensions
+// ReSharper disable CheckNamespace
+namespace Snow.Extensions
 {
     /// <summary>
     /// HttpClient的扩展方法

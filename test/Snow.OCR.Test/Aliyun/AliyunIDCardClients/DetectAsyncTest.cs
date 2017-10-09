@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Http;
 using Snow.Extensions;
 using Snow.OCR.Aliyun;
-using Snow.Serialization.Extensions;
 using Snow.TestHelper;
 using Snow.TestHelper.Builders;
 using Xunit;

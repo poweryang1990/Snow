@@ -5,9 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Snow.Http.Extensions;
 using Snow.Extensions;
-using Snow.Serialization.Extensions;
 
 // ReSharper disable InconsistentNaming
 // https://cloud.tencent.com/document/product/460/6895

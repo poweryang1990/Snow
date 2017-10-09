@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
+using Snow.Extensions;
 using Xunit;
-using Snow.Http.Extensions;
 using Snow.TestHelper.Builders;
 
 namespace Snow.Http.Test.Extensions.HttpClientExtension

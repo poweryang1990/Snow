@@ -3,10 +3,10 @@ using Snow;
 using Xunit;
 using System.Net.Http;
 using System;
+using Snow.Extensions;
 using Snow.OCR.Aliyun;
 using Snow.TestHelper;
 using Snow.TestHelper.Builders;
-using Snow.Serialization.Extensions;
 
 // ReSharper disable InconsistentNaming
 

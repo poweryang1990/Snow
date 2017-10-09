@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Snow.Cache.Extensions;
+using Snow.Extensions;
 
 namespace Snow.Cache.Redis
 {

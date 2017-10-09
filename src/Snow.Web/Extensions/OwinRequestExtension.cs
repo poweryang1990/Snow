@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
-using Snow.Extensions;
 
-namespace Snow.Web.Extensions
+// ReSharper disable CheckNamespace
+namespace Snow.Extensions
 {
     /// <summary>
     /// IOwinRequest的扩展方法

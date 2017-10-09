@@ -1,8 +1,10 @@
 ﻿using System.Net;
 using System.Web;
-// ReSharper disable InconsistentNaming
+using Snow.Web;
 
-namespace Snow.Web.Extensions
+// ReSharper disable InconsistentNaming
+// ReSharper disable CheckNamespace
+namespace Snow.Extensions
 {
     /// <summary>
     /// HttpRequest的扩展方法

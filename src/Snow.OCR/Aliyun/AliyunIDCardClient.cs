@@ -5,10 +5,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Snow.Http.Extensions;
 using Snow;
 using Snow.Extensions;
-using Snow.Serialization.Extensions;
 
 // ReSharper disable InconsistentNaming
 // https://help.aliyun.com/document_detail/30407.html?spm=5176.doc30403.2.20.atWaQP

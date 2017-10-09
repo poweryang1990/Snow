@@ -1,8 +1,9 @@
-﻿using System.Net;
+﻿using Snow.Web;
+using System.Net;
 using System.Web;
 // ReSharper disable InconsistentNaming
-
-namespace Snow.Web.Extensions
+// ReSharper disable CheckNamespace
+namespace Snow.Extensions
 {
     /// <summary>
     /// HttpContext的扩展方法

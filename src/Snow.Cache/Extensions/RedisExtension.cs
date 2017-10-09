@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Snow.Cache;
 using StackExchange.Redis;
-using Snow.Serialization.Extensions;
+// ReSharper disable CheckNamespace
 
-namespace Snow.Cache.Extensions
+namespace Snow.Extensions
 {
     internal static class RedisExtension
     {

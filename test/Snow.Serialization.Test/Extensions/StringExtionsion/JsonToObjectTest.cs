@@ -1,4 +1,4 @@
-﻿using Snow.Serialization.Extensions;
+﻿using Snow.Extensions;
 using Xunit;
 
 namespace Snow.Serialization.Test.Extensions.StringExtionsion
