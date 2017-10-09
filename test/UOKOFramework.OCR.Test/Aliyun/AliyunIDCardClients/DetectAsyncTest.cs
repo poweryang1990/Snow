@@ -38,18 +38,10 @@ namespace UOKOFramework.OCR.Test.Aliyun.AliyunIDCardClients
             var idCardRequest = BuildDefaultIDCardRequest("http://xxx.com/idcard.jpg");
             var aliyunOptions = BuildDefaultAliyunOCROptions("http://aliyun.com/ocrapi");
 
-            var imageResponse = HttpResponseMessageBuilder.New
-                .WithBytes(new byte[] { 1 })
+            var httpClient = MockHttpClientBuilder.New
+                .AddBytesResponse("idcard.jpg", new byte[] { 1 })
+                .AddStatusCodeResponse("ocrapi", HttpStatusCode.InternalServerError)
                 .Build();
-
-            var errorResponse = HttpResponseMessageBuilder.New
-                .WithHttpStatusCode(HttpStatusCode.InternalServerError)
-                .Build();
-
-            var httpClient = MockHttpMessageHandlerBuilder.New
-                .AddHttpResponseMessage("idcard.jpg", imageResponse)
-                .AddHttpResponseMessage("ocrapi", errorResponse)
-                .BuildHttpClient();
 
             aliyunOptions.HttpClient = httpClient;
 
@@ -68,19 +60,12 @@ namespace UOKOFramework.OCR.Test.Aliyun.AliyunIDCardClients
             var aliyunOptions = BuildDefaultAliyunOCROptions("http://aliyun.com/ocrapi");
             aliyunOptions.Appcode = "testcode";
 
-            var imageResponse = HttpResponseMessageBuilder.New
-                .WithBytes(new byte[] { 1 })
-                .Build();
-
             var json = this.GetResourceText("aliyun_ocr_face_response.json");
-            var jsonResponse = HttpResponseMessageBuilder.New
-                .WithJsonContent(json)
-                .Build();
 
-            var httpClient = MockHttpMessageHandlerBuilder.New
-                .AddHttpResponseMessage("idcard.jpg", imageResponse)
-                .AddHttpMessage(request => VerifyHttpRequestMessage(request), jsonResponse)
-                .BuildHttpClient();
+            var httpClient = MockHttpClientBuilder.New
+                .AddBytesResponse("idcard.jpg", new byte[] { 1 })
+                .AddJsonResponse(request => VerifyHttpRequestMessage(request), json)
+                .Build();
 
             aliyunOptions.HttpClient = httpClient;
 
@@ -109,19 +94,12 @@ namespace UOKOFramework.OCR.Test.Aliyun.AliyunIDCardClients
             var aliyunOptions = BuildDefaultAliyunOCROptions("http://aliyun.com/ocrapi");
             aliyunOptions.Appcode = "testcode";
 
-            var imageResponse = HttpResponseMessageBuilder.New
-                .WithBytes(new byte[] { 1 })
-                .Build();
-
             var json = this.GetResourceText("aliyun_ocr_back_response.json");
-            var jsonResponse = HttpResponseMessageBuilder.New
-                .WithJsonContent(json)
-                .Build();
 
-            var httpClient = MockHttpMessageHandlerBuilder.New
-                .AddHttpResponseMessage("idcard.jpg", imageResponse)
-                .AddHttpResponseMessage("ocrapi", jsonResponse)
-                .BuildHttpClient();
+            var httpClient = MockHttpClientBuilder.New
+                .AddBytesResponse("idcard.jpg", new byte[] { 1 })
+                .AddJsonResponse("ocrapi", json)
+                .Build();
 
             aliyunOptions.HttpClient = httpClient;
 

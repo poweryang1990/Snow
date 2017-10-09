@@ -9,17 +9,17 @@ using UOKOFramework.Extensions;
 
 namespace UOKOFramework.TestHelper.Builders
 {
-    public class MockHttpMessageHandlerBuilder
+    public class MockHttpClientBuilder
     {
         private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler = new Mock<HttpMessageHandler>();
 
-        public static MockHttpMessageHandlerBuilder New => new MockHttpMessageHandlerBuilder();
+        public static MockHttpClientBuilder New => new MockHttpClientBuilder();
 
-        private MockHttpMessageHandlerBuilder()
+        private MockHttpClientBuilder()
         {
         }
 
-        public MockHttpMessageHandlerBuilder AddHttpResponseMessage(
+        public MockHttpClientBuilder AddHttpMessage(
            string requestUrl,
             HttpResponseMessage httpResponseMessage)
         {
@@ -31,7 +31,7 @@ namespace UOKOFramework.TestHelper.Builders
             return httpRequestMessage.RequestUri.ToString().Include(requestUrl);
         }
 
-        public MockHttpMessageHandlerBuilder AddHttpMessage(
+        public MockHttpClientBuilder AddHttpMessage(
             Expression<Func<HttpRequestMessage, bool>> match,
             HttpResponseMessage httpResponseMessage)
         {
@@ -42,12 +42,12 @@ namespace UOKOFramework.TestHelper.Builders
             return this;
         }
 
-        public Mock<HttpMessageHandler> Build()
+        public Mock<HttpMessageHandler> BuildMock()
         {
             return this._mockHttpMessageHandler;
         }
 
-        public HttpClient BuildHttpClient()
+        public HttpClient Build()
         {
             return new HttpClient(this._mockHttpMessageHandler.Object);
         }
