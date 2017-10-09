@@ -110,13 +110,10 @@ namespace UOKOFramework.OCR.Test.Tencent.TencentIDCardClients
         public async void when_HttpResponse_is_OK_Face()
         {
             var json = this.GetResourceText("Tencent_ocr_face_response.json");
-            var jsonResponse = HttpResponseMessageBuilder.New
-                .WithJsonContent(json)
+            
+            var httpClient = MockHttpClientBuilder.New
+                .AddJsonResponse(request => VerifyHttpRequestMessage(request), json)
                 .Build();
-
-            var httpClient = MockHttpMessageHandlerBuilder.New
-                .AddHttpMessage(request => VerifyHttpRequestMessage(request), jsonResponse)
-                .BuildHttpClient();
 
             _tencentOptions.HttpClient = httpClient;
 
@@ -141,13 +138,10 @@ namespace UOKOFramework.OCR.Test.Tencent.TencentIDCardClients
         public async void when_HttpResponse_is_OK_Back()
         {
             var json = this.GetResourceText("Tencent_ocr_back_response.json");
-            var jsonResponse = HttpResponseMessageBuilder.New
-                .WithJsonContent(json)
-                .Build();
 
-            var httpClient = MockHttpMessageHandlerBuilder.New
-                .AddHttpMessage(request => VerifyHttpRequestMessage(request), jsonResponse)
-                .BuildHttpClient();
+            var httpClient = MockHttpClientBuilder.New
+                .AddJsonResponse(request => VerifyHttpRequestMessage(request), json)
+                .Build();
 
             _tencentOptions.HttpClient = httpClient;
 
