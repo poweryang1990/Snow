@@ -14,6 +14,10 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
 {
     public class TencentIDCardTest
     {
+        private readonly IClock _clock = new Clock
+        {
+            Now = DateTimeOffset.Parse("2017-10-09 15:58:56")
+        };
 
         private readonly IDCardRequest idCardRequest = new IDCardRequest()
         {
@@ -21,15 +25,7 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
             ImgUrl = "http://7xodcr.com1.z0.glb.clouddn.com/%E6%AD%A3%E9%9D%A2.png",
         };
 
-        private TencentOCROptions _tencentOptions = new TencentOCROptions
-        {
-            Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
-            AppId = "1111",
-            SecretId = "dsdasdsadsa",
-            SecretKey = "weqwewqe",
-            Bucket = "idcard",
-            HttpClient = new HttpClient(),
-        };
+
 
         [Fact]
         public void when_TencentOCROptions_isNull_DetectTencent()
@@ -40,23 +36,45 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public void when_TencentOCROptions_Apiurl_isNull_DetectTencent()
         {
-            _tencentOptions.Apiurl = null;
-
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = null,
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
             Assert.Throws<ArgumentNullException>(() => new TencentIDCardClient(_tencentOptions, new Clock()));
         }
 
         [Fact]
         public void when_TencentOCROptions_AppId_isNull_DetectTencent()
         {
-            _tencentOptions.AppId = null;
-
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = null,
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
             Assert.Throws<ArgumentNullException>(() => new TencentIDCardClient(_tencentOptions, new Clock()));
         }
 
         [Fact]
         public void when_TencentOCROptions_SecretId_isNull_DetectTencent()
         {
-            _tencentOptions.SecretId = null;
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = null,
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
 
             Assert.Throws<ArgumentNullException>(() => new TencentIDCardClient(_tencentOptions, new Clock()));
         }
@@ -64,7 +82,15 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public void when_TencentOCROptions_SecretKey_isNull_DetectTencent()
         {
-            _tencentOptions.SecretKey = null;
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = null,
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
 
             Assert.Throws<ArgumentNullException>(() => new TencentIDCardClient(_tencentOptions, new Clock()));
         }
@@ -72,7 +98,15 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public void when_TencentOCROptions_Bucket_isNull_DetectTencent()
         {
-            _tencentOptions.Bucket = null;
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = null,
+                HttpClient = new HttpClient(),
+            };
 
             Assert.Throws<ArgumentNullException>(() => new TencentIDCardClient(_tencentOptions, new Clock()));
         }
@@ -80,7 +114,15 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public void when_TencentOCROptions_HttpClient_isNull_DetectTencent()
         {
-            _tencentOptions.HttpClient = null;
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = null,
+            };
 
             Assert.Throws<ArgumentNullException>(() => new TencentIDCardClient(_tencentOptions, new Clock()));
         }
@@ -88,6 +130,15 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public async void when_IDCardRequest_isNull_DetectTencent()
         {
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
             IIDCardClient tencentIDcard = new TencentIDCardClient(_tencentOptions, new Clock());
 
             await Assert.ThrowsAsync<ArgumentNullException>(() => tencentIDcard.DetectAsync(null));
@@ -96,6 +147,15 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public async void when_IDCardRequest_ImgUrl_isNull_DetectTencent()
         {
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
             IIDCardClient tencentIDcard = new TencentIDCardClient(_tencentOptions, new Clock());
 
             await Assert.ThrowsAsync<ArgumentNullException>(() => tencentIDcard.DetectAsync(new IDCardRequest()
@@ -109,15 +169,23 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public async void when_HttpResponse_is_OK_Face()
         {
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
             var json = this.GetResourceText("Tencent_ocr_face_response.json");
-            
+
             var httpClient = MockHttpClientBuilder.New
                 .AddJsonResponse(request => VerifyHttpRequestMessage(request), json)
                 .Build();
 
             _tencentOptions.HttpClient = httpClient;
-
-            IIDCardClient tencentIDcard = new TencentIDCardClient(_tencentOptions, new Clock());
+            IIDCardClient tencentIDcard = new TencentIDCardClient(_tencentOptions, _clock);
 
             var response = await tencentIDcard.DetectAsync(idCardRequest);
 
@@ -137,6 +205,15 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
         [Fact]
         public async void when_HttpResponse_is_OK_Back()
         {
+            TencentOCROptions _tencentOptions = new TencentOCROptions
+            {
+                Apiurl = "http://service.image.myqcloud.com/ocr/idcard",
+                AppId = "1111",
+                SecretId = "dsdasdsadsa",
+                SecretKey = "weqwewqe",
+                Bucket = "idcard",
+                HttpClient = new HttpClient(),
+            };
             var json = this.GetResourceText("Tencent_ocr_back_response.json");
 
             var httpClient = MockHttpClientBuilder.New
@@ -145,7 +222,7 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
 
             _tencentOptions.HttpClient = httpClient;
 
-            IIDCardClient tencentIDcard = new TencentIDCardClient(_tencentOptions, new Clock());
+            IIDCardClient tencentIDcard = new TencentIDCardClient(_tencentOptions, _clock);
 
             var response = await tencentIDcard.DetectAsync(idCardRequest);
 
@@ -176,6 +253,8 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
             Assert.Equal(HttpMethod.Post, request.Method);
             Assert.Equal("1111", json.appid.Value);
             Assert.Equal("idcard", json.bucket.Value);
+            Assert.Equal("jX+3/KRrBVmN8ueFGMU48WPWCyFhPTExMTEmYj1pZGNhcmQmaz1kc2Rhc2RzYWRzYSZ0PTE1MDc1MzU5MzYmZT0xNTA3NTM1OTk2", request.Headers.Authorization.Parameter);
+
             return true;
         }
     }
