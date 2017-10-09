@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_ocr_face_response.json" />
+    <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_ocr_back_response.json" />
+    <EmbeddedResource Include="Tencent\TencentIDCardClients\Json\Tencent_ocr_back_response.json" />
+    <EmbeddedResource Include="Tencent\TencentIDCardClients\Json\Tencent_ocr_face_response.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.7.127" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Snow.OCR\Snow.OCR.csproj" />
+    <ProjectReference Include="..\..\src\Snow\Snow.csproj" />
+    <ProjectReference Include="..\Snow.TestHelper\Snow.TestHelper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+</Project>

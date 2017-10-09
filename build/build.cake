@@ -5,7 +5,7 @@
 var target = Argument("target", "default");
 
 var rootPath = "../";
-var solutionFile = rootPath + "UOKOframework.sln";
+var solutionFile = rootPath + "Snow.sln";
 var projectFiles = GetFiles(rootPath + "src/**/*.csproj");
 var nuspecFiles = GetFiles(rootPath + "src/**/*.nuspec");
 

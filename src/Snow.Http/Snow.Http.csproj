@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net452;net461</TargetFrameworks>
+    <AssemblyName>Snow.Http</AssemblyName>
+    <RootNamespace>Snow.Http</RootNamespace>
+  </PropertyGroup>
+
+  <!--nuget打包配置-->
+  <PropertyGroup>
+    <PackageId>Snow.Http</PackageId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>UOKO</Authors>
+    <Company>UOKO</Company>
+    <Product>UOKO</Product>
+    <Version>1.0.0</Version>
+    <Description>UOKO基础包-Http</Description>
+    <Copyright>UOKO 2017</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>cache</PackageTags>
+    <PackageReleaseNotes>none</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <!--结构描述文档+视为错误的编译警告-->
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <WarningsAsErrors>NU1605;CS0109;CS1572;CS1573;CS1591;CS1712</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Snow.Serialization\Snow.Serialization.csproj" />
+    <ProjectReference Include="..\Snow\Snow.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+</Project>

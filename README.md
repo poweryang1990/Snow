@@ -1,10 +1,10 @@
 # 项目说明
 
-当前解决方案（UOKOFramework.sln）为基础部分的公共库，和具体业务无关。
+当前解决方案（Snow.sln）为基础部分的公共库，和具体业务无关。
 
-1. `UOKOFramework` 为最基础的部分，除了依赖.net的核心库之外，不存在任何的第三方依赖。
-2. `UOKOFramework.xxx` 为通用部分的库，均依赖于UOKOFramework，彼此直接也会存在单项依赖。
-3. `UOKOFramework.Web` 为web层的基础部分。
+1. `Snow` 为最基础的部分，除了依赖.net的核心库之外，不存在任何的第三方依赖。
+2. `Snow.xxx` 为通用部分的库，均依赖于Snow，彼此直接也会存在单项依赖。
+3. `Snow.Web` 为web层的基础部分。
 
 # 添加新项目注意所属的文件夹
 
