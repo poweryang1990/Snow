@@ -1,0 +1,17 @@
+﻿{
+  "result_list": [
+    {
+      "code": 0,
+      "message": "OK",
+      "url": "http://www.test.com/aaa.jpg",
+      "data": {
+        "name": "李四",
+        "sex": "男",
+        "nation": "汉",
+        "birth": "2000/1/1",
+        "address": "成都",
+        "id": "123456200001011234"
+      }
+    }
+  ]
+}

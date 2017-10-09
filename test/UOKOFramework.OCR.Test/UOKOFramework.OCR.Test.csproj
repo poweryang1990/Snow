@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Tencent\TencentIDCardClients\Json\Tencent_ocr_face_response.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_ocr_face_response.json" />
     <EmbeddedResource Include="Aliyun\AliyunIDCardClients\json\aliyun_ocr_back_response.json" />
+    <EmbeddedResource Include="Tencent\TencentIDCardClients\Json\Tencent_ocr_back_response.json" />
+    <EmbeddedResource Include="Tencent\TencentIDCardClients\Json\Tencent_ocr_face_response.json" />
   </ItemGroup>
 
   <ItemGroup>

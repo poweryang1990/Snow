@@ -1,0 +1,13 @@
+﻿{
+  "result_list": [
+    {
+      "code": 0,
+      "message": "OK",
+      "url": "http://www.test.com/aaa.jpg",
+      "data": {
+        "authority": "某市派出所",
+        "valid_date": "2012.01.01-2022.01.01"
+      }
+    }
+  ]
+}
