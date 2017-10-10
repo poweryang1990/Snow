@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Snow.Extensions;
 using Snow.OCR.Aliyun;
 using Snow.TestHelper;
@@ -74,15 +75,16 @@ namespace Snow.OCR.Test.Aliyun.AliyunIDCardClients
 
             Assert.True(response.Success, response.Message);
             var idCard = response.Result;
-            Assert.Equal("张三", idCard.Name);
-            Assert.Equal("汉", idCard.Nation);
-            Assert.Equal("20000101", idCard.Birth);
-            Assert.Equal("浙江省杭州市余杭区文一西路969号", idCard.Address);
-            Assert.Equal("1234567890", idCard.Id);
-            Assert.Equal(Gender.Male, idCard.Gender);
-            Assert.Equal(null, idCard.Authority);
-            Assert.Equal(null, idCard.StartDate);
-            Assert.Equal(null, idCard.EndDate);
+
+            idCard.Name.Should().Be("张三");
+            idCard.Nation.Should().Be("汉");
+            idCard.Birth.Should().Be("20000101");
+            idCard.Address.Should().Be("浙江省杭州市余杭区文一西路969号");
+            idCard.Id.Should().Be("1234567890");
+            idCard.Gender.Should().Be(Gender.Male);
+            idCard.Authority.Should().BeNull();
+            idCard.StartDate.Should().BeNull();
+            idCard.EndDate.Should().BeNull();
         }
 
         [Fact]
@@ -111,12 +113,12 @@ namespace Snow.OCR.Test.Aliyun.AliyunIDCardClients
             Assert.Equal("杭州市公安局", idCard.Authority);
             Assert.Equal("19700101", idCard.StartDate);
             Assert.Equal("19800101", idCard.EndDate);
-            Assert.Equal(null, idCard.Name);
-            Assert.Equal(null, idCard.Nation);
-            Assert.Equal(null, idCard.Birth);
-            Assert.Equal(null, idCard.Address);
-            Assert.Equal(null, idCard.Id);
-            Assert.Equal(null, idCard.Gender);
+            Assert.Null(idCard.Name);
+            Assert.Null(idCard.Nation);
+            Assert.Null(idCard.Birth);
+            Assert.Null(idCard.Address);
+            Assert.Null(idCard.Id);
+            Assert.Null(idCard.Gender);
         }
 
         private bool VerifyHttpRequestMessage(HttpRequestMessage request)
