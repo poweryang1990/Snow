@@ -51,79 +51,96 @@ namespace Snow.Extensions
             return dateTime > that ? dateTime : that;
         }
 
+
         /// <summary>
-        /// 获取星座
+        /// 获取星座[枚举]
         /// </summary>
         /// <param name="dateTime">this</param>
         /// <returns></returns>
         public static Constellation GetConstellation(this DateTimeOffset dateTime)
         {
-            var month = dateTime.Month;
-            var day = dateTime.Day;
-            switch (month)
+            var monthDay = Convert.ToInt32(dateTime.ToString("MMdd"));
+
+            if (monthDay <= 119 || monthDay >= 1222)
             {
-                case 1:
-                    if (day <= 19)
-                        return Constellation.Capricorn;
-                    else
-                        return Constellation.Aquarius;
-                case 2:
-                    if (day <= 18)
-                        return Constellation.Aquarius;
-                    else
-                        return Constellation.Pisces;
-                case 3:
-                    if (day <= 20)
-                        return Constellation.Pisces;
-                    else
-                        return Constellation.Aries;
-                case 4:
-                    if (day <= 19)
-                        return Constellation.Aries;
-                    else
-                        return Constellation.Taurus;
-                case 5:
-                    if (day <= 20)
-                        return Constellation.Taurus;
-                    else
-                        return Constellation.Gemini;
-                case 6:
-                    if (day <= 20)
-                        return Constellation.Gemini;
-                    else
-                        return Constellation.Cancer;
-                case 7:
-                    if (day <= 22)
-                        return Constellation.Cancer;
-                    else
-                        return Constellation.Leo;
-                case 8:
-                    if (day <= 22)
-                        return Constellation.Leo;
-                    else
-                        return Constellation.Virgo;
-                case 9:
-                    if (day <= 22)
-                        return Constellation.Virgo;
-                    else
-                        return Constellation.Libra;
-                case 10:
-                    if (day <= 22)
-                        return Constellation.Libra;
-                    else
-                        return Constellation.Scorpio;
-                case 11:
-                    if (day <= 21)
-                        return Constellation.Scorpio;
-                    else
-                        return Constellation.Sagittarius;
-                case 12:
-                    if (day <= 21)
-                        return Constellation.Sagittarius;
-                    else
-                        return Constellation.Capricorn;
+                return Constellation.Capricorn;
             }
+
+            if (monthDay >= 120 && monthDay <= 218)
+            {
+                return Constellation.Aquarius;
+            }
+
+            if (monthDay >= 219 && monthDay <= 320)
+            {
+                return Constellation.Pisces;
+            }
+
+            if (monthDay >= 321 && monthDay <= 419)
+            {
+                return Constellation.Aries;
+            }
+
+            if (monthDay >= 420 && monthDay <= 520)
+            {
+                return Constellation.Taurus;
+            }
+
+            if (monthDay >= 521 && monthDay <= 621)
+            {
+                return Constellation.Gemini;
+            }
+
+            if (monthDay >= 622 && monthDay <= 722)
+            {
+                return Constellation.Cancer;
+            }
+
+            if (monthDay >= 723 && monthDay <= 822)
+            {
+                return Constellation.Leo;
+            }
+
+            if (monthDay >= 823 && monthDay <= 922)
+            {
+                return Constellation.Virgo;
+            }
+
+            if (monthDay >= 923 && monthDay <= 1023)
+            {
+                return Constellation.Libra;
+            }
+
+            if (monthDay >= 1024 && monthDay <= 1121)
+            {
+                return Constellation.Scorpio;
+            }
+
+            if (monthDay >= 1122 && monthDay <= 1221)
+            {
+                return Constellation.Sagittarius;
+            }
+
             return Constellation.Unknown;
+        }
+
+        /// <summary>
+        /// 获取星座[枚举的描述字符串]
+        /// </summary>
+        /// <param name="dateTime">this</param>
+        /// <returns></returns>
+        public static string GetConstellationString(this DateTimeOffset dateTime)
+        {
+            return GetConstellation(dateTime).GetDescription();
+        }
+        /// <summary>
+        /// 获取本月天数
+        /// </summary>
+        /// <param name="dateTime">this</param>
+        /// <returns>本月的天数</returns>
+        public static int GetDaysInMonth(this DateTimeOffset dateTime)
+        {
+            return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
         }
     }
 }
