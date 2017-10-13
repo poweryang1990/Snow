@@ -13,11 +13,13 @@
       <group targetFramework=".NETFramework4.5.2">
         <dependency id="Snow.Basic" version="1.0.0" />
         <dependency id="Snow.OCR" version="1.0.0" />
+        <dependency id="Snow.MQ" version="1.0.0" />
         <dependency id="Snow.Web" version="1.0.0" />
       </group>
       <group targetFramework=".NETFramework4.6.1">
         <dependency id="Snow.Basic" version="1.0.0" />
         <dependency id="Snow.OCR" version="1.0.0" />
+        <dependency id="Snow.MQ" version="1.0.0" />
         <dependency id="Snow.Web" version="1.0.0" />
       </group>
     </dependencies>
