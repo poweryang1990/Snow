@@ -23,11 +23,12 @@ namespace Snow.Extensions
         /// 读取Assembly中的资源
         /// </summary>
         /// <param name="assembly">this</param>
-        /// <param name="resourceFullName">资源文件的完全限定名</param>
+        /// <param name="resourceFileName">资源文件名</param>
+        /// <param name="isFullName">是否是完全限定名</param>
         /// <returns>bytes</returns>
-        public static byte[] GetResourceBytes(this Assembly assembly, string resourceFullName)
+        public static byte[] GetResourceBytes(this Assembly assembly, string resourceFileName, bool isFullName = false)
         {
-            return new AssemblyHelper().GetResourceBytes(assembly, resourceFullName);
+            return new AssemblyHelper().GetResourceBytes(assembly, resourceFileName, isFullName);
         }
     }
 }

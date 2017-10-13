@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{40654D93-CBE7-4F08-BE70-26B291764AC9}"
 	ProjectSection(SolutionItems) = preProject
@@ -48,7 +48,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snow.IPDB", "src\Snow.IPDB\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snow.IPDB.Test", "test\Snow.IPDB.Test\Snow.IPDB.Test.csproj", "{F57E4BAA-AC57-475D-AF42-D2B7A259C9AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snow.TestHelper", "test\Snow.TestHelper\Snow.TestHelper.csproj", "{86C6DF71-1933-49FB-9065-461D748F12D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHelper", "test\TestHelper\TestHelper.csproj", "{86C6DF71-1933-49FB-9065-461D748F12D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,7 +12,7 @@ namespace Snow.Test.AssemblyHelpers
         {
             var assemblyHelper = new AssemblyHelper();
 
-            Assert.Throws<ArgumentNullException>(() => assemblyHelper.GetResourceBytes(null, "resource.txt"));
+            Assert.Throws<ArgumentNullException>(() => assemblyHelper.GetResourceBytes(null, "resource.txt", true));
             Assert.Throws<ArgumentNullException>(() => assemblyHelper.GetResourceBytes(null, _ => true));
         }
 
@@ -22,8 +22,8 @@ namespace Snow.Test.AssemblyHelpers
             var assemblyHelper = new AssemblyHelper();
             var assembly = Assembly.GetExecutingAssembly();
 
-            Assert.Throws<ArgumentNullException>(() => assemblyHelper.GetResourceBytes(assembly, (string)null));
-            Assert.Throws<ArgumentNullException>(() => assemblyHelper.GetResourceBytes(assembly, " "));
+            Assert.Throws<ArgumentNullException>(() => assemblyHelper.GetResourceBytes(assembly, (string)null, false));
+            Assert.Throws<ArgumentNullException>(() => assemblyHelper.GetResourceBytes(assembly, " ", false));
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace Snow.Test.AssemblyHelpers
             var assembly = Assembly.GetExecutingAssembly();
             var resourceContent = "MOCK程序集中的资源文件,不要删除。";
             var resourceBytes = assemblyHelper.GetResourceBytes(
-                assembly, _ => _.EndsWith("resource.txt"));
+                assembly, "resource.txt", false);
 
             Assert.Equal(resourceContent, resourceBytes.GetString());
         }

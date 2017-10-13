@@ -22,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Snow.OCR\Snow.OCR.csproj" />
     <ProjectReference Include="..\..\src\Snow\Snow.csproj" />
-    <ProjectReference Include="..\Snow.TestHelper\Snow.TestHelper.csproj" />
+    <ProjectReference Include="..\TestHelper\TestHelper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,7 +7,7 @@ using Moq;
 using Moq.Protected;
 using Snow.Extensions;
 
-namespace Snow.TestHelper.Builders
+namespace TestHelper.Builders
 {
     public class MockHttpClientBuilder
     {

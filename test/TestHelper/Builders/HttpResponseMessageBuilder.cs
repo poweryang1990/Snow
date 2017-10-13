@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace Snow.TestHelper.Builders
+namespace TestHelper.Builders
 {
     public class HttpResponseMessageBuilder
     {

@@ -14,14 +14,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Snow.Http\Snow.Http.csproj" />
-    <ProjectReference Include="..\Snow.TestHelper\Snow.TestHelper.csproj" />
+    <ProjectReference Include="..\TestHelper\TestHelper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Net.Http.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 
 </Project>

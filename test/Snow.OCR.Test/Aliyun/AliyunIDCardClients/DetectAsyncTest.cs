@@ -4,8 +4,8 @@ using System.Net.Http;
 using FluentAssertions;
 using Snow.Extensions;
 using Snow.OCR.Aliyun;
-using Snow.TestHelper;
-using Snow.TestHelper.Builders;
+using TestHelper;
+using TestHelper.Builders;
 using Xunit;
 
 namespace Snow.OCR.Test.Aliyun.AliyunIDCardClients
@@ -60,7 +60,7 @@ namespace Snow.OCR.Test.Aliyun.AliyunIDCardClients
             var aliyunOptions = BuildDefaultAliyunOCROptions("http://aliyun.com/ocrapi");
             aliyunOptions.Appcode = "testcode";
 
-            var json = this.GetResourceText("aliyun_ocr_face_response.json");
+            var json = this.GetBelongAssemblyResourceText("aliyun_ocr_face_response.json");
 
             var httpClient = MockHttpClientBuilder.New
                 .AddBytesResponse("idcard.jpg", new byte[] { 1 })
@@ -95,7 +95,7 @@ namespace Snow.OCR.Test.Aliyun.AliyunIDCardClients
             var aliyunOptions = BuildDefaultAliyunOCROptions("http://aliyun.com/ocrapi");
             aliyunOptions.Appcode = "testcode";
 
-            var json = this.GetResourceText("aliyun_ocr_back_response.json");
+            var json = this.GetBelongAssemblyResourceText("aliyun_ocr_back_response.json");
 
             var httpClient = MockHttpClientBuilder.New
                 .AddBytesResponse("idcard.jpg", new byte[] { 1 })

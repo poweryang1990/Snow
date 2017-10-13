@@ -5,8 +5,8 @@ using System.Net.Http;
 using System;
 using Snow.Extensions;
 using Snow.OCR.Aliyun;
-using Snow.TestHelper;
-using Snow.TestHelper.Builders;
+using TestHelper;
+using TestHelper.Builders;
 
 // ReSharper disable InconsistentNaming
 
@@ -178,7 +178,7 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
                 Bucket = "idcard",
                 HttpClient = new HttpClient(),
             };
-            var json = this.GetResourceText("Tencent_ocr_face_response.json");
+            var json = this.GetBelongAssemblyResourceText("Tencent_ocr_face_response.json");
 
             var httpClient = MockHttpClientBuilder.New
                 .AddJsonResponse(request => VerifyHttpRequestMessage(request), json)
@@ -214,7 +214,7 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
                 Bucket = "idcard",
                 HttpClient = new HttpClient(),
             };
-            var json = this.GetResourceText("Tencent_ocr_back_response.json");
+            var json = this.GetBelongAssemblyResourceText("Tencent_ocr_back_response.json");
 
             var httpClient = MockHttpClientBuilder.New
                 .AddJsonResponse(request => VerifyHttpRequestMessage(request), json)

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using Snow.Extensions;
 using Xunit;
-using Snow.TestHelper.Builders;
+using TestHelper.Builders;
 
 namespace Snow.Http.Test.Extensions.HttpClientExtension
 {

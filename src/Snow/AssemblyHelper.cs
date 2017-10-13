@@ -21,7 +21,8 @@ namespace Snow
             Throws.ArgumentNullException(assembly, nameof(assembly));
             Throws.ArgumentNullException(predicate, nameof(predicate));
 
-            var resourceFullName = assembly.GetManifestResourceNames().First(predicate);
+            var resourceFullName = assembly.GetManifestResourceNames()
+                .First(predicate);
 
             return GetResourceBytes(assembly, resourceFullName);
         }
@@ -30,13 +31,24 @@ namespace Snow
         /// 读取Assembly中的资源
         /// </summary>
         /// <param name="assembly">Assembly</param>
-        /// <param name="resourceFullName">资源文件的完全限定名</param>
+        /// <param name="resourceFileName">资源文件名</param>
+        /// <param name="isFullName">是否是完全限定名</param>
         /// <returns>bytes</returns>
-        public byte[] GetResourceBytes(Assembly assembly, string resourceFullName)
+        public byte[] GetResourceBytes(Assembly assembly, string resourceFileName, bool isFullName)
         {
             Throws.ArgumentNullException(assembly, nameof(assembly));
-            Throws.ArgumentNullException(resourceFullName, nameof(resourceFullName));
+            Throws.ArgumentNullException(resourceFileName, nameof(resourceFileName));
 
+            if (isFullName == true)
+            {
+                return GetResourceBytes(assembly, resourceFileName);
+            }
+
+            return GetResourceBytes(assembly, _ => _.EndsWith(resourceFileName));
+        }
+
+        private byte[] GetResourceBytes(Assembly assembly, string resourceFullName)
+        {
             using (var resourceStream = assembly.GetManifestResourceStream(resourceFullName))
             {
                 if (resourceStream == null)

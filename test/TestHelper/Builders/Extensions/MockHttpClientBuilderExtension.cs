@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 // ReSharper disable CheckNamespace
 
-namespace Snow.TestHelper.Builders
+namespace TestHelper.Builders
 {
     public static class MockHttpClientBuilderExtension
     {
