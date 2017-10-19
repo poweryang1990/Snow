@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{40654D93-CBE7-4F08-BE70-26B291764AC9}"
 	ProjectSection(SolutionItems) = preProject
@@ -50,9 +50,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snow.IPDB.Test", "test\Snow
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHelper", "test\TestHelper\TestHelper.csproj", "{86C6DF71-1933-49FB-9065-461D748F12D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snow.MQ", "src\Snow.MQ\Snow.MQ.csproj", "{CF540084-15C4-491A-85FE-5C82D9046E50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snow.MQ", "src\Snow.MQ\Snow.MQ.csproj", "{CF540084-15C4-491A-85FE-5C82D9046E50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snow.MQ.Test", "test\Snow.MQ.Test\Snow.MQ.Test.csproj", "{9256C986-9FCB-4001-8424-2F767E50B695}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snow.MQ.Test", "test\Snow.MQ.Test\Snow.MQ.Test.csproj", "{9256C986-9FCB-4001-8424-2F767E50B695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snow.RPC.Test", "test\Snow.RPC.Test\Snow.RPC.Test.csproj", "{C74DAB72-4FFA-4210-AFCB-E97DB532FCEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snow.RPC", "src\Snow.RPC\Snow.RPC.csproj", "{879C4043-4DBC-4AEE-B733-B9CE9F14C896}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,6 +148,14 @@ Global
 		{9256C986-9FCB-4001-8424-2F767E50B695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9256C986-9FCB-4001-8424-2F767E50B695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9256C986-9FCB-4001-8424-2F767E50B695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C74DAB72-4FFA-4210-AFCB-E97DB532FCEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C74DAB72-4FFA-4210-AFCB-E97DB532FCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C74DAB72-4FFA-4210-AFCB-E97DB532FCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C74DAB72-4FFA-4210-AFCB-E97DB532FCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{879C4043-4DBC-4AEE-B733-B9CE9F14C896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{879C4043-4DBC-4AEE-B733-B9CE9F14C896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{879C4043-4DBC-4AEE-B733-B9CE9F14C896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{879C4043-4DBC-4AEE-B733-B9CE9F14C896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,6 +182,8 @@ Global
 		{86C6DF71-1933-49FB-9065-461D748F12D4} = {9E14051D-3547-49AD-9D72-E500B64BFC49}
 		{CF540084-15C4-491A-85FE-5C82D9046E50} = {40654D93-CBE7-4F08-BE70-26B291764AC9}
 		{9256C986-9FCB-4001-8424-2F767E50B695} = {9E14051D-3547-49AD-9D72-E500B64BFC49}
+		{C74DAB72-4FFA-4210-AFCB-E97DB532FCEB} = {9E14051D-3547-49AD-9D72-E500B64BFC49}
+		{879C4043-4DBC-4AEE-B733-B9CE9F14C896} = {40654D93-CBE7-4F08-BE70-26B291764AC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F92D53D-8F4F-4E3C-BC61-88CA7DA3E06F}
