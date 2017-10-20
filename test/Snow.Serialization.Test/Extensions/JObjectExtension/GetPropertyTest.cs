@@ -12,7 +12,7 @@ namespace Snow.Serialization.Test.Extensions.JObjectExtension
         {
             JObject jObject = null;
 
-            Assert.Equal(null, jObject.GetProperty("a"));
+            Assert.Null(jObject.GetProperty("a"));
         }
 
         [Fact]
@@ -20,10 +20,10 @@ namespace Snow.Serialization.Test.Extensions.JObjectExtension
         {
             var jObject = JObject.Parse("{}");
 
-            Assert.Equal(null, jObject.GetProperty(null));
-            Assert.Equal(null, jObject.GetProperty(""));
-            Assert.Equal(null, jObject.GetProperty(" "));
-            Assert.Equal(null, jObject.GetProperty("\r\t"));
+            Assert.Null(jObject.GetProperty(null));
+            Assert.Null(jObject.GetProperty(""));
+            Assert.Null(jObject.GetProperty(" "));
+            Assert.Null(jObject.GetProperty("\r\t"));
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace Snow.Serialization.Test.Extensions.JObjectExtension
         {
             var jObject = JObject.Parse("{}");
 
-            Assert.Equal(null, jObject.GetProperty("a"));
+            Assert.Null(jObject.GetProperty("a"));
         }
 
         [Fact]

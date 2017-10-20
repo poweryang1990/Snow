@@ -22,7 +22,7 @@ namespace Snow.Cache.Test
 
             var cacheValue = memoryCache.Get(key);
 
-            Assert.Equal(null, cacheValue);
+            Assert.Null(cacheValue);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace Snow.Cache.Test
 
             var cacheValue = memoryCache.Get(key);
 
-            Assert.Equal(null, cacheValue);
+            Assert.Null(cacheValue);
         }
 
         [Fact]
@@ -64,8 +64,8 @@ namespace Snow.Cache.Test
 
             var cacheValueOfApps = memoryCache.Get(key.Apps);
             var cacheValueOfProfile = memoryCache.Get(key.Profile);
-            Assert.Equal(null, cacheValueOfApps);
-            Assert.Equal(null, cacheValueOfProfile);
+            Assert.Null(cacheValueOfApps);
+            Assert.Null(cacheValueOfProfile);
         }
 
         [Fact]
@@ -81,7 +81,7 @@ namespace Snow.Cache.Test
             _clock.Now = DateTimeOffset.Parse("2017-09-20 17:16:16");
             var cacheValue = memoryCache.Get(key);
 
-            Assert.Equal(null, cacheValue);
+            Assert.Null(cacheValue);
         }
 
 

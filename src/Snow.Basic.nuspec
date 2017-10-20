@@ -30,7 +30,6 @@
         <dependency id="Snow" version="1.0.0" />
         <dependency id="Snow.Serialization" version="1.0.0" />
         <dependency id="Snow.Cache" version="1.0.0" />
-        <dependency id="Snow.Log" version="1.0.0" />
         <dependency id="Snow.Office" version="1.0.0" />
       </group>
     </dependencies>

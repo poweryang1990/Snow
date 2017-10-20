@@ -14,7 +14,7 @@ namespace Snow.Web.Test.IPHelpers
         {
             var ipHelper = new IPHelper();
 
-            Assert.Equal(null, ipHelper.GetCleintIP((HttpRequest)null));
+            Assert.Null(ipHelper.GetCleintIP((HttpRequest)null));
         }
 
         [Fact]
