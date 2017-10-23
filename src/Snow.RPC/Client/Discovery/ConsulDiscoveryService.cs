@@ -11,7 +11,7 @@ namespace Snow.RPC.Client.Discovery
     /// <summary>
     /// Consul服务发现
     /// </summary>
-    public class ConsulDiscoveryService : BaseConsulService, IDiscoveryService
+    public class ConsulDiscoveryService : ConsulServiceBase, IDiscoveryService
     {
         private readonly ILoadBalancer _loadBalancer;
         /// <summary>

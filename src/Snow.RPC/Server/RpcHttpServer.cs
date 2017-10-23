@@ -15,6 +15,10 @@ namespace Snow.RPC.Server
         /// <summary>
         /// 
         /// </summary>
+        public ServiceProtocol Protocol => ServiceProtocol.Http;
+        /// <summary>
+        /// 
+        /// </summary>
         public RpcHttpServer():base("http://127.0.0.1/")
         {
 

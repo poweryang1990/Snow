@@ -23,7 +23,7 @@ namespace Snow.RPC.Client
         /// <param name="serviceName"></param>
         /// <param name="serviceRegistryAddress"></param>
         /// <param name="loadBalancer"></param>
-        public RpcHttpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer)
+        public RpcHttpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer=null)
         {
             _serviceName = serviceName;
             _serviceRegistryAddress = serviceRegistryAddress;

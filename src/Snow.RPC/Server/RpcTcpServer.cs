@@ -7,11 +7,16 @@ using Hprose.Server;
 
 namespace Snow.RPC.Server
 {
+
     /// <summary>
     /// RPC 基于Tcp的服务
     /// </summary>
     public class RPCTcpServer: HproseTcpListenerServer
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public ServiceProtocol Protocol => ServiceProtocol.Tcp;
         /// <summary>
         /// 
         /// </summary>

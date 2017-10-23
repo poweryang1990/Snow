@@ -23,7 +23,7 @@ namespace Snow.RPC.Client
         /// <param name="serviceName"></param>
         /// <param name="serviceRegistryAddress"></param>
         /// <param name="loadBalancer"></param>
-        public RpcTcpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer)
+        public RpcTcpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer=null)
         {
             _serviceName = serviceName;
             _serviceRegistryAddress = serviceRegistryAddress;
@@ -42,7 +42,7 @@ namespace Snow.RPC.Client
             {
                 throw new ServiceDiscoveryException($"未发现可用的【{_serviceName}】 服务");
             }
-            var client = new HproseHttpClient(service.ToString());
+            var client = new HproseTcpClient(service.ToString());
             return client.UseService<T>();
         }
     }

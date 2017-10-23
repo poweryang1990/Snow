@@ -10,14 +10,14 @@ namespace Snow.RPC
     /// <summary>
     /// Consul基础配置
     /// </summary>
-    public abstract class BaseConsulService
+    public abstract class ConsulServiceBase
     {
         private readonly ServiceRegistryAddress _registryAddress;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="registryAddress"></param>
-        public BaseConsulService(ServiceRegistryAddress registryAddress)
+        public ConsulServiceBase(ServiceRegistryAddress registryAddress)
         {
             _registryAddress = registryAddress;
         }
