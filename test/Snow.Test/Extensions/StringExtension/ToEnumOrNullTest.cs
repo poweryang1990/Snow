@@ -16,7 +16,7 @@ namespace Snow.Test.Extensions.StringExtension
         public void ToEnumOrNull()
         {
             Assert.Equal(MockEnum.A, "A".ToEnumOrNull<MockEnum>());
-            Assert.Equal(null, "AA".ToEnumOrNull<MockEnum>());
+            Assert.Null("AA".ToEnumOrNull<MockEnum>());
         }
     }
 }

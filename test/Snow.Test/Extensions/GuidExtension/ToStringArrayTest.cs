@@ -15,7 +15,7 @@ namespace Snow.Test.Extensions.GuidExtension
             // ReSharper disable once ExpressionIsAlwaysNull
             var stringArray = guids.ToStringArray();
 
-            Assert.Equal(0, stringArray.Length);
+            Assert.Empty(stringArray);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace Snow.Test.Extensions.GuidExtension
 
             var stringArray = guids.ToStringArray();
 
-            Assert.Equal(0, stringArray.Length);
+            Assert.Empty(stringArray);
         }
 
         [Fact]

@@ -12,7 +12,7 @@ namespace Snow.Serialization.Test.Extensions.ObjectExtionsion
         {
             object value = null;
 
-            Assert.Equal(null, value.ToJson());
+            Assert.Null(value.ToJson());
         }
 
         [Fact]

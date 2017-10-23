@@ -17,7 +17,7 @@ namespace Snow.Serialization.Test.Extensions.StringExtionsion
         {
             string json = null;
 
-            Assert.Equal(null, json.JsonToObject<string>());
+            Assert.Null(json.JsonToObject<string>());
         }
 
         [Fact]

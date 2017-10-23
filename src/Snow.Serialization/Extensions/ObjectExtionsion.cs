@@ -51,5 +51,31 @@ namespace Snow.Extensions
                 DateTimeFormat = dateTimeFormat
             });
         }
+
+        /// <summary>
+        /// 转化为JSON-bytes
+        /// </summary>
+        /// <param name="value">this</param>
+        /// <param name="settings">JSON序列化设置</param>
+        /// <returns>bytes</returns>
+        public static byte[] ToJsonBytes(
+            this object value,
+            JsonSerializerSettings settings = null)
+        {
+            return ToJson(value)?.GetBytes();
+        }
+
+        /// <summary>
+        /// 转化为JSON-bytes
+        /// </summary>
+        /// <param name="value">this</param>
+        /// <param name="dateTimeFormat">日期格式化</param>
+        /// <returns>bytes</returns>
+        public static byte[] ToJsonBytes(
+            this object value,
+            string dateTimeFormat)
+        {
+            return ToJson(value, dateTimeFormat)?.GetBytes();
+        }
     }
 }

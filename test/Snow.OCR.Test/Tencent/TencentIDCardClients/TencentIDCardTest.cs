@@ -197,9 +197,9 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
             Assert.Equal("成都", idCard.Address);
             Assert.Equal("123456200001011234", idCard.Id);
             Assert.Equal(Gender.Male, idCard.Gender);
-            Assert.Equal(null, idCard.Authority);
-            Assert.Equal(null, idCard.StartDate);
-            Assert.Equal(null, idCard.EndDate);
+            Assert.Null(idCard.Authority);
+            Assert.Null(idCard.StartDate);
+            Assert.Null(idCard.EndDate);
         }
 
         [Fact]
@@ -228,12 +228,12 @@ namespace Snow.OCR.Test.Tencent.TencentIDCardClients
 
             Assert.True(response.Success, response.Message);
             var idCard = response.Result;
-            Assert.Equal(null, idCard.Name);
-            Assert.Equal(null, idCard.Nation);
-            Assert.Equal(null, idCard.Birth);
-            Assert.Equal(null, idCard.Address);
-            Assert.Equal(null, idCard.Id);
-            Assert.Equal(null, idCard.Gender);
+            Assert.Null(idCard.Name);
+            Assert.Null(idCard.Nation);
+            Assert.Null(idCard.Birth);
+            Assert.Null(idCard.Address);
+            Assert.Null(idCard.Id);
+            Assert.Null(idCard.Gender);
 
             Assert.Equal("某市派出所", idCard.Authority);
             Assert.Equal("2012.01.01", idCard.StartDate);

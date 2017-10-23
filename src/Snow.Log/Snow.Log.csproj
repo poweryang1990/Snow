@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;net461</TargetFrameworks>
     <AssemblyName>Snow.Log</AssemblyName>
     <RootNamespace>Snow.Log</RootNamespace>
   </PropertyGroup>
@@ -20,6 +20,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>log</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
+
   </PropertyGroup>
 
   <!--结构描述文档+视为错误的编译警告-->
@@ -27,6 +28,9 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <WarningsAsErrors>NU1605;CS0109;CS1572;CS1573;CS1591;CS1712</WarningsAsErrors>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Snow\Snow.csproj" />
