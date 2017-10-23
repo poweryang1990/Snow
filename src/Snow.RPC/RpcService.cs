@@ -27,7 +27,20 @@ namespace Snow.RPC
         /// 服务端口
         /// </summary>
         public int Port { get; set; }
-        
+
+        /// <summary>
+        /// Url  Path
+        /// </summary>
+        public string Path { get; set; } = string.Empty;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            var protocol = Protocol == ServiceProtocol.Tcp ? "tcp" : "http";
+            return $"{protocol}://{Host}:{Port}/{Path}";
+        }
     }
     /// <summary>
     /// 服务协议
