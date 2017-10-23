@@ -15,9 +15,9 @@ namespace Snow.Extensions
         /// </summary>
         /// <param name="httpContext">this</param>
         /// <returns>客户端的ip</returns>
-        public static IPAddress GetCleintIP(this HttpContext httpContext)
+        public static IPAddress GetClientIP(this HttpContext httpContext)
         {
-            return new IPHelper().GetCleintIP(httpContext?.Request);
+            return new IPHelper().GetClientIP(httpContext?.Request);
         }
 
         /// <summary>
@@ -25,9 +25,9 @@ namespace Snow.Extensions
         /// </summary>
         /// <param name="httpContext">this</param>
         /// <returns>客户端的ip</returns>
-        public static IPAddress GetCleintIP(this HttpContextBase httpContext)
+        public static IPAddress GetClientIP(this HttpContextBase httpContext)
         {
-            return new IPHelper().GetCleintIP(httpContext?.Request);
+            return new IPHelper().GetClientIP(httpContext?.Request);
         }
     }
 }

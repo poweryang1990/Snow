@@ -13,7 +13,7 @@ namespace Snow.Web
         ///  <summary>    
         ///  获取当前请求的IP
         ///  </summary>    
-        public IPAddress GetCleintIP(HttpRequest httpRequest)
+        public IPAddress GetClientIP(HttpRequest httpRequest)
         {
             if (httpRequest == null)
             {
@@ -32,7 +32,7 @@ namespace Snow.Web
         ///  <summary>    
         ///  获取当前请求的IP
         ///  </summary>    
-        public IPAddress GetCleintIP(HttpRequestBase httpRequest)
+        public IPAddress GetClientIP(HttpRequestBase httpRequest)
         {
             if (httpRequest == null)
             {
