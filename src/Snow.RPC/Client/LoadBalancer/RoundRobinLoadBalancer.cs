@@ -12,7 +12,27 @@ namespace Snow.RPC.Client.LoadBalancer
     {
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
         private int _index;
+        private static RoundRobinLoadBalancer uniqueInstance;
+        private static readonly object locker = new object();
+        /// <summary>
+        /// 单例
+        /// </summary>
+        /// <returns></returns>
+        public static RoundRobinLoadBalancer GetInstance()
+        {
+            if (uniqueInstance==null)
+            {
+                lock (locker)
+                {
+                    if (uniqueInstance == null)
+                    {
+                        uniqueInstance = new RoundRobinLoadBalancer();
+                    }
+                }
+            }
 
+            return uniqueInstance;
+        }
         /// <summary>
         /// 
         /// </summary>

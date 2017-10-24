@@ -4,6 +4,7 @@ using RPCService;
 using SimpleInjector.Lifestyles;
 using Snow.RPC;
 using Snow.RPC.Client;
+using Snow.RPC.Client.LoadBalancer;
 
 namespace RPCClient
 {
@@ -16,8 +17,9 @@ namespace RPCClient
             container = new Container();
             container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
             var rpcServer = new ServiceRegistryAddress() {Host = "127.0.0.1", Port = 8500};
-            //container.Register<IUserService>(() => new RpcHttpClient("UserService", rpcServer).UseService<IUserService>(), Lifestyle.Scoped);
-            container.Register<IUserService>(() => new RpcTcpClient("UserService", rpcServer).UseService<IUserService>(), Lifestyle.Scoped);
+            //var userServiceClient = new RpcHttpClient("UserService", rpcServer, RandomLoadBalancer.GetInstance();
+            var userServiceClient = new RpcTcpClient("UserService", rpcServer, RandomLoadBalancer.GetInstance());
+            container.Register<IUserService>(() => userServiceClient.UseService<IUserService>(), Lifestyle.Scoped);
 
             // Optionally verify the container.
             container.Verify();

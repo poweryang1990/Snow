@@ -10,6 +10,28 @@ namespace Snow.RPC.Client.LoadBalancer
     public class RandomLoadBalancer : ILoadBalancer
     {
         private readonly Random _random;
+        private static RandomLoadBalancer uniqueInstance;
+        private static readonly object locker = new object();
+        /// <summary>
+        /// 单例
+        /// </summary>
+        /// <returns></returns>
+        public static RandomLoadBalancer GetInstance()
+        {
+            if (uniqueInstance == null)
+            {
+                lock (locker)
+                {
+                    if (uniqueInstance == null)
+                    {
+                        uniqueInstance = new RandomLoadBalancer();
+                    }
+                }
+            }
+
+            return uniqueInstance;
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -45,7 +45,7 @@ namespace Snow.RPC.Server.Registry
                     Address = rpcService.Host,
                     Port = rpcService.Port,
                     Tags = new []{ rpcService.Protocol.ToString()},//服务协议添加为标签
-                    EnableTagOverride = true,
+                    //EnableTagOverride = true,
                     Check= new AgentServiceCheck
                     {
                          TCP=$"{rpcService.Host}:{rpcService.Port}",
