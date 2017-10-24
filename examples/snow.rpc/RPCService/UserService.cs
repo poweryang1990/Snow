@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace RPCService
@@ -16,7 +17,7 @@ namespace RPCService
 
         public string SayHello(User user)
         {
-            Thread.Sleep(200);
+            throw new Exception("服务端出错了");
             return $"Hello {user.Name} ,age: {user.Age}";
         }
     }
