@@ -22,7 +22,7 @@ namespace RPCClient
             container = new Container();
             container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
             var rpcServer = new ServiceRegistryAddress() {Host = "127.0.0.1", Port = 8500};
-            //var userServiceClient = new RpcHttpClient("UserService", rpcServer, RandomLoadBalancer.GetInstance();
+            //var userServiceClient = new RpcHttpClient("UserService", rpcServer, RandomLoadBalancer.GetInstance());
             var userServiceClient = new RpcTcpClient("UserService", rpcServer, RandomLoadBalancer.GetInstance());
             container.Register<IUserService>(() => userServiceClient.UseService<IUserService>(), Lifestyle.Scoped);
 
