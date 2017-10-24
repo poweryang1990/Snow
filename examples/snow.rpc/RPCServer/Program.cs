@@ -35,7 +35,8 @@ namespace RPCServer
                 server.RegisterService<IUserService>(_container.GetInstance<IUserService>());
             }
             //server.IsCrossDomainEnabled = true;
-            
+            //当打开调试开关后，服务器会将错误堆栈信息全部发送给客户端，这样，在客户端可以得到详细的错误信息
+            server.IsDebugEnabled = true;
             server.Start();
             Console.WriteLine("Server started.");
             Console.ReadLine();
