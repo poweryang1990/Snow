@@ -33,9 +33,9 @@ namespace RPCServer
                 var registryService = _container.GetInstance<IRegistryService>();
                 registryService.Register(new RpcService { Name = "UserService", Host = "127.0.0.1", Port = 2012 , Protocol = server.Protocol});
                 server.RegisterService<IUserService>(_container.GetInstance<IUserService>());
-
             }
             //server.IsCrossDomainEnabled = true;
+            
             server.Start();
             Console.WriteLine("Server started.");
             Console.ReadLine();

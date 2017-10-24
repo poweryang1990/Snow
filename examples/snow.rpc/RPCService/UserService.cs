@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 
 namespace RPCService
 {
@@ -15,6 +16,7 @@ namespace RPCService
 
         public string SayHello(User user)
         {
+            Thread.Sleep(200);
             return $"Hello {user.Name} ,age: {user.Age}";
         }
     }

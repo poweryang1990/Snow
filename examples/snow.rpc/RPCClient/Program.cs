@@ -1,5 +1,9 @@
 ﻿using SimpleInjector;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using RPCService;
 using SimpleInjector.Lifestyles;
 using Snow.RPC;
@@ -11,6 +15,7 @@ namespace RPCClient
     class Program
     {
         private static Container container;
+        private static readonly object locker = new object();
         static Program()
         {
             // Create the container as usual.
@@ -29,20 +34,39 @@ namespace RPCClient
 
             while (true)
             {
-                using (ThreadScopedLifestyle.BeginScope(container))
+                int max = 200;
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                Console.WriteLine($"开始执行 并发 {max}");
+                var ts = new List<Thread>();
+                for (int i = 0; i < max; i++)
                 {
-                    try
-                    {
-                        IUserService userService = container.GetInstance<IUserService>();
-                        var result = userService.SayHello(new User { Name = "Power Yang", Age = 19 });
-                        var users = userService.GetAllUsers();
-                        Console.WriteLine(result);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
+                    var tmp = i;
+                    ts.Add(new Thread(() => {
+                        using (ThreadScopedLifestyle.BeginScope(container))
+                        {
+
+                            try
+                            {
+
+                                IUserService userService = container.GetInstance<IUserService>();
+                                var result = userService.SayHello(new User { Name = $"Power Yang {tmp + 1}", Age = 19 });
+                                var users = userService.GetAllUsers();
+                                Console.WriteLine(result);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                    }));
                 }
+                ts.ForEach(a => a.Start());
+                ts.ForEach(a => a.Join());
+                stopwatch.Stop();
+                Console.WriteLine($"结束执行 耗时 {stopwatch.ElapsedMilliseconds}");
+
+                Console.WriteLine("按任意键继续");
                 Console.ReadKey();
             }
         }
