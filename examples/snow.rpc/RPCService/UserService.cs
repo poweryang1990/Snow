@@ -17,7 +17,6 @@ namespace RPCService
 
         public string SayHello(User user)
         {
-            throw new Exception("服务端出错了");
             return $"Hello {user.Name} ,age: {user.Age}";
         }
     }
