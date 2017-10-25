@@ -14,20 +14,73 @@ namespace Snow.RPC.Client
     /// </summary>
     public class RpcTcpClient
     {
-        private readonly string _serviceName;
-        private readonly ServiceRegistryAddress _serviceRegistryAddress;
-        private readonly ILoadBalancer _loadBalancer;
+        private readonly HproseTcpClient _client;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serviceName"></param>
         /// <param name="serviceRegistryAddress"></param>
         /// <param name="loadBalancer"></param>
-        public RpcTcpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer=null)
+        /// <param name="onError"></param>
+        public RpcTcpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer=null, Action<string, Exception> onError=null)
         {
-            _serviceName = serviceName;
-            _serviceRegistryAddress = serviceRegistryAddress;
-            _loadBalancer = loadBalancer;
+            var consulDiscoveryService = new ConsulDiscoveryService(serviceRegistryAddress, loadBalancer);
+            var service = consulDiscoveryService.GetRpcService(serviceName);
+            if (service == null)
+            {
+                throw new ServiceDiscoveryException($"未发现可用的【{serviceName}】 服务");
+            }
+            _client = new HproseTcpClient(service.ToString());
+            if (onError != null)
+            {
+               _client.OnError += (name,e)=>
+                {
+                    onError(name, e);
+                };
+            }
+        
+        }
+
+        /// <summary>
+        /// 设置客户端超时时间
+        /// </summary>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public RpcTcpClient SetTimeout(long timeout)
+        {
+            _client.Timeout = timeout;
+            return this;
+        }
+        /// <summary>
+        /// 设置客户端发送超时时间
+        /// </summary>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public RpcTcpClient SetSendTimeout(int timeout)
+        {
+            _client.SendTimeout = timeout;
+            return this;
+        }
+        /// <summary>
+        /// 设置客户端接收超时时间
+        /// </summary>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public RpcTcpClient SetReceiveTimeout(int timeout)
+        {
+            _client.ReceiveTimeout = timeout;
+            return this;
+        }
+        /// <summary>
+        /// 设置客户端超时时间
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public RpcTcpClient SetSendBufferSize(int size)
+        {
+            _client.SendBufferSize= size;
+            return this;
         }
         /// <summary>
         /// 
@@ -35,15 +88,8 @@ namespace Snow.RPC.Client
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public T UseService<T>()
-        {
-            var consulDiscoveryService = new ConsulDiscoveryService(_serviceRegistryAddress, _loadBalancer);
-            var service = consulDiscoveryService.GetRpcService(_serviceName);
-            if (service == null)
-            {
-                throw new ServiceDiscoveryException($"未发现可用的【{_serviceName}】 服务");
-            }
-            var client = new HproseTcpClient(service.ToString());
-            return client.UseService<T>();
+        {    
+            return _client.UseService<T>();
         }
     }
 }

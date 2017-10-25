@@ -14,37 +14,52 @@ namespace Snow.RPC.Client
     /// </summary>
     public class RpcHttpClient
     {
-        private readonly string _serviceName;
-        private readonly ServiceRegistryAddress _serviceRegistryAddress;
-        private readonly ILoadBalancer _loadBalancer;
+
+        private readonly HproseHttpClient _client;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serviceName"></param>
         /// <param name="serviceRegistryAddress"></param>
         /// <param name="loadBalancer"></param>
-        public RpcHttpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer=null)
+        /// <param name="onError"></param>
+        public RpcHttpClient(string serviceName, ServiceRegistryAddress serviceRegistryAddress, ILoadBalancer loadBalancer=null, Action<string, Exception> onError = null)
         {
-            _serviceName = serviceName;
-            _serviceRegistryAddress = serviceRegistryAddress;
-            _loadBalancer=loadBalancer;
-
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public T UseService<T>()
-        {
-            var consulDiscoveryService = new ConsulDiscoveryService(_serviceRegistryAddress, _loadBalancer);
-            var service = consulDiscoveryService.GetRpcService(_serviceName);
-            if (service==null)
+            var consulDiscoveryService = new ConsulDiscoveryService(serviceRegistryAddress, loadBalancer);
+            var service = consulDiscoveryService.GetRpcService(serviceName);
+            if (service == null)
             {
-                throw  new ServiceDiscoveryException($"未发现可用的【{_serviceName}】 服务");
+                throw new ServiceDiscoveryException($"未发现可用的【{serviceName}】 服务");
             }
-            var client = new HproseHttpClient(service.ToString());
-            return client.UseService<T>();
+            _client = new HproseHttpClient(service.ToString());
+            if (onError != null)
+            {
+                _client.OnError += (name, e) =>
+                {
+                    onError(name, e);
+                };
+            }
+        }
+
+        /// <summary>
+        /// 设置客户端超时时间
+        /// </summary>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public RpcHttpClient SetTimeout(int timeout)
+        {
+            _client.Timeout = timeout;
+            return this;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T UseService<T>()
+        {      
+            return _client.UseService<T>();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace RPCService
 
         public string SayHello(User user)
         {
+            //throw  new Exception("获取用户异常");
+            //Thread.Sleep(200);
             return $"Hello {user.Name} ,age: {user.Age}";
         }
     }
