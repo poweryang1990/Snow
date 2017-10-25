@@ -18,7 +18,7 @@ namespace Snow.RPC.Client
         private readonly HproseHttpClient _client;
 
         /// <summary>
-        /// 
+        /// 从Consul注册中心去发现服务
         /// </summary>
         /// <param name="serviceName"></param>
         /// <param name="serviceRegistryAddress"></param>
@@ -33,6 +33,24 @@ namespace Snow.RPC.Client
                 throw new ServiceDiscoveryException($"未发现可用的【{serviceName}】 服务");
             }
             _client = new HproseHttpClient(service.ToString());
+            if (onError != null)
+            {
+                _client.OnError += (name, e) =>
+                {
+                    onError(name, e);
+                };
+            }
+        }
+        /// <summary>
+        /// 直接使用服务地址访问
+        /// </summary>
+        /// <param name="serviceHost"></param>
+        /// <param name="servicePort"></param>
+        /// <param name="onError"></param>
+        public RpcHttpClient(string serviceHost,int servicePort, Action<string, Exception> onError = null)
+        {
+           
+            _client = new HproseHttpClient($"http://{serviceHost}:{servicePort}/");
             if (onError != null)
             {
                 _client.OnError += (name, e) =>

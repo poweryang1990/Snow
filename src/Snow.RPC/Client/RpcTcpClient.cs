@@ -41,7 +41,24 @@ namespace Snow.RPC.Client
             }
         
         }
+        /// <summary>
+        /// 直接使用服务地址访问
+        /// </summary>
+        /// <param name="serviceHost"></param>
+        /// <param name="servicePort"></param>
+        /// <param name="onError"></param>
+        public RpcTcpClient(string serviceHost, int servicePort, Action<string, Exception> onError = null)
+        {
 
+            _client = new HproseTcpClient($"tcp://{serviceHost}:{servicePort}/");
+            if (onError != null)
+            {
+                _client.OnError += (name, e) =>
+                {
+                    onError(name, e);
+                };
+            }
+        }
         /// <summary>
         /// 设置客户端超时时间
         /// </summary>
