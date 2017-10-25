@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Snow.Log._log4net;
 using log4netLogManager = log4net.LogManager;
 
@@ -36,7 +37,7 @@ namespace Snow.Log
         /// <returns></returns>
         public static ILog CreateLog(string name)
         {
-            return new Log4(log4netLogManager.GetLogger(name));
+            return new Log4(log4netLogManager.GetLogger(Assembly.GetCallingAssembly(), name));
         }
     }
 }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;net461</TargetFrameworks>
+    <TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>Snow.Http</AssemblyName>
     <RootNamespace>Snow.Http</RootNamespace>
   </PropertyGroup>
@@ -16,9 +16,9 @@
     <Product>UOKO</Product>
     <Version>1.0.0</Version>
     <Description>UOKO基础包-Http</Description>
-    <Copyright>UOKO 2017</Copyright>
+    <Copyright>Copyright © UOKO 2017</Copyright>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>cache</PackageTags>
+    <PackageTags>http</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -32,7 +32,8 @@
     <ProjectReference Include="..\Snow\Snow.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http" Condition="'$(TargetFramework)'=='net452'" />
+    <Reference Include="System.Net.Http" Condition="'$(TargetFramework)'=='net461'" />
   </ItemGroup>
 
 </Project>

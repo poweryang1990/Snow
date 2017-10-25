@@ -16,7 +16,7 @@
     <Product>UOKO</Product>
     <Version>1.0.0</Version>
     <Description>UOKO基础包-缓存</Description>
-    <Copyright>UOKO 2017</Copyright>
+    <Copyright>Copyright © UOKO 2017</Copyright>
     <RepositoryType>git</RepositoryType>
     <PackageTags>cache</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>

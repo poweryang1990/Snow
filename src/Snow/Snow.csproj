@@ -16,9 +16,9 @@
     <Product>UOKO</Product>
     <Version>1.0.0</Version>
     <Description>UOKO基础包</Description>
-    <Copyright>UOKO 2017</Copyright>
+    <Copyright>Copyright © UOKO 2017</Copyright>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>tags</PackageTags>
+    <PackageTags>base</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
   </PropertyGroup>
 
