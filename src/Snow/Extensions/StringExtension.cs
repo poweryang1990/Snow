@@ -18,7 +18,7 @@ namespace Snow.Extensions
         /// <returns></returns>
         public static byte[] GetBytes(this string value, Encoding encoding = null)
         {
-            return new ByteHelper().GetBytes(value, encoding);
+            return ByteHelper.New().GetBytes(value, encoding);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Snow.Extensions
         /// <returns>原始bytes数组</returns>
         public static byte[] GetBytesFromBase64(this string base64)
         {
-            return new ByteHelper().GetBytesFromBase64(base64);
+            return ByteHelper.New().GetBytesFromBase64(base64);
         }
 
         /// <summary>

@@ -4,24 +4,37 @@
 
 namespace Snow.Security
 {
+
     /// <summary>
     /// 散列值帮助类
     /// </summary>
     public class HashHelper
     {
         /// <summary>
-        /// 获取原始byte数组
-        /// </summary>
-        public byte[] Bytes { get; }
-
-        /// <summary>
-        /// 构造函数
+        /// 创建新的HashHelper对象
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
-        public HashHelper(byte[] bytes)
+        public static HashHelper New(byte[] bytes)
         {
-            Throws.ArgumentNullException(bytes, nameof(bytes));
-            this.Bytes = bytes;
+            return new HashHelper
+            {
+                Bytes = bytes
+            };
+        }
+
+        private byte[] _bytes;
+
+        /// <summary>
+        /// 获取原始byte数组
+        /// </summary>
+        public byte[] Bytes
+        {
+            get => this._bytes;
+            set
+            {
+                Throws.ArgumentNullException(value, nameof(value));
+                this._bytes = value;
+            }
         }
 
         /// <summary>

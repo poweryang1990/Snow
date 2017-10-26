@@ -11,6 +11,15 @@ namespace Snow
     public class AssemblyHelper
     {
         /// <summary>
+        /// 创建新的AssemblyHelper对象
+        /// </summary>
+        /// <returns></returns>
+        public static AssemblyHelper New()
+        {
+            return new AssemblyHelper();
+        }
+
+        /// <summary>
         /// 读取Assembly中的资源
         /// </summary>
         /// <param name="assembly">Assembly</param>

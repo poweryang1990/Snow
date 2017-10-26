@@ -13,7 +13,7 @@ namespace Snow.Test.Security.AESHelpers
         public AESHelper BuildAESHelper(string key)
         {
             var keyBytes = key.GetBytes().GetMD5();
-            return new AESHelper(keyBytes);
+            return AESHelper.New(keyBytes);
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace Snow.Test.Security.AESHelpers
         {
             byte[] keyBytes = null;
 
-            Assert.Throws<ArgumentNullException>(() => new AESHelper(keyBytes));
+            Assert.Throws<ArgumentNullException>(() => AESHelper.New(keyBytes));
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace Snow.Test.Security.AESHelpers
         {
             byte[] keyBytes = new byte[0];
 
-            Assert.Throws<ArgumentNullException>(() => new AESHelper(keyBytes));
+            Assert.Throws<ArgumentNullException>(() => AESHelper.New(keyBytes));
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Snow.Test.Security.AESHelpers
         {
             var keyBytes = new byte[] { 1, 2 };
 
-            Assert.Throws<ArgumentException>(() => new AESHelper(keyBytes));
+            Assert.Throws<ArgumentException>(() => AESHelper.New(keyBytes));
         }
     }
 }

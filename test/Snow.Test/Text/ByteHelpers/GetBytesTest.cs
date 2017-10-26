@@ -10,7 +10,7 @@ namespace Snow.Test.Text.ByteHelpers
         [Fact]
         public void when_string_is_invalid_should_throw_ArgumentNullException()
         {
-            var byteHelper = new ByteHelper();
+            var byteHelper = ByteHelper.New();
 
             Assert.Throws<ArgumentNullException>(() => byteHelper.GetBytes(null));
             Assert.Throws<ArgumentNullException>(() => byteHelper.GetBytes(""));
@@ -21,7 +21,7 @@ namespace Snow.Test.Text.ByteHelpers
         [Fact]
         public void when_string_is_not_null()
         {
-            var byteHelper = new ByteHelper();
+            var byteHelper = ByteHelper.New();
 
             var bytes = byteHelper.GetBytes("优客");
 
@@ -31,7 +31,7 @@ namespace Snow.Test.Text.ByteHelpers
         [Fact]
         public void when_encoding_is_not_null()
         {
-            var byteHelper = new ByteHelper();
+            var byteHelper = ByteHelper.New();
 
             var bytes = byteHelper.GetBytes("优客", Encoding.GetEncoding("gb2312"));
 

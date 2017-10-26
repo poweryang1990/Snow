@@ -11,12 +11,12 @@ namespace Snow.Test.Security.HashHelpers
         public HashHelper BuildHashHelper(string value)
         {
             var bytes = value.GetBytes();
-            return new HashHelper(bytes);
+            return HashHelper.New(bytes);
         }
 
         public string GetHex(byte[] bytes)
         {
-            var byteHelper = new ByteHelper();
+            var byteHelper = ByteHelper.New();
 
             return byteHelper.GetHex(bytes, withHyphen: false, lowerCase: false);
         }
@@ -26,7 +26,7 @@ namespace Snow.Test.Security.HashHelpers
         {
             byte[] bytes = null;
 
-            Assert.Throws<ArgumentNullException>(() => new HashHelper(bytes));
+            Assert.Throws<ArgumentNullException>(() => HashHelper.New(bytes));
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Snow.Test.Security.HashHelpers
         {
             byte[] bytes = new byte[0];
 
-            Assert.Throws<ArgumentNullException>(() => new HashHelper(bytes));
+            Assert.Throws<ArgumentNullException>(() => HashHelper.New(bytes));
         }
     }
 }
