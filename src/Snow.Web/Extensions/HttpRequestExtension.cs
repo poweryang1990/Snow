@@ -16,9 +16,9 @@ namespace Snow.Extensions
         /// </summary>
         /// <param name="httpRequest">this</param>
         /// <returns>客户端的ip</returns>
-        public static IPAddress GetCleintIP(this HttpRequest httpRequest)
+        public static IPAddress GetClientIP(this HttpRequest httpRequest)
         {
-            return new IPHelper().GetCleintIP(httpRequest);
+            return new IPHelper().GetClientIP(httpRequest);
         }
 
         /// <summary>
@@ -26,9 +26,9 @@ namespace Snow.Extensions
         /// </summary>
         /// <param name="httpRequest">this</param>
         /// <returns>客户端的ip</returns>
-        public static IPAddress GetCleintIP(this HttpRequestBase httpRequest)
+        public static IPAddress GetClientIP(this HttpRequestBase httpRequest)
         {
-            return new IPHelper().GetCleintIP(httpRequest);
+            return new IPHelper().GetClientIP(httpRequest);
         }
     }
 }

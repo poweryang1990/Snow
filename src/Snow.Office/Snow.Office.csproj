@@ -15,10 +15,10 @@
     <Company>UOKO</Company>
     <Product>UOKO</Product>
     <Version>1.0.0</Version>
-    <Description>UOKO基础包-Office相关的操作</Description>
-    <Copyright>UOKO 2017</Copyright>
+    <Description>UOKO基础包-Office</Description>
+    <Copyright>Copyright © UOKO 2017</Copyright>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>cache</PackageTags>
+    <PackageTags>office</PackageTags>
     <PackageReleaseNotes>none</PackageReleaseNotes>
   </PropertyGroup>
 

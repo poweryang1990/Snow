@@ -7,7 +7,7 @@ var target = Argument("target", "default");
 var rootPath = "../";
 var solutionFile = rootPath + "Snow.sln";
 var projectFiles = GetFiles(rootPath + "src/**/*.csproj");
-var nuspecFiles = GetFiles(rootPath + "src/**/*.nuspec");
+var nuspecFiles = GetFiles(rootPath + "build/*.nuspec");
 
 Task("clean")
     .Does(() =>

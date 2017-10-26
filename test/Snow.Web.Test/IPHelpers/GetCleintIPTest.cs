@@ -7,14 +7,14 @@ using Xunit;
 namespace Snow.Web.Test.IPHelpers
 {
     
-    public class GetCleintIPTest
+    public class GetClientIPTest
     {
         [Fact]
         public void when_httprequest_is_null_should_return_null()
         {
             var ipHelper = new IPHelper();
 
-            Assert.Null(ipHelper.GetCleintIP((HttpRequest)null));
+            Assert.Null(ipHelper.GetClientIP((HttpRequest)null));
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace Snow.Web.Test.IPHelpers
 
             var ipHelper = new IPHelper();
 
-            Assert.Equal("11.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("11.34.56.78", ipHelper.GetClientIP(httpRequest).ToString());
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace Snow.Web.Test.IPHelpers
             httpRequest.ServerVariables.Add("REMOTE_ADDR", "33.34.56.78");
             var ipHelper = new IPHelper();
 
-            Assert.Equal("22.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("22.34.56.78", ipHelper.GetClientIP(httpRequest).ToString());
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace Snow.Web.Test.IPHelpers
             httpRequest.ServerVariables.Add("REMOTE_ADDR", "33.34.56.78");
             var ipHelper = new IPHelper();
 
-            Assert.Equal("33.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("33.34.56.78", ipHelper.GetClientIP(httpRequest).ToString());
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace Snow.Web.Test.IPHelpers
             var httpRequest = MockHttpRequestBase("44.34.56.78");
             var ipHelper = new IPHelper();
 
-            Assert.Equal("44.34.56.78", ipHelper.GetCleintIP(httpRequest).ToString());
+            Assert.Equal("44.34.56.78", ipHelper.GetClientIP(httpRequest).ToString());
         }
 
         private HttpRequestBase MockHttpRequestBase(string userHostAddress)
