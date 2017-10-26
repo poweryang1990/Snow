@@ -1,1 +1,0 @@
-﻿# 扩展方法的命名空间统一为`Snow.Extensions`

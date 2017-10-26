@@ -16,7 +16,7 @@
 
 新项目的编译平台请使用`<TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>`，目前优先支持net452，如果不兼容`netstandard2.0`，则移除这个即可。
 
-如果要添加到`Snow.Basic`元包中，请更新`\src\Snow.Basic.nuspec`文件，添加对应的依赖，以及更新版本号。
+如果要添加到`Snow.Basic`元包中，请更新`\build\Snow.Basic.nuspec`文件，添加对应的依赖，以及更新版本号。
 
 # 代码注释
 虽说好的代码本身就是注释，但是供外部使用的公开的成员都应该添加注释描述，以方便使用者理解用意。
