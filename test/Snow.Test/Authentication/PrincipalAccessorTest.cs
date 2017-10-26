@@ -1,10 +1,11 @@
 ﻿using System.Security.Claims;
 using System.Threading;
-using Snow.Security;
+using Snow.Authentication;
 using Xunit;
+
 // ReSharper disable ExpressionIsAlwaysNull
 
-namespace Snow.Test.Security
+namespace Snow.Test.Authentication
 {
     public class PrincipalAccessorTest
     {

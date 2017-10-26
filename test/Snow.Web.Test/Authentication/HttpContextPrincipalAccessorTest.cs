@@ -2,10 +2,11 @@
 using System.Security.Claims;
 using System.Threading;
 using System.Web;
-using Snow.Security;
+using Snow.Authentication;
+using Snow.Web.Authentication;
 using Xunit;
 
-namespace Snow.Web.Test
+namespace Snow.Web.Test.Authentication
 {
     public class HttpContextPrincipalAccessorTest
     {

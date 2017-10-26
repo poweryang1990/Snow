@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Snow.Security
+namespace Snow.Authentication
 {
     /// <summary>
     /// Identity访问器

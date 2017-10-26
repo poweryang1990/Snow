@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Snow.Test.Security.HashHelpers
+namespace Snow.Test.Cryptography.HashHelpers
 {
     // ReSharper disable once InconsistentNaming
     public class GetSHA256Test : BaseTest

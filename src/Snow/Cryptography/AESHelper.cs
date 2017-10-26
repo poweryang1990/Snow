@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 // ReSharper disable InconsistentNaming
 
-namespace Snow.Security
+namespace Snow.Cryptography
 {
     /// <summary>
     /// AES帮助类

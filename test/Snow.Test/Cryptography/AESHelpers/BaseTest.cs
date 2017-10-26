@@ -1,12 +1,12 @@
 ﻿using System;
+using Snow.Cryptography;
 using Snow.Extensions;
-using Snow.Security;
 using Xunit;
 
 // ReSharper disable ExpressionIsAlwaysNull
 // ReSharper disable InconsistentNaming
 
-namespace Snow.Test.Security.AESHelpers
+namespace Snow.Test.Cryptography.AESHelpers
 {
     public class BaseTest
     {

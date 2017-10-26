@@ -1,10 +1,10 @@
 ﻿using System;
+using Snow.Cryptography;
 using Snow.Extensions;
-using Snow.Security;
 using Snow.Text;
 using Xunit;
 
-namespace Snow.Test.Security.HashHelpers
+namespace Snow.Test.Cryptography.HashHelpers
 {
     public class BaseTest
     {

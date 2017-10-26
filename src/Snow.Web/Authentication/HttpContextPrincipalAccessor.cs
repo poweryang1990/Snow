@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 using System.Web;
-using Snow.Security;
+using Snow.Authentication;
 
-namespace Snow.Web
+namespace Snow.Web.Authentication
 {
     /// <summary>
     /// 来自HttpContext的Principal访问器

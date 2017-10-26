@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Snow.Security;
+using Snow.Cryptography;
 using Snow.Text;
 
 namespace Snow.Extensions

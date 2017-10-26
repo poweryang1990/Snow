@@ -2,7 +2,7 @@
 
 // ReSharper disable InconsistentNaming
 
-namespace Snow.Security
+namespace Snow.Cryptography
 {
 
     /// <summary>

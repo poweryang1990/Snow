@@ -1,7 +1,7 @@
 ﻿using Snow.Extensions;
 using Xunit;
 
-namespace Snow.Test.Security.AESHelpers
+namespace Snow.Test.Cryptography.AESHelpers
 {
     public class DecryptTest : BaseTest
     {
