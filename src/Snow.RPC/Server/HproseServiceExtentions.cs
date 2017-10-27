@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Reflection;
+using Hprose.Common;
 using Hprose.Server;
 namespace Snow.RPC.Server
 {
@@ -10,13 +12,20 @@ namespace Snow.RPC.Server
         /// <summary>
         /// 注册所有公共方法
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="server"></param>
-        /// <param name="implement"></param>
-        public static void RegisterService<T>(this HproseService server, object implement) where T : class
+        /// <param name="obj"></param>
+        public static void RegisterService(this HproseService server, object obj)
         {
-            var methods = typeof(T).GetMethods().Where(t => t.IsPublic).Select(t => t.Name).ToArray();
-            server.Add(methods, implement);
+            if (obj == null)
+                return;
+            foreach (MethodInfo declaredMethod in obj.GetType().GetTypeInfo().DeclaredMethods)
+            {
+                if (declaredMethod.IsPublic)
+                {
+                    server.Add(declaredMethod, obj, declaredMethod.Name, HproseResultMode.Normal, false);
+                }
+                    
+            }
         }
     }
 }
