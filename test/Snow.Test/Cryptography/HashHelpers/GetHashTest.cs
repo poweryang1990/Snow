@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using Xunit;
 
-namespace Snow.Test.Security.HashHelpers
+namespace Snow.Test.Cryptography.HashHelpers
 {
     // ReSharper disable InconsistentNaming
     // ReSharper disable ExpressionIsAlwaysNull

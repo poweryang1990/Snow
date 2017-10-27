@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Snow.Security;
+using Snow.Cryptography;
 using Snow.Text;
 
 namespace Snow.Extensions
@@ -19,7 +19,7 @@ namespace Snow.Extensions
         /// <returns>hash字节数组</returns>
         public static byte[] GetHash(this byte[] bytes, HashAlgorithm hashAlgorithm)
         {
-            return new HashHelper(bytes).GetHash(hashAlgorithm);
+            return HashHelper.New(bytes).GetHash(hashAlgorithm);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetMD5(this byte[] bytes)
         {
-            return new HashHelper(bytes).GetMD5();
+            return HashHelper.New(bytes).GetMD5();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA1(this byte[] bytes)
         {
-            return new HashHelper(bytes).GetSHA1();
+            return HashHelper.New(bytes).GetSHA1();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA256(this byte[] bytes)
         {
-            return new HashHelper(bytes).GetSHA256();
+            return HashHelper.New(bytes).GetSHA256();
 
         }
 
@@ -65,7 +65,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetHMACSHA1(this byte[] bytes, byte[] key)
         {
-            return new HashHelper(bytes).GetHMACSHA1(key);
+            return HashHelper.New(bytes).GetHMACSHA1(key);
 
         }
 
@@ -79,7 +79,7 @@ namespace Snow.Extensions
         /// <returns>16进制的字符串</returns>
         public static string GetHex(this byte[] bytes, bool withHyphen = true, bool lowerCase = false)
         {
-            return new ByteHelper().GetHex(bytes, withHyphen, lowerCase);
+            return ByteHelper.New().GetHex(bytes, withHyphen, lowerCase);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Snow.Extensions
         /// <returns>base64字符串</returns>
         public static string GetBase64(this byte[] bytes)
         {
-            return new ByteHelper().GetBase64(bytes);
+            return ByteHelper.New().GetBase64(bytes);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Snow.Extensions
         /// <returns>url safe base64字符串</returns>
         public static string GetUrlSafeBase64(this byte[] bytes)
         {
-            return new ByteHelper().GetUrlSafeBase64(bytes);
+            return ByteHelper.New().GetUrlSafeBase64(bytes);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Snow.Extensions
         /// <returns></returns>
         public static string GetString(this byte[] bytes, Encoding encoding = null)
         {
-            return new ByteHelper().GetString(bytes, encoding);
+            return ByteHelper.New().GetString(bytes, encoding);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESEncrypt(this byte[] bytes, byte[] key)
         {
-            return new AESHelper(key).Encrypt(bytes);
+            return AESHelper.New(key).Encrypt(bytes);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESDecrypt(this byte[] encryptedBytes, byte[] key)
         {
-            return new AESHelper(key).Decrypt(encryptedBytes);
+            return AESHelper.New(key).Decrypt(encryptedBytes);
         }
     }
 }

@@ -2,10 +2,10 @@
 using Snow.Extensions;
 using Xunit;
 
-namespace Snow.Test.Security.HashHelpers
+namespace Snow.Test.Cryptography.HashHelpers
 {
     // ReSharper disable once InconsistentNaming
-    public class GetHMACMD5Test : BaseTest
+    public class GetHMACSHA1Test : BaseTest
     {
         [Fact]
         public void when_key_is_null_should_throw_ArgumentNullException()
@@ -13,7 +13,7 @@ namespace Snow.Test.Security.HashHelpers
             var hashHelper = BuildHashHelper("优客");
             byte[] key = null;
 
-            Assert.Throws<ArgumentNullException>(() => hashHelper.GetHMACMD5(key));
+            Assert.Throws<ArgumentNullException>(() => hashHelper.GetHMACSHA1(key));
         }
 
         [Fact]
@@ -22,10 +22,11 @@ namespace Snow.Test.Security.HashHelpers
             var hashHelper = BuildHashHelper("优客");
             var key = "chunqiu".GetBytes();
 
-            var macBytes = hashHelper.GetHMACMD5(key);
+            var macBytes = hashHelper.GetHMACSHA1(key);
 
             var macHex = GetHex(macBytes);
-            Assert.Equal("00A3381D9DE44FC7A3617A078D350271", macHex);
+            Assert.Equal("984EA038B6AEB48E0CA0624A74109A9146A1A8C9", macHex);
+            Assert.Equal("984EA038B6AEB48E0CA0624A74109A9146A1A8C9", macHex);
         }
     }
 }

@@ -3,7 +3,7 @@ using Xunit;
 
 // ReSharper disable InconsistentNaming
 
-namespace Snow.Test.Security.AESHelpers
+namespace Snow.Test.Cryptography.AESHelpers
 {
     public class EncryptTest : BaseTest
     {

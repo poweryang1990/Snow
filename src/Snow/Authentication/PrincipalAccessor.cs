@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using System.Threading;
 
-namespace Snow.Security
+namespace Snow.Authentication
 {
     /// <summary>
     /// Principal访问器

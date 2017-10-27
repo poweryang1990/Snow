@@ -9,7 +9,7 @@ namespace Snow.Test.Text.ByteHelpers
         [Fact]
         public void when_string_is_invalid_should_throw_ArgumentNullException()
         {
-            var byteHelper = new ByteHelper();
+            var byteHelper = ByteHelper.New();
 
             Assert.Throws<ArgumentNullException>(() => byteHelper.GetBytesFromBase64(null));
             Assert.Throws<ArgumentNullException>(() => byteHelper.GetBytesFromBase64(""));
@@ -20,7 +20,7 @@ namespace Snow.Test.Text.ByteHelpers
         [Fact]
         public void when_base64_is_not_null()
         {
-            var byteHelper = new ByteHelper();
+            var byteHelper = ByteHelper.New();
 
             var bytes = byteHelper.GetBytesFromBase64("5LyY5a6i");
 
@@ -30,7 +30,7 @@ namespace Snow.Test.Text.ByteHelpers
         [Fact]
         public void when_base64_is_url_safe()
         {
-            var byteHelper = new ByteHelper();
+            var byteHelper = ByteHelper.New();
 
             var bytes = byteHelper.GetBytesFromBase64("-AA_");
 

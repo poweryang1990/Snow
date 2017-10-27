@@ -11,6 +11,15 @@ namespace Snow.Text
     public class ByteHelper
     {
         /// <summary>
+        /// 创建新的ByteHelper对象
+        /// </summary>
+        /// <returns></returns>
+        public static ByteHelper New()
+        {
+            return new ByteHelper();
+        }
+
+        /// <summary>
         /// 默认的编码格式
         /// </summary>
         public static readonly Encoding DefaultEncoding = Encoding.UTF8;

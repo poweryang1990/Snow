@@ -16,7 +16,7 @@ namespace Snow.Extensions
         /// <returns>bytes</returns>
         public static byte[] GetResourceBytes(this Assembly assembly, Func<string, bool> predicate)
         {
-            return new AssemblyHelper().GetResourceBytes(assembly, predicate);
+            return AssemblyHelper.New().GetResourceBytes(assembly, predicate);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Snow.Extensions
         /// <returns>bytes</returns>
         public static byte[] GetResourceBytes(this Assembly assembly, string resourceFileName, bool isFullName = false)
         {
-            return new AssemblyHelper().GetResourceBytes(assembly, resourceFileName, isFullName);
+            return AssemblyHelper.New().GetResourceBytes(assembly, resourceFileName, isFullName);
         }
     }
 }
