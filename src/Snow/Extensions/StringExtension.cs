@@ -60,26 +60,6 @@ namespace Snow.Extensions
         }
 
         /// <summary>
-        /// 校验MD5
-        /// </summary>
-        /// <param name="value">原始的字符串</param>
-        /// <param name="expectMd5">期望的md5值</param>
-        /// <param name="encoding">字符串编码，默认UTF8。</param>
-        /// <returns>MD5是否匹配</returns>
-        // ReSharper disable once InconsistentNaming
-        public static bool VerifyMD5(this string value, string expectMd5, Encoding encoding = null)
-        {
-            Throws.ArgumentNullException(expectMd5, nameof(expectMd5));
-
-            if (expectMd5.Length != 32)
-            {
-                throw new ArgumentException($"[{expectMd5}]不是有效的MD5。");
-            }
-            var actualMd5 = value.GetMD5(encoding);
-            return string.Equals(actualMd5, expectMd5, StringComparison.OrdinalIgnoreCase);
-        }
-
-        /// <summary>
         /// 获取SHA1
         /// </summary>
         /// <param name="value">原始字符串</param>
@@ -95,25 +75,6 @@ namespace Snow.Extensions
                 .GetBytes(encoding)
                 .GetSHA1()
                 .GetHex(false, lowerCase);
-        }
-
-        /// <summary>
-        /// 校验SHA1
-        /// </summary>
-        /// <param name="value">原始的字符串</param>
-        /// <param name="expectSha1">期望的SHA1值</param>
-        /// <param name="encoding">字符串编码，默认UTF8。</param>
-        /// <returns>SHA1是否匹配</returns>
-        // ReSharper disable once InconsistentNaming
-        public static bool VerifySHA1(this string value, string expectSha1, Encoding encoding = null)
-        {
-            Throws.ArgumentNullException(expectSha1, nameof(expectSha1));
-            if (expectSha1.Length != 40)
-            {
-                throw new ArgumentException($"[{expectSha1}]不是有效的SHA1。");
-            }
-            var actualSha1 = value.GetSHA1(encoding);
-            return string.Equals(actualSha1, expectSha1, StringComparison.OrdinalIgnoreCase);
         }
 
 
@@ -182,13 +143,32 @@ namespace Snow.Extensions
         /// <param name="value">指定的字符串</param>
         /// <param name="comparisonType">比较方式[默认忽略大小写]</param>
         /// <returns></returns>
-        public static bool Include(this string @this, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        public static bool Include(
+            this string @this,
+            string value,
+            StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
         {
             if (string.IsNullOrEmpty(@this) || string.IsNullOrEmpty(value))
             {
                 return false;
             }
             return @this.IndexOf(value, comparisonType) != -1;
+        }
+
+        /// <summary>
+        /// 比较两个字符串是否相等
+        /// </summary>
+        /// <param name="this">this</param>
+        /// <param name="other">指定的字符串</param>
+        /// <param name="comparisonType">比较方式[默认忽略大小写]</param>
+        /// <returns></returns>
+        public static bool IsEqual(
+            this string @this,
+            string other,
+            StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        {
+
+            return string.Equals(@this, other, comparisonType);
         }
     }
 }
