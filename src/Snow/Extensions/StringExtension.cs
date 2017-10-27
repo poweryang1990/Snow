@@ -32,6 +32,16 @@ namespace Snow.Extensions
         }
 
         /// <summary>
+        /// hex字符串转bytes
+        /// </summary>
+        /// <param name="hex">hex字符串</param>
+        /// <returns>原始bytes数组</returns>
+        public static byte[] GetBytesFromHex(this string hex)
+        {
+            return ByteHelper.New().GetBytesFromHex(hex);
+        }
+
+        /// <summary>
         /// 获取MD5
         /// </summary>
         /// <param name="value">原始字符串</param>

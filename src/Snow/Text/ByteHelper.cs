@@ -120,5 +120,27 @@ namespace Snow.Text
             }
             return Convert.FromBase64String(base64);
         }
+
+        /// <summary>
+        /// hex字符串转bytes
+        /// </summary>
+        /// <param name="hex">hex字符串</param>
+        /// <returns>原始bytes数组</returns>
+        public byte[] GetBytesFromHex(string hex)
+        {
+            Throws.ArgumentNullException(hex, nameof(hex));
+            //移除16进制的分隔符
+            hex = hex.Replace("-", "").Replace(" ", "");
+            if (hex.Length % 2 != 0)
+            {
+                throw new ArgumentException($"[{hex}]不是有效的16进制字符串.");
+            }
+            var bytes = new byte[hex.Length / 2];
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                bytes[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+            }
+            return bytes;
+        }
     }
 }
