@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 // ReSharper disable InconsistentNaming
 
@@ -44,7 +46,22 @@ namespace Snow.Cryptography
         }
 
         /// <summary>
-        ///  加密[ECB,Zeros]
+        /// 获取或设置工作模式，默认CBC
+        /// </summary>
+        public CipherMode Mode { get; set; } = CipherMode.CBC;
+
+        /// <summary>
+        /// 获取或设置填充模式，默认PKCS7
+        /// </summary>
+        public PaddingMode Padding { get; set; } = PaddingMode.PKCS7;
+
+        /// <summary>
+        /// 使用IV，默认True
+        /// </summary>
+        public bool WithIV { get; set; } = true;
+
+        /// <summary>
+        ///  加密
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
         /// <returns>加密后的byte数组</returns>
@@ -52,21 +69,38 @@ namespace Snow.Cryptography
         {
             Throws.ArgumentNullException(bytes, nameof(bytes));
 
-            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
+            using (var aes = BuildAesAlgorithm())
             {
-                symmetricAlgorithm.Key = this.Key;
-                symmetricAlgorithm.Mode = CipherMode.ECB;
-                symmetricAlgorithm.Padding = PaddingMode.Zeros;
-                //加密
-                using (var encryptor = symmetricAlgorithm.CreateEncryptor())
+                if (this.WithIV == true)
                 {
-                    return encryptor.TransformFinalBlock(bytes, 0, bytes.Length);
+                    aes.GenerateIV();
+                    using (var encryptor = aes.CreateEncryptor())
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            memoryStream.Write(aes.IV, 0, 16);
+                            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                            {
+                                cryptoStream.Write(bytes, 0, bytes.Length);
+                                cryptoStream.FlushFinalBlock();
+                            }
+                            return memoryStream.ToArray();
+                        }
+                    }
+                }
+                else
+                {
+                    using (var encryptor = aes.CreateEncryptor())
+                    {
+                        return encryptor.TransformFinalBlock(bytes, 0, bytes.Length);
+                    }
                 }
             }
         }
 
+
         /// <summary>
-        ///  解密[ECB,Zeros]
+        ///  解密
         /// </summary>
         /// <param name="encryptedBytes">被加密的byte数组</param>
         /// <returns>解密后的byte数组</returns>
@@ -74,39 +108,46 @@ namespace Snow.Cryptography
         {
             Throws.ArgumentNullException(encryptedBytes, nameof(encryptedBytes));
 
-            using (var symmetricAlgorithm = new AesCryptoServiceProvider())
+            using (var aes = BuildAesAlgorithm())
             {
-                symmetricAlgorithm.Key = this.Key;
-                symmetricAlgorithm.Mode = CipherMode.ECB;
-                symmetricAlgorithm.Padding = PaddingMode.Zeros;
-
-                //解密
-                using (var decryptor = symmetricAlgorithm.CreateDecryptor())
+                //加密
+                if (this.WithIV == true)
                 {
-                    var decryptedBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
-
-                    //移除填充后的原始数据的有效长度
-                    var originalDataLength = decryptedBytes.Length;
-                    for (; originalDataLength > 0; originalDataLength--)
+                    using (var memoryStream = new MemoryStream(encryptedBytes))
                     {
-                        if (decryptedBytes[originalDataLength - 1] != 0)
+                        var iv = new byte[16];
+                        memoryStream.Read(iv, 0, iv.Length);
+                        aes.IV = iv;
+
+                        using (var decryptor = aes.CreateDecryptor())
                         {
-                            break;
+                            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                            {
+                                var decryptedBytes = new byte[encryptedBytes.Length];
+                                var byteCount = cryptoStream.Read(decryptedBytes, 0, encryptedBytes.Length);
+                                return decryptedBytes.Take(byteCount).ToArray();
+                            }
                         }
                     }
-
-                    if (originalDataLength == decryptedBytes.Length)
+                }
+                else
+                {
+                    using (var decryptor = aes.CreateDecryptor())
                     {
-                        return decryptedBytes;
-                    }
-                    else
-                    {
-                        var decryptedWithOutPaddingBytes = new byte[originalDataLength];
-                        Buffer.BlockCopy(decryptedBytes, 0, decryptedWithOutPaddingBytes, 0, decryptedWithOutPaddingBytes.Length);
-                        return decryptedWithOutPaddingBytes;
+                        return decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
                     }
                 }
             }
+        }
+
+        private AesCryptoServiceProvider BuildAesAlgorithm()
+        {
+            return new AesCryptoServiceProvider
+            {
+                Key = this.Key,
+                Mode = this.Mode,
+                Padding = this.Padding
+            };
         }
     }
 }

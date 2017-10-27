@@ -37,15 +37,18 @@ namespace Snow.Test.Extensions.ByteExtension
         [Fact]
         public void when_bytes_and_key_is_valid()
         {
-            var encryptedBytes = "R0Qb5ZWvCm6/0aGGTv4sgw==".GetBytesFromBase64();
+            var plaintextBytes = "优客".GetBytes();
             //16byte的key
             var key = "chunqiu".GetBytes().GetMD5();
 
-            //解密
-            var plaintextBytes = encryptedBytes.AESDecrypt(key);
+            //加密
+            var encryptedBytes = plaintextBytes.AESEncrypt(key);
 
-            var plaintext = plaintextBytes.GetString();
-            Assert.Equal("优客", plaintext);
+            //解密 
+            var decryptedBytes = encryptedBytes.AESDecrypt(key);
+
+
+            Assert.Equal(plaintextBytes, decryptedBytes);
         }
     }
 }
