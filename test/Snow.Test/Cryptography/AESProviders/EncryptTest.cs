@@ -3,7 +3,7 @@ using Xunit;
 
 // ReSharper disable InconsistentNaming
 
-namespace Snow.Test.Cryptography.AESHelpers
+namespace Snow.Test.Cryptography.AESProviders
 {
     public class EncryptTest : BaseTest
     {
@@ -11,7 +11,7 @@ namespace Snow.Test.Cryptography.AESHelpers
         public void when_bytes_and_key_is_valid()
         {
             var plaintextBytes = "优客".GetBytes();
-            var aesHelper = BuildAESHelper("chunqiu");
+            var aesHelper = BuildAESProvider("chunqiu");
 
             //加密
             var encryptedBytes = aesHelper.Encrypt(plaintextBytes);

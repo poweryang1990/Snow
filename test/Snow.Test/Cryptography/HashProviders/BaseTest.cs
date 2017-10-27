@@ -4,14 +4,14 @@ using Snow.Extensions;
 using Snow.Text;
 using Xunit;
 
-namespace Snow.Test.Cryptography.HashHelpers
+namespace Snow.Test.Cryptography.HashProviders
 {
     public class BaseTest
     {
-        public HashHelper BuildHashHelper(string value)
+        public HashProvider BuildHashProvider(string value)
         {
             var bytes = value.GetBytes();
-            return HashHelper.New(bytes);
+            return HashProvider.New(bytes);
         }
 
         public string GetHex(byte[] bytes)
@@ -26,7 +26,7 @@ namespace Snow.Test.Cryptography.HashHelpers
         {
             byte[] bytes = null;
 
-            Assert.Throws<ArgumentNullException>(() => HashHelper.New(bytes));
+            Assert.Throws<ArgumentNullException>(() => HashProvider.New(bytes));
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Snow.Test.Cryptography.HashHelpers
         {
             byte[] bytes = new byte[0];
 
-            Assert.Throws<ArgumentNullException>(() => HashHelper.New(bytes));
+            Assert.Throws<ArgumentNullException>(() => HashProvider.New(bytes));
         }
     }
 }

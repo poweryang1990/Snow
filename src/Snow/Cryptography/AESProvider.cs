@@ -7,16 +7,16 @@ namespace Snow.Cryptography
     /// <summary>
     /// AES帮助类
     /// </summary>
-    public class AESHelper
+    public class AESProvider
     {
         /// <summary>
         /// 创建新的AESHelper对象
         /// </summary>
         /// <param name="key">key：长度只能是[16,24,32]</param>
         /// <returns></returns>
-        public static AESHelper New(byte[] key)
+        public static AESProvider New(byte[] key)
         {
-            return new AESHelper
+            return new AESProvider
             {
                 Key = key
             };

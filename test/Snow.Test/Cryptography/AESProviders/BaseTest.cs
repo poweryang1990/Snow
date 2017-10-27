@@ -6,14 +6,14 @@ using Xunit;
 // ReSharper disable ExpressionIsAlwaysNull
 // ReSharper disable InconsistentNaming
 
-namespace Snow.Test.Cryptography.AESHelpers
+namespace Snow.Test.Cryptography.AESProviders
 {
     public class BaseTest
     {
-        public AESHelper BuildAESHelper(string key)
+        public AESProvider BuildAESProvider(string key)
         {
             var keyBytes = key.GetBytes().GetMD5();
-            return AESHelper.New(keyBytes);
+            return AESProvider.New(keyBytes);
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace Snow.Test.Cryptography.AESHelpers
         {
             byte[] keyBytes = null;
 
-            Assert.Throws<ArgumentNullException>(() => AESHelper.New(keyBytes));
+            Assert.Throws<ArgumentNullException>(() => AESProvider.New(keyBytes));
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace Snow.Test.Cryptography.AESHelpers
         {
             byte[] keyBytes = new byte[0];
 
-            Assert.Throws<ArgumentNullException>(() => AESHelper.New(keyBytes));
+            Assert.Throws<ArgumentNullException>(() => AESProvider.New(keyBytes));
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Snow.Test.Cryptography.AESHelpers
         {
             var keyBytes = new byte[] { 1, 2 };
 
-            Assert.Throws<ArgumentException>(() => AESHelper.New(keyBytes));
+            Assert.Throws<ArgumentException>(() => AESProvider.New(keyBytes));
         }
     }
 }

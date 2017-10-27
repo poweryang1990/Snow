@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
 using Snow.Cryptography;
 using Snow.Text;
@@ -12,17 +11,6 @@ namespace Snow.Extensions
     public static class ByteExtension
     {
         /// <summary>
-        /// 获取散列值
-        /// </summary>
-        /// <param name="bytes">原始byte数组</param>
-        /// <param name="hashAlgorithm">具体的hash算法</param>
-        /// <returns>hash字节数组</returns>
-        public static byte[] GetHash(this byte[] bytes, HashAlgorithm hashAlgorithm)
-        {
-            return HashHelper.New(bytes).GetHash(hashAlgorithm);
-        }
-
-        /// <summary>
         /// 获取MD5
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
@@ -30,7 +18,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetMD5(this byte[] bytes)
         {
-            return HashHelper.New(bytes).GetMD5();
+            return HashProvider.New(bytes).GetMD5();
         }
 
         /// <summary>
@@ -41,7 +29,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA1(this byte[] bytes)
         {
-            return HashHelper.New(bytes).GetSHA1();
+            return HashProvider.New(bytes).GetSHA1();
         }
 
         /// <summary>
@@ -52,7 +40,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetSHA256(this byte[] bytes)
         {
-            return HashHelper.New(bytes).GetSHA256();
+            return HashProvider.New(bytes).GetSHA256();
 
         }
 
@@ -65,7 +53,20 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] GetHMACSHA1(this byte[] bytes, byte[] key)
         {
-            return HashHelper.New(bytes).GetHMACSHA1(key);
+            return MACProvider.New(bytes).GetHMACSHA1(key);
+
+        }
+
+        /// <summary>
+        /// 获取HMACSHA256
+        /// </summary>
+        /// <param name="bytes">原始byte数组</param>
+        /// <param name="key">MAC的密钥</param>
+        /// <returns>32byte的数组</returns>
+        // ReSharper disable once InconsistentNaming
+        public static byte[] GetHMACSHA256(this byte[] bytes, byte[] key)
+        {
+            return MACProvider.New(bytes).GetHMACSHA256(key);
 
         }
 
@@ -122,7 +123,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESEncrypt(this byte[] bytes, byte[] key)
         {
-            return AESHelper.New(key).Encrypt(bytes);
+            return AESProvider.New(key).Encrypt(bytes);
         }
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace Snow.Extensions
         // ReSharper disable once InconsistentNaming
         public static byte[] AESDecrypt(this byte[] encryptedBytes, byte[] key)
         {
-            return AESHelper.New(key).Decrypt(encryptedBytes);
+            return AESProvider.New(key).Decrypt(encryptedBytes);
         }
     }
 }

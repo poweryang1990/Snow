@@ -6,17 +6,17 @@ namespace Snow.Cryptography
 {
 
     /// <summary>
-    /// 散列值帮助类
+    /// 散列值提供者
     /// </summary>
-    public class HashHelper
+    public sealed class HashProvider
     {
         /// <summary>
         /// 创建新的HashHelper对象
         /// </summary>
         /// <param name="bytes">原始byte数组</param>
-        public static HashHelper New(byte[] bytes)
+        public static HashProvider New(byte[] bytes)
         {
-            return new HashHelper
+            return new HashProvider
             {
                 Bytes = bytes
             };
@@ -29,23 +29,12 @@ namespace Snow.Cryptography
         /// </summary>
         public byte[] Bytes
         {
-            get => this._bytes;
+            get => _bytes;
             set
             {
                 Throws.ArgumentNullException(value, nameof(value));
-                this._bytes = value;
+                _bytes = value;
             }
-        }
-
-        /// <summary>
-        /// 获取散列值
-        /// </summary>
-        /// <param name="hashAlgorithm">散列算法</param>
-        /// <returns></returns>
-        public byte[] GetHash(HashAlgorithm hashAlgorithm)
-        {
-            Throws.ArgumentNullException(hashAlgorithm, nameof(hashAlgorithm));
-            return GetHashCore(hashAlgorithm);
         }
 
         /// <summary>
@@ -76,25 +65,21 @@ namespace Snow.Cryptography
         }
 
         /// <summary>
-        /// 获取基于MD5的MAC
+        /// 获取SHA384
         /// </summary>
-        /// <param name="key">MAC的密钥</param>
-        /// <returns>16byte的数组</returns>
-        public byte[] GetHMACMD5(byte[] key)
+        /// <returns>48byte的数组</returns>
+        public byte[] GetSHA384()
         {
-            Throws.ArgumentNullException(key, nameof(key));
-            return GetHashCore(new HMACMD5(key));
+            return GetHashCore(new SHA384CryptoServiceProvider());
         }
 
         /// <summary>
-        /// 获取基于SHA1的MAC
+        /// 获取SHA512
         /// </summary>
-        /// <param name="key">MAC的密钥</param>
-        /// <returns>20byte的数组</returns>
-        public byte[] GetHMACSHA1(byte[] key)
+        /// <returns>64byte的数组</returns>
+        public byte[] GetSHA512()
         {
-            Throws.ArgumentNullException(key, nameof(key));
-            return GetHashCore(new HMACSHA1(key));
+            return GetHashCore(new SHA512CryptoServiceProvider());
         }
 
         #region 私有成员
@@ -103,7 +88,7 @@ namespace Snow.Cryptography
         {
             using (hashAlgorithm)
             {
-                return hashAlgorithm.ComputeHash(this.Bytes);
+                return hashAlgorithm.ComputeHash(Bytes);
             }
         }
         #endregion

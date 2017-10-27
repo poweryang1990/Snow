@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Snow.Test.Cryptography.HashHelpers
+namespace Snow.Test.Cryptography.HashProviders
 {
     // ReSharper disable once InconsistentNaming
     public class GetSHA256Test : BaseTest
@@ -8,7 +8,7 @@ namespace Snow.Test.Cryptography.HashHelpers
         [Fact]
         public void when_bytes_is_not_null()
         {
-            var hashHelper = BuildHashHelper("优客");
+            var hashHelper = BuildHashProvider("优客");
 
             var sha256Bytes = hashHelper.GetSHA256();
 

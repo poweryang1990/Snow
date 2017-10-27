@@ -1,7 +1,7 @@
 ﻿using Snow.Extensions;
 using Xunit;
 
-namespace Snow.Test.Cryptography.AESHelpers
+namespace Snow.Test.Cryptography.AESProviders
 {
     public class DecryptTest : BaseTest
     {
@@ -9,7 +9,7 @@ namespace Snow.Test.Cryptography.AESHelpers
         public void when_bytes_and_key_is_valid()
         {
             var encryptedBytes = "R0Qb5ZWvCm6/0aGGTv4sgw==".GetBytesFromBase64();
-            var aesHelper = BuildAESHelper("chunqiu");
+            var aesHelper = BuildAESProvider("chunqiu");
 
             //解密
             var plaintextBytes = aesHelper.Decrypt(encryptedBytes);
