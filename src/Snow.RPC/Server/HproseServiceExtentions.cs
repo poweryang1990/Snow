@@ -14,9 +14,9 @@ namespace Snow.RPC.Server
         /// </summary>
         /// <param name="server"></param>
         /// <param name="obj"></param>
-        public static void RegisterService(this HproseService server, object obj)
+        public static void RegisterService<T>(this HproseService server, object obj) where  T:class 
         {
-            if (obj == null)
+            if (!(obj is T))
                 return;
             foreach (MethodInfo declaredMethod in obj.GetType().GetTypeInfo().DeclaredMethods)
             {
