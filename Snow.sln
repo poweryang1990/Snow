@@ -4,11 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{40654D93-CBE7-4F08-BE70-26B291764AC9}"
-	ProjectSection(SolutionItems) = preProject
-		src\README.md = src\README.md
-		src\Snow.All.nuspec = src\Snow.All.nuspec
-		src\Snow.Basic.nuspec = src\Snow.Basic.nuspec
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9E14051D-3547-49AD-9D72-E500B64BFC49}"
 EndProject
@@ -62,11 +57,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{BE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snow.rpc", "snow.rpc", "{A46EEC2F-6B4F-4D23-B11D-D8F0D95ADF3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPCService", "examples\snow.rpc\RPCService\RPCService.csproj", "{6047DD7E-D34B-4FB6-AC39-742FA7BC2537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPCService", "examples\snow.rpc\RPCService\RPCService.csproj", "{6047DD7E-D34B-4FB6-AC39-742FA7BC2537}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPCServer", "examples\snow.rpc\RPCServer\RPCServer.csproj", "{8C42D539-F683-43D5-BE1F-48CE579EFE6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPCServer", "examples\snow.rpc\RPCServer\RPCServer.csproj", "{8C42D539-F683-43D5-BE1F-48CE579EFE6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPCClient", "examples\snow.rpc\RPCClient\RPCClient.csproj", "{D49B02FD-6A4C-4803-A899-25BABE8D109D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPCClient", "examples\snow.rpc\RPCClient\RPCClient.csproj", "{D49B02FD-6A4C-4803-A899-25BABE8D109D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snow.EF", "src\Snow.EF\Snow.EF.csproj", "{2BFA98A3-327F-410F-9C93-5BD9E1BD5018}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snow.EF.Test", "test\Snow.EF.Test\Snow.EF.Test.csproj", "{ADC8F1A3-F801-4912-BC47-7F824971C5C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -178,6 +177,14 @@ Global
 		{D49B02FD-6A4C-4803-A899-25BABE8D109D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D49B02FD-6A4C-4803-A899-25BABE8D109D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D49B02FD-6A4C-4803-A899-25BABE8D109D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BFA98A3-327F-410F-9C93-5BD9E1BD5018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BFA98A3-327F-410F-9C93-5BD9E1BD5018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BFA98A3-327F-410F-9C93-5BD9E1BD5018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BFA98A3-327F-410F-9C93-5BD9E1BD5018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC8F1A3-F801-4912-BC47-7F824971C5C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC8F1A3-F801-4912-BC47-7F824971C5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC8F1A3-F801-4912-BC47-7F824971C5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC8F1A3-F801-4912-BC47-7F824971C5C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,6 +217,8 @@ Global
 		{6047DD7E-D34B-4FB6-AC39-742FA7BC2537} = {A46EEC2F-6B4F-4D23-B11D-D8F0D95ADF3D}
 		{8C42D539-F683-43D5-BE1F-48CE579EFE6F} = {A46EEC2F-6B4F-4D23-B11D-D8F0D95ADF3D}
 		{D49B02FD-6A4C-4803-A899-25BABE8D109D} = {A46EEC2F-6B4F-4D23-B11D-D8F0D95ADF3D}
+		{2BFA98A3-327F-410F-9C93-5BD9E1BD5018} = {40654D93-CBE7-4F08-BE70-26B291764AC9}
+		{ADC8F1A3-F801-4912-BC47-7F824971C5C8} = {9E14051D-3547-49AD-9D72-E500B64BFC49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F92D53D-8F4F-4E3C-BC61-88CA7DA3E06F}
