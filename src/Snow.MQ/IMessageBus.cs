@@ -18,9 +18,9 @@ namespace Snow.MQ
         /// <summary>
         /// 接收一个消息
         /// </summary>
-        /// <typeparam name="TMessage"></typeparam>
-        /// <param name="queue"></param>
-        /// <param name="callback"></param>
+        /// <typeparam name="TMessage">消息的类型</typeparam>
+        /// <param name="queue">队列的名称</param>
+        /// <param name="callback">回调函数</param>
         void Receive<TMessage>(string queue, Func<TMessage, bool> callback);
 
         /// <summary>
@@ -34,9 +34,9 @@ namespace Snow.MQ
         /// <summary>
         /// 订阅消息
         /// </summary>
-        /// <typeparam name="TMessage"></typeparam>
-        /// <param name="exchange"></param>
-        /// <param name="callback"></param>
+        /// <typeparam name="TMessage">消息的类型</typeparam>
+        /// <param name="exchange">交换机的名称</param>
+        /// <param name="callback">回调函数</param>
         void Subscribe<TMessage>(string exchange, Func<TMessage, bool> callback);
     }
 }
