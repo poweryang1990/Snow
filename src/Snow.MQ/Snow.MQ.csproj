@@ -32,6 +32,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\Snow.Serialization\Snow.Serialization.csproj" />
     <ProjectReference Include="..\Snow\Snow.csproj" />
   </ItemGroup>
 

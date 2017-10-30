@@ -3,9 +3,9 @@
 namespace Snow.MQ
 {
     /// <summary>
-    /// Message Quene配置信息
+    /// Message Bus配置信息
     /// </summary>
-    public class MessageQueneOptions
+    public class MessageBusOptions
     {
         /// <summary>
         /// 地址
