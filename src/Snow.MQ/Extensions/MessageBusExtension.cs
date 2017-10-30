@@ -17,8 +17,8 @@ namespace Snow.Extensions
         public static void Send<TMessage>(this IMessageBus messageBus, TMessage message)
         {
             Throws.ArgumentNullException(messageBus, nameof(messageBus));
-            var queneName = typeof(TMessage).Name;
-            messageBus.Send(queneName, message);
+            var queueName = typeof(TMessage).Name;
+            messageBus.Send(queueName, message);
         }
     }
 }
