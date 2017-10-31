@@ -105,11 +105,11 @@ namespace Snow.Cache.Memory
         public bool Lock(LockObject lockObject, TimeSpan expiry)
         {
             Throws.ArgumentNullException(lockObject, nameof(lockObject));
-            if (this._memoryCache.Get(lockObject) != null)
+            if (this._memoryCache.Get(lockObject.Key) != null)
             {
                 return false;
             }
-            return this._memoryCache.Set(lockObject, lockObject.Token, expiry);
+            return this._memoryCache.Set(lockObject.Key, lockObject.Value, expiry);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Snow.Cache.Memory
         public bool UnLock(LockObject lockObject)
         {
             Throws.ArgumentNullException(lockObject, nameof(lockObject));
-            return this._memoryCache.Delete(lockObject);
+            return this._memoryCache.Delete(lockObject.Key);
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace Snow.Cache
     /// <summary>
     /// 分布式缓存
     /// </summary>
-    public interface IDistributedCache
+    public partial interface IDistributedCache
     {
         /// <summary>
         /// 设置缓存
@@ -57,25 +57,6 @@ namespace Snow.Cache
         /// <param name="keyAsPrefix">把缓存的键作为前缀来执行批量删除</param>
         /// <returns>是否删除成功</returns>
         Task<bool> DeleteAsync(CacheKey key, bool keyAsPrefix = false);
-
-        #region 锁
-
-        /// <summary>
-        /// 加锁
-        /// </summary>
-        /// <param name="lockObject">锁</param>
-        /// <param name="expiry">过期时间</param>
-        /// <returns>是否锁定成功</returns>
-        bool Lock(LockObject lockObject, TimeSpan expiry);
-
-        /// <summary>
-        /// 释放锁
-        /// </summary>
-        /// <param name="lockObject">锁</param>
-        /// <returns>是否释放成功</returns>
-        bool UnLock(LockObject lockObject);
-
-        #endregion
 
         #region 自增 自减
         /// <summary>

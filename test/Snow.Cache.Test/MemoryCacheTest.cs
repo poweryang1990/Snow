@@ -18,7 +18,7 @@ namespace Snow.Cache.Test
         public void when_key_not_exist_should_return_null()
         {
             var memoryCache = BuildMemoryCache();
-            var key = new MockCacheKey().SetParams("123").Apps;
+            var key = MockCacheKey.Create("123").Apps;
 
             var cacheValue = memoryCache.Get(key);
 
@@ -29,7 +29,7 @@ namespace Snow.Cache.Test
         public void when_key_exist_should_retunt_cache()
         {
             var memoryCache = BuildMemoryCache();
-            var key = new MockCacheKey().SetParams("123").Apps;
+            var key = MockCacheKey.Create("123").Apps;
             memoryCache.Set(key, "abc");
 
             var cacheValue = memoryCache.Get(key);
@@ -41,7 +41,7 @@ namespace Snow.Cache.Test
         public void when_remove_key_should_retunt_null()
         {
             var memoryCache = BuildMemoryCache();
-            var key = new MockCacheKey().SetParams("123").Apps;
+            var key = MockCacheKey.Create("123").Apps;
             memoryCache.Set(key, "abc");
 
             memoryCache.Delete(key);
@@ -55,7 +55,7 @@ namespace Snow.Cache.Test
         public void when_remove_key_by_prefix_should_retunt_null()
         {
             var memoryCache = BuildMemoryCache();
-            var key = new MockCacheKey().SetParams("123");
+            var key = MockCacheKey.Create("123");
             var keyPrefix = key.Prefix;
             memoryCache.Set(key.Apps, "app");
             memoryCache.Set(key.Profile, "profile");
@@ -74,7 +74,7 @@ namespace Snow.Cache.Test
             _clock.Now = DateTimeOffset.Parse("2017-09-19 17:16:16");
 
             var memoryCache = BuildMemoryCache();
-            var key = new MockCacheKey().SetParams("123").Apps;
+            var key = MockCacheKey.Create("123").Apps;
             memoryCache.Set(key, "abc", TimeSpan.FromHours(1));
 
             

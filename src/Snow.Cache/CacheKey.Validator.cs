@@ -10,7 +10,7 @@ namespace Snow.Cache
     public partial class CacheKey
     {
         /// <summary>
-        /// CacheKey验证器
+        /// CacheKey验证器，todo:chunqiu 待完善。
         /// </summary>
         public class Validator
         {
@@ -28,7 +28,7 @@ namespace Snow.Cache
                 IsSealedClass(cacheKeyTypes);
                 PublicMethodsReturnTypeMustSelfClassType(cacheKeyTypes);
                 PublicPropertiesTypeMustCacheKeyType(cacheKeyTypes);
-                NoPublicConstructors(cacheKeyTypes);
+                ConstructorsMustBePrivate(cacheKeyTypes);
                 NoPublicStaticMembers(cacheKeyTypes);
                 NoDuplicatedScopes(cacheKeyList);
                 NoDuplicatedNames(cacheKeyList);
@@ -40,7 +40,7 @@ namespace Snow.Cache
             /// 检查是否有同名的Scope
             /// </summary>
             /// <param name="cacheKeyList"></param>
-            private void NoDuplicatedScopes(IEnumerable<CacheKey> cacheKeyList)
+            public static void NoDuplicatedScopes(IEnumerable<CacheKey> cacheKeyList)
             {
                 var duplicatedScopes = cacheKeyList
                     .GroupBy(cacheKey => cacheKey._scope)
@@ -64,7 +64,7 @@ namespace Snow.Cache
             /// 在同一Scope中检查是否有重复的Names
             /// </summary>
             /// <param name="cacheKeyList"></param>
-            private void NoDuplicatedNames(IEnumerable<CacheKey> cacheKeyList)
+            public static void NoDuplicatedNames(IEnumerable<CacheKey> cacheKeyList)
             {
                 foreach (var cacheKey in cacheKeyList)
                 {
@@ -76,7 +76,7 @@ namespace Snow.Cache
             /// 在同一Scope中检查是否有重复的Names
             /// </summary>
             /// <param name="cacheKey"></param>
-            private void NoDuplicatedNames(CacheKey cacheKey)
+            private static void NoDuplicatedNames(CacheKey cacheKey)
             {
                 var cacheKeyType = cacheKey.GetType();
 
@@ -111,7 +111,7 @@ namespace Snow.Cache
                 if (publicStaticMembers.Count != 0)
                 {
                     var publicStaticMembersTypes = publicStaticMembers.Select(memeber => memeber.DeclaringType);
-                    throw new Exception($"这些类型[{GetTypeNames(publicStaticMembersTypes)}]不允许有pubilc、static的成员。");
+                    //throw new Exception($"这些类型[{GetTypeNames(publicStaticMembersTypes)}]不允许有pubilc、static的成员。");
                 }
             }
 
@@ -165,20 +165,20 @@ namespace Snow.Cache
             }
 
             /// <summary>
-            /// 要求没有Pubilc的构造函数，统一外部使用的入口为CacheKeys静态类，所以避免外部直接通过new来构造。
+            /// 构造函数必须是私有的，避免外部直接通过new来构造，只能通过静态的工厂方法来构造。
             /// </summary>
             /// <param name="types"></param>
-            private void NoPublicConstructors(IEnumerable<Type> types)
+            public static void ConstructorsMustBePrivate(IEnumerable<Type> types)
             {
                 var publicConstructors = types
                     .SelectMany(type => type.GetConstructors())
-                    .Where(c => c.IsPublic)
+                    .Where(c => c.IsPrivate == false)
                     .ToList();
 
                 if (publicConstructors.Count != 0)
                 {
                     var publicConstructorTypes = publicConstructors.Select(constructor => constructor.DeclaringType);
-                    throw new Exception($"这些类型[{GetTypeNames(publicConstructorTypes)}]不允许有Public的构造器。");
+                    throw new Exception($"这些类型[{GetTypeNames(publicConstructorTypes)}]的构造器不是private的。");
                 }
             }
 

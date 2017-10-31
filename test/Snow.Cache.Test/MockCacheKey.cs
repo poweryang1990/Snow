@@ -4,25 +4,27 @@ namespace Snow.Cache.Test
 {
     public sealed class MockCacheKey : CacheKey
     {
-        internal MockCacheKey() : base("mock")
+        private MockCacheKey() : base("mock")
         {
 
         }
 
-        public MockCacheKey SetParams(string userId)
+        public static MockCacheKey Create(string userId)
         {
-            base.SetParamsCore("user-id", userId);
-            return this;
+            var mockCacheKey = new MockCacheKey();
+            mockCacheKey.SetParams("user-id", userId);
+            return mockCacheKey;
         }
 
-        public MockCacheKey SetParams(string userId, string clientId)
+        public static MockCacheKey Create(string userId, string clientId)
         {
-            base.SetParamsCore(new Dictionary<string, string>
+            var mockCacheKey = new MockCacheKey();
+            mockCacheKey.SetParams(new Dictionary<string, string>
             {
                 ["user-id"] = userId,
                 ["client-id"] = clientId,
             });
-            return this;
+            return mockCacheKey;
         }
 
         public CacheKey Prefix => base.Clone("");

@@ -5,21 +5,26 @@ namespace Snow.Cache.Lock
     /// <summary>
     /// 锁的对象
     /// </summary>
-    public sealed class LockObject : CacheKey
+    public sealed class LockObject
     {
+        /// <summary>
+        /// 锁的Key
+        /// </summary>
+        public CacheKey Key { get; }
+
         /// <summary>
         /// 锁的值
         /// </summary>
-        public string Token { get; }
+        public string Value { get; }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="name">锁的名字</param>
-        public LockObject(string name) : base("lock", name)
+        /// <param name="value">锁的名字</param>
+        public LockObject(string value)
         {
-            this.Token = name;
-            base.SetParamsCore("id", Guid.NewGuid().ToString());
+            this.Value = value;
+            this.Key = LockKey.Create(Guid.NewGuid()).Locked;
         }
     }
 }

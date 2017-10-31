@@ -24,7 +24,7 @@ namespace Snow.Cache.Redis
 
             Connect();
 
-            return this._db.LockTake(lockObject.ToRedisKey(), lockObject.Token, expiry);
+            return this._db.LockTake(lockObject.Key.ToRedisKey(), lockObject.Value, expiry);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Snow.Cache.Redis
 
             Connect();
 
-            return this._db.LockRelease(lockObject.ToRedisKey(), lockObject.Token);
+            return this._db.LockRelease(lockObject.Key.ToRedisKey(), lockObject.Value);
         }
     }
 }
