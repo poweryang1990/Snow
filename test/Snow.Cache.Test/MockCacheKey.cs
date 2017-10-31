@@ -9,6 +9,11 @@ namespace Snow.Cache.Test
 
         }
 
+        public static MockCacheKey Create()
+        {
+            return new MockCacheKey();
+        }
+
         public static MockCacheKey Create(string userId)
         {
             var mockCacheKey = new MockCacheKey();

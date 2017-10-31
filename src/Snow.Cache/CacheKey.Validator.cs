@@ -10,30 +10,87 @@ namespace Snow.Cache
     public partial class CacheKey
     {
         /// <summary>
-        /// CacheKey验证器，todo:chunqiu 待完善。
+        /// CacheKey验证器。
         /// </summary>
-        public class Validator
+        public static class Validator
         {
             /// <summary>
             /// 验证CacheKey是否符合规范。
             /// </summary>
             /// <returns></returns>
-            public bool Validate(List<Type> cacheKeyTypes)
+            public static bool Verify(List<Type> cacheKeyTypes)
             {
                 var cacheKeyList = cacheKeyTypes
                     .Select(type => (CacheKey)Activator.CreateInstance(type, true))
                     .ToList();
 
-                IsDirectInheritCacheKeyClass(cacheKeyTypes);
-                IsSealedClass(cacheKeyTypes);
-                PublicMethodsReturnTypeMustSelfClassType(cacheKeyTypes);
-                PublicPropertiesTypeMustCacheKeyType(cacheKeyTypes);
+                //类型必须直接继承CacheKey
+                ClassMustBeDirectInheritCacheKey(cacheKeyTypes);
+                //类型必须是封闭类型
+                ClassMustBeSealed(cacheKeyTypes);
+                //类型的构造器必须是私有的
                 ConstructorsMustBePrivate(cacheKeyTypes);
-                NoPublicStaticMembers(cacheKeyTypes);
+
+                //没有重复的Scope
                 NoDuplicatedScopes(cacheKeyList);
+                //没有重复的名字
                 NoDuplicatedNames(cacheKeyList);
 
+                //公开的属性必须是CacheKey类型的
+                PublicPropertiesTypeMustBeCacheKey(cacheKeyTypes);
+
                 return true;
+            }
+
+            /// <summary>
+            /// 类型必须是直接继承自CacheKey类的子类，避免多层继承导致Scope，Params，Names被多个子类共用带来的混乱。
+            /// </summary>
+            /// <param name="types"></param>
+            public static void ClassMustBeDirectInheritCacheKey(IEnumerable<Type> types)
+            {
+                var notDirectInheritCacheKeyTypes = types
+                    .Where(type => type.BaseType != typeof(CacheKey))
+                    .ToList();
+
+                if (notDirectInheritCacheKeyTypes.Count != 0)
+                {
+                    throw new Exception(
+                        $"这些[{GetTypeNames(notDirectInheritCacheKeyTypes)}]类型没有直接继承自{typeof(CacheKey).FullName}类。");
+                }
+            }
+
+            /// <summary>
+            /// 类型必须是封闭类，避免多层继承导致Scope，Params，Name被多个子类共用带来的混乱。
+            /// </summary>
+            /// <param name="types"></param>
+            public static void ClassMustBeSealed(IEnumerable<Type> types)
+            {
+                var notSealedTypes = types
+                    .Where(type => type.IsSealed == false)
+                    .ToList();
+
+                if (notSealedTypes.Count != 0)
+                {
+                    throw new Exception($"这些[{GetTypeNames(notSealedTypes)}]类型不是封闭的类型。");
+                }
+            }
+
+            /// <summary>
+            /// 构造函数必须是私有的，避免外部直接通过new来构造，只能通过静态的工厂方法来构造。
+            /// </summary>
+            /// <param name="types"></param>
+            public static void ConstructorsMustBePrivate(IEnumerable<Type> types)
+            {
+                var publicConstructors = types
+                    .SelectMany(type => type.GetConstructors())
+                    .Where(c => c.IsPrivate == false)
+                    .ToList();
+
+                if (publicConstructors.Count != 0)
+                {
+                    var publicConstructorTypes = publicConstructors.Select(constructor => constructor.DeclaringType);
+                    throw new Exception($"这些类型[{GetTypeNames(publicConstructorTypes)}]的构造器不是private的。");
+                }
             }
 
             /// <summary>
@@ -98,57 +155,15 @@ namespace Snow.Cache
                 }
             }
 
-            /// <summary>
-            /// 要求没有Pubilc、static的成员
-            /// </summary>
-            /// <param name="types"></param>
-            private void NoPublicStaticMembers(IEnumerable<Type> types)
-            {
-                var publicStaticMembers = types
-                    .SelectMany(type => type.GetMembers(BindingFlags.Public | BindingFlags.Static))
-                    .ToList();
-
-                if (publicStaticMembers.Count != 0)
-                {
-                    var publicStaticMembersTypes = publicStaticMembers.Select(memeber => memeber.DeclaringType);
-                    //throw new Exception($"这些类型[{GetTypeNames(publicStaticMembersTypes)}]不允许有pubilc、static的成员。");
-                }
-            }
-
-            /// <summary>
-            /// 要求方法的返回类型是自身类型，避免写错。
-            /// </summary>
-            /// <param name="types"></param>
-            private void PublicMethodsReturnTypeMustSelfClassType(IEnumerable<Type> types)
-            {
-                var errorMethods = types
-                    .SelectMany(type =>
-                        type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
-                    .Where(method => method.ReturnType != method.DeclaringType
-                                     && method.Name.StartsWith("get") == false
-                                     && method.Name.StartsWith("set") == false)
-                    .ToList();
-
-                if (errorMethods.Count != 0)
-                {
-                    var errorMessage = new StringBuilder();
-                    foreach (var errorMethod in errorMethods)
-                    {
-                        errorMessage.AppendLine(
-                            $"[{errorMethod.DeclaringType?.FullName}]的[{errorMethod}]方法的返回类型应该是[{errorMethod.DeclaringType?.Name}].");
-                    }
-                    throw new Exception(errorMessage.ToString());
-                }
-            }
-
+            
             /// <summary>
             /// 要求属性为CacheKey类型，不能是子类，避免多次链式调用引起歧义。
             /// </summary>
             /// <param name="types"></param>
-            private void PublicPropertiesTypeMustCacheKeyType(IEnumerable<Type> types)
+            public static void PublicPropertiesTypeMustBeCacheKey(IEnumerable<Type> types)
             {
                 var errorProperties = types
-                    .SelectMany(type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    .SelectMany(type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static))
                     .Where(property => property.PropertyType != typeof(CacheKey))
                     .ToList();
 
@@ -164,57 +179,11 @@ namespace Snow.Cache
                 }
             }
 
-            /// <summary>
-            /// 构造函数必须是私有的，避免外部直接通过new来构造，只能通过静态的工厂方法来构造。
-            /// </summary>
-            /// <param name="types"></param>
-            public static void ConstructorsMustBePrivate(IEnumerable<Type> types)
-            {
-                var publicConstructors = types
-                    .SelectMany(type => type.GetConstructors())
-                    .Where(c => c.IsPrivate == false)
-                    .ToList();
-
-                if (publicConstructors.Count != 0)
-                {
-                    var publicConstructorTypes = publicConstructors.Select(constructor => constructor.DeclaringType);
-                    throw new Exception($"这些类型[{GetTypeNames(publicConstructorTypes)}]的构造器不是private的。");
-                }
-            }
-
-            /// <summary>
-            /// 要求是本身是封闭类，避免多层继承导致Scope，Params，Names被多个子类共用带来的混乱。
-            /// </summary>
-            /// <param name="types"></param>
-            private void IsSealedClass(IEnumerable<Type> types)
-            {
-                var notSealedTypes = types.Where(type => type.IsSealed == false).ToList();
-                if (notSealedTypes.Count != 0)
-                {
-                    throw new Exception($"这些[{GetTypeNames(notSealedTypes)}]类型不是封闭的类型。");
-                }
-            }
-
-            /// <summary>
-            /// 要求是直接继承自CacheKey类的子类，避免多层继承导致Scope，Params，Names被多个子类共用带来的混乱。
-            /// </summary>
-            /// <param name="types"></param>
-            private void IsDirectInheritCacheKeyClass(IEnumerable<Type> types)
-            {
-                var notDirectInheritCacheKeyTypes = types
-                    .Where(type => type.BaseType != typeof(CacheKey))
-                    .ToList();
-
-                if (notDirectInheritCacheKeyTypes.Count != 0)
-                {
-                    throw new Exception(
-                        $"这些[{GetTypeNames(notDirectInheritCacheKeyTypes)}]类型没有直接继承自{typeof(CacheKey).FullName}类。");
-                }
-            }
-
             private static string GetTypeNames(IEnumerable<Type> types)
             {
-                return types.Select(type => type.FullName).JoinString(",");
+                return types
+                    .Select(type => type.FullName)
+                    .JoinString(",");
             }
         }
     }

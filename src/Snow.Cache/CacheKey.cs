@@ -6,9 +6,9 @@ namespace Snow.Cache
 {
     /// <summary>
     /// CacheKey由三部分组成。
-    /// <para>1. scope : 表示cache的应用范围，必须的参数</para>
-    /// <para>2. params: 表示构造key所需的动态参数，必须的参数</para>
-    /// <para>3. name  : 表示构造key所需的固定部分的名字，必须的参数</para>
+    /// <para>1. scope : 必须，表示cache的应用范围。</para>
+    /// <para>2. params: 可选，表示构造key所需的动态参数。</para>
+    /// <para>3. name  : 必须，表示构造key所需的固定部分的名字。</para>
     /// <para>例子:user:&amp;user-id=xxx#profile</para>
     /// </summary>
     public partial class CacheKey
@@ -84,11 +84,6 @@ namespace Snow.Cache
         public override string ToString()
         {
 
-            if (this._params == null)
-            {
-                throw new ArgumentNullException(nameof(this._params));
-            }
-
             if (this._name == null)
             {
                 throw new ArgumentNullException(nameof(this._name));
@@ -97,12 +92,15 @@ namespace Snow.Cache
             var keyBuilder = new StringBuilder(this._scope);
             keyBuilder.Append(':');
 
-            foreach (var param in this._params)
+            if (this._params != null)
             {
-                keyBuilder.Append('&');
-                keyBuilder.Append(param.Key);
-                keyBuilder.Append('=');
-                keyBuilder.Append(param.Value);
+                foreach (var param in this._params)
+                {
+                    keyBuilder.Append('&');
+                    keyBuilder.Append(param.Key);
+                    keyBuilder.Append('=');
+                    keyBuilder.Append(param.Value);
+                }
             }
 
             keyBuilder.Append('#');

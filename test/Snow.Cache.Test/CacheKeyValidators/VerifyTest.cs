@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace Snow.Cache.Test
+namespace Snow.Cache.Test.CacheKeyValidators
 {
 
-    public class CacheKeyValidatorTest
+    public class VerifyTest
     {
         [Fact]
-        public void Validate()
+        public void Verify()
         {
-            var cacheKeyValidator = new CacheKey.Validator();
             var cacheKeyTypes = new List<Type>
             {
                 typeof(MockCacheKey)
             };
 
-            var result = cacheKeyValidator.Validate(cacheKeyTypes);
+            var result = CacheKey.Validator.Verify(cacheKeyTypes);
 
             Assert.True(result);
         }
