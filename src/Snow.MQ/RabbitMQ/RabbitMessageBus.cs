@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Snow.Extensions;
+using Snow.Log;
 
 namespace Snow.MQ.RabbitMQ
 {
@@ -10,6 +11,7 @@ namespace Snow.MQ.RabbitMQ
     /// </summary>
     public class RabbitMessageBus : IMessageBus
     {
+        private static readonly ILog Log = LogManager.CreateLog<RabbitMessageBus>();
         private readonly IConnectionFactory _connectionFactory;
         private IConnection _connection;
 
@@ -165,9 +167,9 @@ namespace Snow.MQ.RabbitMQ
                         channel.BasicReject(e.DeliveryTag, true);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // ignored
+                    Log.Error($"{queue}:error", ex);
                 }
             };
             channel.BasicConsume(queue, false, consumer);
