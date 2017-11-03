@@ -106,7 +106,17 @@ namespace Snow.RPC.Client
         /// <returns></returns>
         public T UseService<T>()
         {    
-            return _client.UseService<T>();
+            return _client.UseService<T>(typeof(T).FullName);
+        }
+        /// <summary>
+        /// 方法别名前缀
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        public T UseService<T>(string ns)
+        {
+            return _client.UseService<T>(ns);
         }
     }
 }

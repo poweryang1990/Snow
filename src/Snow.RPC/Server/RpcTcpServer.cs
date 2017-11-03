@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hprose.IO;
 using Hprose.Server;
 
 namespace Snow.RPC.Server
@@ -23,7 +24,7 @@ namespace Snow.RPC.Server
         /// <param name="url"></param>
         public RPCTcpServer(string url) : base(url)
         {
-           
+            this.Mode = HproseMode.FieldMode;
         }
     }
 
