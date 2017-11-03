@@ -13,7 +13,7 @@
     <Authors>UOKO</Authors>
     <Company>UOKO</Company>
     <Product>UOKO</Product>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>UOKO基础包-RPC</Description>
     <Copyright>Copyright © UOKO 2017</Copyright>
     <RepositoryType>git</RepositoryType>
@@ -21,7 +21,6 @@
     <PackageReleaseNotes>none</PackageReleaseNotes>
   </PropertyGroup>
 
-  <!--结构描述文档+视为错误的编译警告-->
   <!--结构描述文档+视为错误的编译警告-->
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
